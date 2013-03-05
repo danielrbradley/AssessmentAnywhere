@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Index";
+    ViewBag.ActiveNavItem = "Home";
+}
+
+<ul class="nav nav-tabs">
+    <li class="active">
+        @Html.ActionLink("Home", "Index")
+    </li>
+    <li>@Html.ActionLink("Assessments", "Index", "Assessments")</li>
+    <li>@Html.ActionLink("Registers", "Index", "Registers")</li>
+</ul>
+<div class="row-fluid">
+    <div class="span5 offset1 hero-unit">
+        <h3>@Html.ActionLink("Create new assessment", "Index", "Assessments")</h3>
+        <p>Create a new awesome assessment!</p>
+    </div>
+    <div class="span5 hero-unit">
+        <h3>@Html.ActionLink("Create new register", "Index", "Assessments")</h3>
+        <p>Create a new register of candidates.</p>
+    </div>
+</div>
