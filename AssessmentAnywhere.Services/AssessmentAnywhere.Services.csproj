@@ -49,6 +49,9 @@
     <Compile Include="Repos\GradeBoundariesRepo.cs" />
     <Compile Include="Repos\AssessmentsRepo.cs" />
     <Compile Include="Repos\RegistersRepo.cs" />
+    <Compile Include="Services\AssessmentGrades.cs" />
+    <Compile Include="Services\CandidateGrade.cs" />
+    <Compile Include="Services\AssessmentGradesService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

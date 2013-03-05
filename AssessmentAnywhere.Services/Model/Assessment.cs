@@ -15,5 +15,7 @@
         public Guid RegisterId { get; set; }
 
         public List<AssessmentResult> Results { get; set; }
+
+        public string Name { get; set; }
     }
 }

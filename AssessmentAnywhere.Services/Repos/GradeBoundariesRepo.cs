@@ -17,9 +17,9 @@
             return gradeBoundaries;
         }
 
-        public GradeBoundaries Open(Guid registerId)
+        public GradeBoundaries Open(Guid assessmentId)
         {
-            return GradeBoundaries[registerId];
+            return GradeBoundaries[assessmentId];
         }
     }
 }

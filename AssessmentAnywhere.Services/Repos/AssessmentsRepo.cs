@@ -17,9 +17,9 @@
             return assessment;
         }
 
-        public Assessment Open(Guid registerId)
+        public Assessment Open(Guid assessmentId)
         {
-            return Assessments[registerId];
+            return Assessments[assessmentId];
         }
     }
 }
