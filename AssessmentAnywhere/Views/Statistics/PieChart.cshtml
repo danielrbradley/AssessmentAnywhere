@@ -1,0 +1,42 @@
+﻿@model Dictionary<string, int>
+
+@using System.Data
+	@{
+
+    DataSet myDataSet = new DataSet();
+
+    DataTable myTable = myDataSet.Tables.Add();
+
+ 
+
+    //-- Add columns to the data table
+
+    myTable.Columns.Add("Grade", typeof(string));
+
+    myTable.Columns.Add("Count", typeof(int));
+
+    //-- Add rows to the data table
+    foreach (var key in Model.Keys)
+    {
+        myTable.Rows.Add("key", Model[key]);
+    }
+
+    var dataView = new DataView(myDataSet.Tables[0]);
+
+ 
+
+    var myChart = new Chart(width: 400, height: 400, themePath: "~/Content/CustomChartTheme.xml")
+
+        .AddTitle("Grades / Count")
+
+        .AddSeries("Default", chartType: "Pie",
+
+                    xValue: dataView, xField: "Grade",
+
+                    yValues: dataView, yFields: "Count")
+
+        .Write();
+
+}
+
+

@@ -17,4 +17,7 @@
         <h3>@Html.ActionLink("Create new register", "Create", "Registers")</h3>
         <p>Create a new register of candidates.</p>
     </div>
+    
+    
+    @Html.ActionLink("Stats", "ShowStatistics", "Statistics", new {id = Guid.NewGuid()}, null)
 </div>

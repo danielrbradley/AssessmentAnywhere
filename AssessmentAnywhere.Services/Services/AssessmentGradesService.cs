@@ -72,6 +72,8 @@ namespace AssessmentAnywhere.Services.Services
             return PopulateStatsList(assessment.Candidates, assessment.Boundaries, includeGradeCounts);
         }
 
+       
+
         public Dictionary<string, int> GetGradeCounts(Guid assessmentId)
         {
             var results = GetAssessmentGrades(assessmentId);
@@ -102,7 +104,6 @@ namespace AssessmentAnywhere.Services.Services
 
             return GetGradeCounts(candidateGrades, assessmentGroup.Boundaries.Boundaries);
         }
-
 
 
         private List<AssessmentStatistic> PopulateStatsList(List<CandidateGrade> candidateGrades,
