@@ -40,16 +40,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Assessment.cs" />
+    <Compile Include="Model\AssessmentGroup.cs" />
     <Compile Include="Model\AssessmentResult.cs" />
     <Compile Include="Model\Boundary.cs" />
     <Compile Include="Model\Candidate.cs" />
     <Compile Include="Model\GradeBoundaries.cs" />
     <Compile Include="Model\Register.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repos\AssessmentGroupRepo.cs" />
     <Compile Include="Repos\GradeBoundariesRepo.cs" />
     <Compile Include="Repos\AssessmentsRepo.cs" />
     <Compile Include="Repos\RegistersRepo.cs" />
     <Compile Include="Services\AssessmentGrades.cs" />
+    <Compile Include="Services\AssessmentStatistic.cs" />
     <Compile Include="Services\CandidateGrade.cs" />
     <Compile Include="Services\AssessmentGradesService.cs" />
   </ItemGroup>
