@@ -20,7 +20,7 @@
         {
             if (!GradeBoundaries.ContainsKey(assessmentId))
             {
-                return new GradeBoundaries { AssessmentId = assessmentId };
+                GradeBoundaries.Add(assessmentId, new GradeBoundaries { AssessmentId = assessmentId });
             }
 
             return GradeBoundaries[assessmentId];

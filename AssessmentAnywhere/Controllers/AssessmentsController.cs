@@ -8,7 +8,10 @@ using AssessmentAnywhere.Services.Model;
 namespace AssessmentAnywhere.Controllers
 {
     using AssessmentAnywhere.Models.Assessments;
+    using AssessmentAnywhere.Services.Model;
     using AssessmentAnywhere.Services.Repos;
+
+    using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
     public class AssessmentsController : Controller
     {
@@ -56,16 +59,22 @@ namespace AssessmentAnywhere.Controllers
                 return View(model);
             }
 
+            Register register;
             if (!registerId.HasValue)
             {
-                var newRegister = new RegistersRepo().Create();
-                newRegister.Name = string.Format("{0} register", name);
-                registerId = newRegister.Id;
+                register = new RegistersRepo().Create();
+                register.Name = string.Format("{0} register", name);
+                registerId = register.Id;
+            }
+            else
+            {
+                register = new RegistersRepo().Open(registerId.Value);
             }
 
             var assessmentsRepo = new AssessmentsRepo();
             var assessment = assessmentsRepo.Create(registerId.Value);
             assessment.Name = name;
+            assessment.Results = register.Candidates.Select(c => new AssessmentResult { CandidateId = c.Id }).ToList();
 
             if (!string.IsNullOrWhiteSpace(subject))
             {

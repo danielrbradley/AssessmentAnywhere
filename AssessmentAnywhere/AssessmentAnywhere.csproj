@@ -126,6 +126,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegistersController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -137,6 +138,7 @@
     <Compile Include="Models\Assessments\DetailsModel.cs" />
     <Compile Include="Models\Assessments\IndexModel.cs" />
     <Compile Include="Models\Stats\AssessmentStatisticsModel.cs" />
+    <Compile Include="Models\GradeBoundaries\DetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +240,7 @@
     <Content Include="Views\Assessments\Details.cshtml" />
     <Content Include="Views\Assessments\Create.cshtml" />
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
+    <Content Include="Views\GradeBoundaries\Details.cshtml" />
     <Content Include="Views\Statistics\PieChart.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -32,7 +32,8 @@
 
     </div>
     <div class="span9">
-        <table class="table table-bordered table-stripped" id="candidates">
+        <table class="table table-bordered table-striped" id="candidates">
+            <caption></caption>
             <thead>
                 <tr>
                     <th>Name</th>
@@ -78,6 +79,7 @@
                 </tr>
             </tbody>
         </table>
+        @Html.ActionLink("Edit grade boundaries", "Details", "GradeBoundaries", new { id = Model.Id }, new { @class = "btn" })
     </div>
 </div>
 
