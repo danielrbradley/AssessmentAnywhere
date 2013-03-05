@@ -48,7 +48,11 @@
                     <tr>
                         <td>@candidate.Name</td>
                         <td>
-                            <input type="number" value="@candidate.Result" />
+                            @using (Html.BeginForm("SetResult", "Assessments", new { id = Model.Id }, FormMethod.Post))
+                            {
+                                <input type="hidden" name="candidateId" value="@candidate.Id" />
+                                <input type="number" name="result" value="@candidate.Result" />
+                            }
                         </td>
                         @if (Model.HasBoundaries)
                         {
@@ -102,6 +106,8 @@
                 $('#newControls').removeClass("error");
             });
             $('#newbtn').click(addCandidate);
+            
+
         });
     </script>
 }

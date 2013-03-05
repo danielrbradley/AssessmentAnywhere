@@ -107,5 +107,14 @@ namespace AssessmentAnywhere.Controllers
             register.Candidates.Add(new Services.Model.Candidate { Id = candidateId, Name = name });
             assessment.Results.Add(new Services.Model.AssessmentResult { CandidateId = candidateId });
         }
+
+        [HttpPost]
+        public ActionResult SetResult(Guid id, Guid candidateId, decimal? result)
+        {
+            var assessment = new AssessmentsRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().Open(id);
+            assessment.Results.First(c => c.CandidateId == candidateId).Result = result;
+            return RedirectToAction("Details", new { id = id });
+        }
     }
 }

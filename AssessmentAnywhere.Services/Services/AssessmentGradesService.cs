@@ -41,7 +41,7 @@ namespace AssessmentAnywhere.Services.Services
 
         public List<AssessmentStatistic> GetStatsForAssessmentGroup(Guid assessmentGroupId, bool includeGradeCounts)
         {
-            
+
             var assessmentGroupRepo = new AssessmentGroupRepo();
             var assessmentGroup = assessmentGroupRepo.Open(assessmentGroupId);
 
@@ -57,7 +57,7 @@ namespace AssessmentAnywhere.Services.Services
 
                 if (assessment.Candidates != null)
                     candidateGrades.AddRange(assessment.Candidates);
-                    
+
             }
 
             return PopulateStatsList(candidateGrades, assessmentGroup.Boundaries.Boundaries, includeGradeCounts);
@@ -126,7 +126,7 @@ namespace AssessmentAnywhere.Services.Services
         private static AssessmentStatistic AverageScore(List<CandidateGrade> candidateGrades)
         {
             decimal average;
-            var stat = new AssessmentStatistic {StatisticName = "Average", StatisticValue = 0.ToString()};
+            var stat = new AssessmentStatistic { StatisticName = "Average", StatisticValue = 0.ToString() };
 
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
@@ -135,20 +135,20 @@ namespace AssessmentAnywhere.Services.Services
                                                                     .Aggregate<CandidateGrade, decimal>(0, (current, candidate) => current + current);
 
 
-            stat.StatisticValue = (total/candidateGrades.Count).ToString();
+            stat.StatisticValue = (total / candidateGrades.Count).ToString();
             return stat;
         }
 
         private static AssessmentStatistic HighestScore(List<CandidateGrade> candidateGrades)
         {
-            var stat = new AssessmentStatistic { StatisticName = "Highest Score", StatisticValue = " - " + 0};
+            var stat = new AssessmentStatistic { StatisticName = "Highest Score", StatisticValue = " - " + 0 };
 
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
 
-            var max = (from grade in candidateGrades 
-                           where grade != null && grade.Result.HasValue 
-                           select grade.Result.Value).Concat(new decimal[] {0}).Max();
+            var max = (from grade in candidateGrades
+                       where grade != null && grade.Result.HasValue
+                       select grade.Result.Value).Concat(new decimal[] { 0 }).Max();
             stat.StatisticValue = max.ToString();
 
             return stat;
@@ -156,14 +156,14 @@ namespace AssessmentAnywhere.Services.Services
 
         private static AssessmentStatistic LowestScore(List<CandidateGrade> candidateGrades)
         {
-            var stat = new AssessmentStatistic { StatisticName = "Lowest Score", StatisticValue = " - " + 0};
+            var stat = new AssessmentStatistic { StatisticName = "Lowest Score", StatisticValue = " - " + 0 };
 
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
 
-            decimal min = (from grade in candidateGrades 
-                           where grade != null && grade.Result.HasValue 
-                           select grade.Result.Value).Concat(new decimal[] {0}).Min();
+            decimal min = (from grade in candidateGrades
+                           where grade != null && grade.Result.HasValue
+                           select grade.Result.Value).Concat(new decimal[] { 0 }).Min();
             stat.StatisticValue = min.ToString();
 
             return stat;
@@ -176,7 +176,8 @@ namespace AssessmentAnywhere.Services.Services
             var gradeCounts = GetGradeCounts(candidateGrades, boundaries);
             stats.AddRange(gradeCounts.Select(gradeCount => new AssessmentStatistic
                 {
-                    StatisticName = gradeCount.Key, StatisticValue = gradeCount.Value.ToString()
+                    StatisticName = gradeCount.Key,
+                    StatisticValue = gradeCount.Value.ToString()
                 }));
 
             return stats;
@@ -223,11 +224,12 @@ namespace AssessmentAnywhere.Services.Services
         {
             if (result.HasValue)
             {
-                return
+                var match =
                     boundaries.Where(boundary => result.Value >= boundary.MinResult)
                               .OrderByDescending(boundary => boundary.MinResult)
-                              .First()
-                              .Grade;
+                              .FirstOrDefault();
+                if (match != null)
+                    return match.Grade;
             }
 
             return string.Empty;
