@@ -11,7 +11,6 @@ namespace AssessmentAnywhere.Services.Services
     public class AssessmentGradesService
     {
 
-
         public AssessmentGrades GetAssessmentGrades(Guid assessmentId)
         {
             var assessmentRepo = new AssessmentsRepo();
@@ -24,7 +23,6 @@ namespace AssessmentAnywhere.Services.Services
 
             return ConstructAssessmentGrades(assessment, register.Candidates, gradeBoundaries.Boundaries);
         }
-
 
         public static AssessmentGrades ConstructAssessmentGrades(
             Assessment assessment, List<Candidate> candidates, List<Boundary> boundaries)
@@ -208,14 +206,6 @@ namespace AssessmentAnywhere.Services.Services
             return results;
 
         }
-
-        
-       
-
-
-
-
-
 
         private static CandidateGrade ConstructCandidateGrade(IEnumerable<Candidate> candidates, IEnumerable<Boundary> boundaries, AssessmentResult result)
         {

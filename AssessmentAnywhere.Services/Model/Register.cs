@@ -13,5 +13,7 @@
         public Guid Id { get; set; }
 
         public List<Candidate> Candidates { get; set; }
+
+        public string Name { get; set; }
     }
 }
