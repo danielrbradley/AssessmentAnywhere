@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="control-group">
-            <label class="control-label" for="input-registerId">Register</label>
+            <label class="control-label" for="input-registerId">Register Source</label>
             <div class="controls">
                 <select id="input-registerId" name="registerId">
                     <option value="">Enter names as I go</option>
@@ -37,6 +37,26 @@
                         }
                     </optgroup>
                 </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-subject">Subject</label>
+            <div class="controls">
+                <select id="input-subject" name="subject">
+                    <option value="">Select a subject</option>
+                    @if (Model.AvailableSubjects.Any())
+                    {
+                        foreach (var subject in Model.AvailableSubjects)
+                        {
+                            <option value="@subject">@subject</option>
+                        }
+                    }
+                    else
+                    {
+                        <option value="" disabled="disabled">No subjects available</option>
+                    }
+                </select>
+                <span class="help-inline">(optional)</span>
             </div>
         </div>
         <div class="control-group">

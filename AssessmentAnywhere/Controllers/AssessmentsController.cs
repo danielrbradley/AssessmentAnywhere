@@ -32,13 +32,15 @@ namespace AssessmentAnywhere.Controllers
                             {
                                 Name = string.Empty,
                                 SelectedRegisterId = registerId,
-                                ExistingRegisters = GetRegistersForCreate()
+                                ExistingRegisters = GetRegistersForCreate(),
+                                SelectedSubject = string.Empty,
+                                AvailableSubjects = GetSubjectsForCreate(),
                             };
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult Create(string name, Guid? registerId)
+        public ActionResult Create(string name, Guid? registerId, string subject)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -46,7 +48,9 @@ namespace AssessmentAnywhere.Controllers
                 {
                     Name = name,
                     SelectedRegisterId = registerId,
-                    ExistingRegisters = GetRegistersForCreate()
+                    ExistingRegisters = GetRegistersForCreate(),
+                    SelectedSubject = subject,
+                    AvailableSubjects = GetSubjectsForCreate(),
                 };
                 return View(model);
             }
@@ -62,7 +66,17 @@ namespace AssessmentAnywhere.Controllers
             var assessment = assessmentsRepo.Create(registerId.Value);
             assessment.Name = name;
 
+            if (!string.IsNullOrWhiteSpace(subject))
+            {
+                new SubjectRepo().AddSubjectAssessment(assessment.Id, subject);
+            }
+
             return RedirectToAction("Details", new { id = assessment.Id });
+        }
+
+        private List<string> GetSubjectsForCreate()
+        {
+            return new SubjectRepo().GetSubjects();
         }
 
         private List<CreateModel.Register> GetRegistersForCreate()

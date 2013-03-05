@@ -16,6 +16,10 @@
 
         public List<Register> ExistingRegisters { get; set; }
 
+        public string SelectedSubject { get; set; }
+
+        public List<string> AvailableSubjects { get; set; }
+
         public class Register
         {
             public Guid Id { get; set; }

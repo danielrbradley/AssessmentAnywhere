@@ -71,22 +71,22 @@ namespace AssessmentAnywhere.Services.Repos
 
         public void AddSubjectAssessment(Guid assessmentId, string subject)
         {
-            var subjectAssessment = SubjectAssessments[subject];
-            if (subjectAssessment == null)
+            if (SubjectAssessments.ContainsKey(subject))
+            {
+                var subjectAssessment = SubjectAssessments[subject];
+                if (subjectAssessment.AssessmentIds == null)
+                    subjectAssessment.AssessmentIds = new List<Guid>();
+
+                if (!subjectAssessment.AssessmentIds.Contains(assessmentId))
+                    subjectAssessment.AssessmentIds.Add(assessmentId);
+            }
+            else
             {
                 SubjectAssessments.Add(subject, new SubjectAssessment
                     {
                         Subject = subject,
                         AssessmentIds = new List<Guid>{assessmentId}
                     });
-            }
-            else
-            {
-                if (subjectAssessment.AssessmentIds == null)
-                    subjectAssessment.AssessmentIds = new List<Guid>();
-
-                if (!subjectAssessment.AssessmentIds.Contains(assessmentId))
-                    subjectAssessment.AssessmentIds.Add(assessmentId);
             }
 
         }
