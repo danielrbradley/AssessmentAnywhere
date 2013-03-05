@@ -11,9 +11,8 @@
 
         public GradeBoundaries Create(Guid assessmentId)
         {
-            var newId = Guid.NewGuid();
             var gradeBoundaries = new GradeBoundaries { AssessmentId = assessmentId };
-            GradeBoundaries.Add(newId, gradeBoundaries);
+            GradeBoundaries.Add(assessmentId, gradeBoundaries);
             return gradeBoundaries;
         }
 

@@ -29,6 +29,7 @@
                 </li>
             }
         </ul>
+
     </div>
     <div class="span9">
         <table class="table table-bordered table-stripped" id="candidates">
@@ -78,6 +79,18 @@
             </tbody>
         </table>
     </div>
+</div>
+
+<div>
+    <p>
+        @Html.ActionLink("Add Grade Boundaries", "AddGradeBoundaries", "Assessments", new {id=Model.Id}, new { @class = "btn btn-primary" })
+    </p>
+</div>
+
+<div>
+         <p>
+            @Html.ActionLink("Show Statistics", "ShowStatistics", "Statistics", new {id=Model.Id}, new { @class = "btn btn-primary" })
+        </p>
 </div>
 
 @section Scripts

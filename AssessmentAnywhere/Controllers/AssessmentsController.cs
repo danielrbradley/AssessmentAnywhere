@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AssessmentAnywhere.Services.Model;
 
 namespace AssessmentAnywhere.Controllers
 {
@@ -115,6 +116,28 @@ namespace AssessmentAnywhere.Controllers
             var boundaries = new GradeBoundariesRepo().Open(id);
             assessment.Results.First(c => c.CandidateId == candidateId).Result = result;
             return RedirectToAction("Details", new { id = id });
+        }
+
+        public ActionResult AddGradeBoundaries(Guid id)
+        {
+            var gradeBoundariesRepo = new GradeBoundariesRepo();
+            var boundary = gradeBoundariesRepo.Create(id);
+
+            var boundaryList = new List<Boundary>
+                {
+                    new Boundary {Grade = "A*", MinResult = 80},
+                    new Boundary {Grade = "A", MinResult = 70},
+                    new Boundary {Grade = "B", MinResult = 60},
+                    new Boundary {Grade = "C", MinResult = 50},
+                    new Boundary {Grade = "D", MinResult = 40},
+                    new Boundary {Grade = "E", MinResult = 30},
+                };
+            boundary.Boundaries = boundaryList;
+
+
+
+
+            return RedirectToAction("Details", new {id = id});
         }
     }
 }

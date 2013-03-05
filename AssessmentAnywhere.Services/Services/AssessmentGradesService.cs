@@ -131,9 +131,12 @@ namespace AssessmentAnywhere.Services.Services
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
 
-            var total = candidateGrades.Where(candidate => candidate != null && candidate.Result.HasValue)
-                                                                    .Aggregate<CandidateGrade, decimal>(0, (current, candidate) => current + current);
-
+            decimal total = 0;
+            foreach (var candidate in candidateGrades)
+            {
+                if (candidate != null && candidate.Result.HasValue)
+                    total += candidate.Result.Value;
+            }
 
             stat.StatisticValue = (total / candidateGrades.Count).ToString();
             return stat;
@@ -141,7 +144,7 @@ namespace AssessmentAnywhere.Services.Services
 
         private static AssessmentStatistic HighestScore(List<CandidateGrade> candidateGrades)
         {
-            var stat = new AssessmentStatistic { StatisticName = "Highest Score", StatisticValue = " - " + 0 };
+            var stat = new AssessmentStatistic { StatisticName = "Highest Score", StatisticValue = 0.ToString() };
 
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
@@ -156,14 +159,20 @@ namespace AssessmentAnywhere.Services.Services
 
         private static AssessmentStatistic LowestScore(List<CandidateGrade> candidateGrades)
         {
-            var stat = new AssessmentStatistic { StatisticName = "Lowest Score", StatisticValue = " - " + 0 };
+            var stat = new AssessmentStatistic { StatisticName = "Lowest Score", StatisticValue = 0.ToString() };
 
             if (candidateGrades == null || candidateGrades.Count == 0)
                 return stat;
 
-            decimal min = (from grade in candidateGrades
-                           where grade != null && grade.Result.HasValue
-                           select grade.Result.Value).Concat(new decimal[] { 0 }).Min();
+            decimal min = 100;
+            
+            foreach (var candidate in candidateGrades)
+            {
+
+                if (candidate != null && candidate.Result.HasValue && candidate.Result.Value < min)
+                    min = candidate.Result.Value;
+            }
+            
             stat.StatisticValue = min.ToString();
 
             return stat;
@@ -190,20 +199,24 @@ namespace AssessmentAnywhere.Services.Services
             if (candidateGrades == null || candidateGrades.Count == 0 || boundaries == null || boundaries.Count == 0)
                 return results;
 
-            var gradeCounts = boundaries.Where(boundary => boundary != null && !string.IsNullOrEmpty(boundary.Grade))
-                                .ToDictionary(boundary => boundary.Grade, boundary => 0);
-
+            foreach (var boundary in boundaries)
+            {
+                if (boundary != null)
+                    results.Add(boundary.Grade, 0);
+            }
 
             foreach (var grade in candidateGrades)
             {
-                if (grade == null) continue;
-
-                if (!gradeCounts.ContainsKey(grade.Grade))
-                    gradeCounts.Add(grade.Grade, 1);
-                else
-                    gradeCounts[grade.Grade]++;
+                if (grade != null)
+                {
+                    if (!results.ContainsKey(grade.Grade))
+                        results.Add(grade.Grade, 1);
+                    else
+                    {
+                        results[grade.Grade] = results[grade.Grade] + 1;
+                    }
+                }
             }
-
 
             return results;
 
