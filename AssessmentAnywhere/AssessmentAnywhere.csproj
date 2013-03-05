@@ -128,6 +128,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Assessments\CreateModel.cs" />
+    <Compile Include="Models\Assessments\IndexModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -226,13 +228,20 @@
     <Content Include="Views\Shared\TopNavItem.cshtml" />
     <Content Include="Views\Assessments\Index.cshtml" />
     <Content Include="Views\Registers\Index.cshtml" />
+    <Content Include="Views\Assessments\Details.cshtml" />
+    <Content Include="Views\Assessments\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AssessmentAnywhere.Services\AssessmentAnywhere.Services.csproj">
+      <Project>{c5d6e14a-c61e-4606-a9ce-0ec617b336d2}</Project>
+      <Name>AssessmentAnywhere.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

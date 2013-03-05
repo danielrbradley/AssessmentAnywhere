@@ -1,0 +1,48 @@
+﻿@model AssessmentAnywhere.Models.Assessments.CreateModel
+@{
+    ViewBag.Title = "Index";
+}
+
+<ul class="nav nav-tabs">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
+    <li>@Html.ActionLink("Registers", "Index", "Registers")</li>
+</ul>
+@using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    <fieldset>
+        <legend>New assessment</legend>
+        <div class="control-group">
+            <label class="control-label" for="input-name">Name</label>
+            <div class="controls">
+                <input type="text" id="input-name" name="name" placeholder="Name" value="@Model.Name" />
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="input-registerId">Register</label>
+            <div class="controls">
+                <select id="input-registerId" name="registerId">
+                    <option value="">Enter names as I go</option>
+                    <optgroup label="Existing registers">
+                        @if (Model.ExistingRegisters.Any())
+                        {
+                            foreach (var existingRegister in Model.ExistingRegisters)
+                            {
+                                <option value="@existingRegister.Id">@existingRegister.Name</option>
+                            }
+                        }
+                        else
+                        {
+                            <option value="" disabled="disabled">No registers available</option>
+                        }
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary">Create</button>
+            </div>
+        </div>
+    </fieldset>
+}

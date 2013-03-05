@@ -1,5 +1,4 @@
-﻿@model AssessmentAnywhere.Models.Assessments.IndexModel
-@{
+﻿@{
     ViewBag.Title = "Index";
 }
 
@@ -21,10 +20,8 @@
             </div>
         </div>*@
         <ul class="nav nav-pills nav-stacked">
-            @foreach (var assessment in Model.Assessments)
-            {
-                <li>@Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id })</li>
-            }
+            <li class="active"><a href="#">Assessment 1</a></li>
+            <li><a href="#">Assessment 2</a></li>
         </ul>
     </div>
     <div class="span9">
