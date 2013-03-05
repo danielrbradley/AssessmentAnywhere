@@ -11,7 +11,7 @@ namespace AssessmentAnywhere.Services.Repos
     {
         public static readonly List<CandidateTarget> CandidateTargets = new List<CandidateTarget>();
 
-        public static readonly List<SubjectAssessment> SubjectAssessments = new List<SubjectAssessment>();
+        public static readonly Dictionary<string, SubjectAssessment> SubjectAssessments = new Dictionary<string, SubjectAssessment>();
 
         private static readonly List<string> Subjects = new List<string>
             {
@@ -71,21 +71,43 @@ namespace AssessmentAnywhere.Services.Repos
 
         public void AddSubjectAssessment(Guid assessmentId, string subject)
         {
-            foreach (var subjectAssessment in SubjectAssessments)
+            var subjectAssessment = SubjectAssessments[subject];
+            if (subjectAssessment == null)
             {
-                if (subjectAssessment != null && string.Equals(subject, subjectAssessment.Subject))
-                {
-                    if (subjectAssessment.AssessmentIds == null)
-                        subjectAssessment.AssessmentIds = new List<Guid>();
-
-                    if (!subjectAssessment.AssessmentIds.Contains(assessmentId))
-                        subjectAssessment.AssessmentIds.Add(assessmentId);
-
-                    break;
-                }
+                SubjectAssessments.Add(subject, new SubjectAssessment
+                    {
+                        Subject = subject,
+                        AssessmentIds = new List<Guid>{assessmentId}
+                    });
             }
+            else
+            {
+                if (subjectAssessment.AssessmentIds == null)
+                    subjectAssessment.AssessmentIds = new List<Guid>();
+
+                if (!subjectAssessment.AssessmentIds.Contains(assessmentId))
+                    subjectAssessment.AssessmentIds.Add(assessmentId);
+            }
+
         }
 
+        public List<Guid> GetAssessmentIdsForSubject(string subject)
+        {
+            var subjectAssessment = SubjectAssessments[subject];
+            if (subjectAssessment == null || subjectAssessment.AssessmentIds == null) return new List<Guid>();
 
+            return subjectAssessment.AssessmentIds;
+        }
+
+        public string GetSubjectForAssessment(Guid assessmentId)
+        {
+            foreach (var subjectAssessment in SubjectAssessments.Values
+                                .Where(subjectAssessment => subjectAssessment != null && subjectAssessment.AssessmentIds != null)
+                                .Where(subjectAssessment => subjectAssessment.AssessmentIds.Contains(assessmentId)))
+            {
+                return subjectAssessment.Subject;
+            }
+            return string.Empty;
+        }
     }
 }
