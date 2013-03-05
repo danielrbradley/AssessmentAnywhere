@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     using AssessmentAnywhere.Services.Model;
 
@@ -21,5 +22,11 @@
         {
             return Registers[registerId];
         }
+
+        public List<Register> GetRegisters()
+        {
+            return Registers.Values.ToList();
+        }
+        
     }
 }

@@ -1,9 +1,11 @@
-﻿namespace AssessmentAnywhere.Services.Repos
+﻿using System.Linq;
+using AssessmentAnywhere.Services.Model;
+
+namespace AssessmentAnywhere.Services.Repos
 {
     using System;
     using System.Collections.Generic;
 
-    using AssessmentAnywhere.Services.Model;
 
     public class AssessmentsRepo
     {
@@ -20,6 +22,11 @@
         public Assessment Open(Guid assessmentId)
         {
             return Assessments[assessmentId];
+        }
+
+        public List<Assessment> GetAssessments()
+        {
+            return Assessments.Values.ToList();
         }
     }
 }

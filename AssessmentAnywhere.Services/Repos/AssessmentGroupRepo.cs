@@ -23,5 +23,10 @@ namespace AssessmentAnywhere.Services.Repos
         {
             return AssessmentGroups[assessmentId];
         }
+
+        public List<AssessmentGroup> GetAssessmentGroups()
+        {
+            return AssessmentGroups.Values.ToList();
+        }
     }
 }

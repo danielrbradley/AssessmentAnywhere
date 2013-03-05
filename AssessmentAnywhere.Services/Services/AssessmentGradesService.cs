@@ -84,6 +84,26 @@ namespace AssessmentAnywhere.Services.Services
 
         }
 
+        public Dictionary<string, int> GetGradeCountsForGroup(Guid groupAssessmentId)
+        {
+            var assessmentGroupRepo = new AssessmentGroupRepo();
+            var assessmentRepo = new AssessmentsRepo();
+            var registerRepo = new RegistersRepo();
+            var assessmentGroup = assessmentGroupRepo.Open(groupAssessmentId);
+            if (assessmentGroup == null || assessmentGroup.AssessmentIds == null)
+                return new Dictionary<string, int>();
+
+            var candidateGrades = new List<CandidateGrade>();
+            foreach (var id in assessmentGroup.AssessmentIds)
+            {
+                var assessmentGrades = GetAssessmentGrades(id);
+                if (assessmentGrades == null || assessmentGrades.Candidates == null) continue;
+
+                candidateGrades.AddRange(assessmentGrades.Candidates);
+            }
+
+            return GetGradeCounts(candidateGrades, assessmentGroup.Boundaries.Boundaries);
+        }
 
 
 
