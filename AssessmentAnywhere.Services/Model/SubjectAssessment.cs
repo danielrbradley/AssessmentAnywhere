@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace AssessmentAnywhere.Services.Model
 {
-    public class Subject
+    public class SubjectAssessment
     {
-        public string Name { get; set; }
-        public Guid Id { get; set; }
+        public Guid SubjectId { get; set; }
+
+        public List<Guid> AssessmentIds { get; set; }
     }
 }
