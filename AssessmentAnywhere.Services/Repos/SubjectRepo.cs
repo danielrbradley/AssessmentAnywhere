@@ -7,9 +7,11 @@ using AssessmentAnywhere.Services.Model;
 
 namespace AssessmentAnywhere.Services.Repos
 {
-    public class TargetRepo
+    public class SubjectRepo
     {
         public static readonly List<CandidateTarget> CandidateTargets = new List<CandidateTarget>();
+
+        public static readonly List<SubjectAssessment> SubjectAssessments = new List<SubjectAssessment>();
 
         private static readonly List<string> Subjects = new List<string>
             {
@@ -65,6 +67,23 @@ namespace AssessmentAnywhere.Services.Repos
                 return target.TargetGrade;
             }
             return string.Empty;
+        }
+
+        public void AddSubjectAssessment(Guid assessmentId, string subject)
+        {
+            foreach (var subjectAssessment in SubjectAssessments)
+            {
+                if (subjectAssessment != null && string.Equals(subject, subjectAssessment.Subject))
+                {
+                    if (subjectAssessment.AssessmentIds == null)
+                        subjectAssessment.AssessmentIds = new List<Guid>();
+
+                    if (!subjectAssessment.AssessmentIds.Contains(assessmentId))
+                        subjectAssessment.AssessmentIds.Add(assessmentId);
+
+                    break;
+                }
+            }
         }
 
 

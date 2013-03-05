@@ -8,7 +8,7 @@ namespace AssessmentAnywhere.Services.Model
 {
     public class SubjectAssessment
     {
-        public Guid SubjectId { get; set; }
+        public string Subject{ get; set; }
 
         public List<Guid> AssessmentIds { get; set; }
     }

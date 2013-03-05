@@ -55,7 +55,7 @@
     <Compile Include="Repos\GradeBoundariesRepo.cs" />
     <Compile Include="Repos\AssessmentsRepo.cs" />
     <Compile Include="Repos\RegistersRepo.cs" />
-    <Compile Include="Repos\TargetRepo.cs" />
+    <Compile Include="Repos\SubjectRepo.cs" />
     <Compile Include="Services\AssessmentGrades.cs" />
     <Compile Include="Services\AssessmentStatistic.cs" />
     <Compile Include="Services\CandidateGrade.cs" />
