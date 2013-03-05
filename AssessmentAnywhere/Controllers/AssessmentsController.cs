@@ -20,16 +20,10 @@ namespace AssessmentAnywhere.Controllers
             return View(model);
         }
 
-        private List<IndexModel.Assessment> GetAssessmentsForIndex()
+        private List<Assessment> GetAssessmentsForIndex()
         {
-            return new List<IndexModel.Assessment>
-                       {
-                           new IndexModel.Assessment
-                               {
-                                   Id = new Guid(),
-                                   Name = "Assessment 1"
-                               }
-                       };
+            var repo = new AssessmentsRepo();
+            return repo.GetAssessments().Select(a => new Assessment { Id = a.Id, Name = a.Name }).ToList();
         }
 
         public ActionResult Create(Guid? registerId)
@@ -46,9 +40,7 @@ namespace AssessmentAnywhere.Controllers
         [HttpPost]
         public ActionResult Create(string name, Guid? registerId)
         {
-            var newId = Guid.NewGuid();
-
-            if (string.IsNullOrWhiteSpace(name) || !registerId.HasValue)
+            if (string.IsNullOrWhiteSpace(name))
             {
                 var model = new CreateModel
                 {
@@ -59,20 +51,37 @@ namespace AssessmentAnywhere.Controllers
                 return View(model);
             }
 
-            var assessmentsRepo = new AssessmentsRepo();
-            assessmentsRepo.Create(registerId.Value);
+            if (!registerId.HasValue)
+            {
+                var newRegister = new RegistersRepo().Create();
+                newRegister.Name = string.Format("{0} register", name);
+                registerId = newRegister.Id;
+            }
 
-            return RedirectToAction("Details", new { id = newId });
+            var assessmentsRepo = new AssessmentsRepo();
+            var assessment = assessmentsRepo.Create(registerId.Value);
+            assessment.Name = name;
+
+            return RedirectToAction("Details", new { id = assessment.Id });
         }
 
         private List<CreateModel.Register> GetRegistersForCreate()
         {
-            return new List<CreateModel.Register> { new CreateModel.Register { Id = new Guid("e4b82e15-4820-4bde-8d93-d51382ff5939"), Name = "Test Register" } };
+            return new RegistersRepo().GetRegisters().Select(r => new CreateModel.Register { Id = r.Id, Name = r.Name }).ToList();
         }
 
         public ActionResult Details(Guid id)
         {
-            return View();
+            var assessment = new Services.Services.AssessmentGradesService().GetAssessmentGrades(id);
+            var model = new DetailsModel
+                            {
+                                Id = assessment.AsssessmentId,
+                                Name = assessment.AssessmentName,
+                                Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Id = c.Id, Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
+                                HasGrades = assessment.Boundaries.Any(),
+                                AllAssessments = GetAssessmentsForIndex(),
+                            };
+            return View(model);
         }
     }
 }

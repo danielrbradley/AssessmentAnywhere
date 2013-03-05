@@ -1,5 +1,6 @@
-﻿@{
-    ViewBag.Title = "Index";
+﻿@model AssessmentAnywhere.Models.Assessments.DetailsModel
+@{
+    ViewBag.Title = Model.Name;
 }
 
 <ul class="nav nav-tabs">
@@ -20,8 +21,13 @@
             </div>
         </div>*@
         <ul class="nav nav-pills nav-stacked">
-            <li class="active"><a href="#">Assessment 1</a></li>
-            <li><a href="#">Assessment 2</a></li>
+            @foreach (var assessment in Model.AllAssessments)
+            {
+                var activeClass = (assessment.Id == Model.Id) ? "active" : "";
+                <li class="@activeClass">
+                    @Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id })
+                </li>
+            }
         </ul>
     </div>
     <div class="span9">

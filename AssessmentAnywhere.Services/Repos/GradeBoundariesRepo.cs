@@ -19,6 +19,11 @@
 
         public GradeBoundaries Open(Guid assessmentId)
         {
+            if (!GradeBoundaries.ContainsKey(assessmentId))
+            {
+                return new GradeBoundaries { AssessmentId = assessmentId };
+            }
+
             return GradeBoundaries[assessmentId];
         }
     }
