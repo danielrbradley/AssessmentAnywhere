@@ -1,20 +1,23 @@
-﻿
-@using System.Data
+﻿@using System.Data
 @model AssessmentAnywhere.Models.Stats.AssessmentStatisticsModel
 @{
     ViewBag.Title = "ShowStatistics";
 }
 
-<h2>Assessment Statistics</h2>
+<ul class="breadcrumb">
+    @{ var assessmentName = new AssessmentAnywhere.Services.Repos.AssessmentsRepo().Open(Model.AssessmentId).Name; }
+    <li>@Html.ActionLink(assessmentName, "Details", "Assessments", new { id = Model.AssessmentId }, null) <span class="divider">/</span></li>
+    <li class="active">
+    Assessment Statistics<li>
+</ul>
 
 <div class="control-group">
-    
+
     <h3>Statistics</h3>
-    
+
     @if (Model.Statistics != null)
     {
-        
-        <table class="table-bordered">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Statistic Type</th>
@@ -26,29 +29,28 @@
             {
                 foreach (var p in @Model.Statistics)
                 {
-                    <tr>
-                        <td>@p.StatisticName</td>
-                        <td>@p.StatisticValue</td>
-                    </tr>
+                <tr>
+                    <td>@p.StatisticName</td>
+                    <td>@p.StatisticValue</td>
+                </tr>
                 }
             }
 
 
         </table>
     }
-    
+
     <h3>Grade Counts</h3>
     @if (Model.GradeCounts != null)
     {
         
-        <table class="table-bordered">
+        <table class="table table-bordered">
             <thead>
                 <tr>
                     <th>Grade</th>
                     <th>Count</th>
                 </tr>
             </thead>
-
             @if (@Model.GradeCounts != null && @Model.GradeCounts.Count > 0)
             {
                 foreach (var p in @Model.GradeCounts.Keys)
@@ -63,7 +65,7 @@
 
         </table>
     }
-    
 
-       
+
+
 </div>
