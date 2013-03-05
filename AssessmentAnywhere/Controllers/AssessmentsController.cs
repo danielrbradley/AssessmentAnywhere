@@ -78,10 +78,20 @@ namespace AssessmentAnywhere.Controllers
                                 Id = assessment.AsssessmentId,
                                 Name = assessment.AssessmentName,
                                 Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Id = c.Id, Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
-                                HasGrades = assessment.Boundaries.Any(),
+                                HasBoundaries = assessment.Boundaries.Any(),
                                 AllAssessments = GetAssessmentsForIndex(),
                             };
             return View(model);
+        }
+
+        [HttpPost]
+        public void AddCandidate(Guid id, string name)
+        {
+            var assessment = new AssessmentsRepo().Open(id);
+            var register = new RegistersRepo().Open(assessment.RegisterId);
+            var candidateId = Guid.NewGuid();
+            register.Candidates.Add(new Services.Model.Candidate { Id = candidateId, Name = name });
+            assessment.Results.Add(new Services.Model.AssessmentResult { CandidateId = candidateId });
         }
     }
 }

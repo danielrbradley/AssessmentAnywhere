@@ -31,5 +31,77 @@
         </ul>
     </div>
     <div class="span9">
+        <table class="table table-bordered table-stripped" id="candidates">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Result</th>
+                    @if (Model.HasBoundaries)
+                    {
+                        <th>Grades</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var candidate in Model.Candidates)
+                {
+                    <tr>
+                        <td>@candidate.Name</td>
+                        <td>
+                            <input type="number" value="@candidate.Result" />
+                        </td>
+                        @if (Model.HasBoundaries)
+                        {
+                            <td>@candidate.Grade</td>
+                        }
+                    </tr>
+                }
+                <tr>
+                    <td>
+                        <div class="control-group" id="newControls">
+                            <div class="input-append">
+                                <input id="newName" type="text" placeholder="New candidate ..." />
+                                <button id="newbtn" class="btn"><i class="icon-plus"></i>Save</button>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    @if (Model.HasBoundaries)
+                    {
+                        <td></td>
+                    }
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+            var addCandidate = function () {
+                var name = $('#newName').val();
+                if (name != '') {
+                    $.post(
+                        '@Url.Action("AddCandidate", new { id = Model.Id })',
+                        { name: name },
+                        function () {
+                            location.reload();
+                        },
+                        'json');
+                } else {
+                    $('#newControls').addClass("error");
+                }
+            };
+            $('#newName').keypress(function (event) {
+                if (event.which == 13) {
+                    addCandidate();
+                }
+            }).focusin(function () {
+                $('#newControls').removeClass("error");
+            });
+            $('#newbtn').click(addCandidate);
+        });
+    </script>
+}

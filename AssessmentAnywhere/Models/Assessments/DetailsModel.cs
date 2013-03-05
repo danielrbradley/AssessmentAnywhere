@@ -16,7 +16,7 @@ namespace AssessmentAnywhere.Models.Assessments
 
         public string Name { get; set; }
 
-        public bool HasGrades { get; set; }
+        public bool HasBoundaries { get; set; }
 
         public List<Candidate> Candidates { get; set; }
 
