@@ -6,10 +6,10 @@ using System.Web.Mvc;
 
 namespace AssessmentAnywhere.Controllers
 {
-    public class HomeController : Controller
+    public class AssessmentsController : Controller
     {
         //
-        // GET: /
+        // GET: /Assessments/
 
         public ActionResult Index()
         {
