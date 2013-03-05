@@ -5,6 +5,11 @@
 
     public class Assessment
     {
+        public Assessment()
+        {
+            Results = new List<AssessmentResult>();
+        }
+
         public Guid Id { get; set; }
 
         public Guid RegisterId { get; set; }
