@@ -5,16 +5,7 @@
 
     public class CreateModel
     {
-        public CreateModel()
-        {
-            ExistingRegisters = new List<Register>();
-        }
-
         public string Name { get; set; }
-
-        public Guid? SelectedRegisterId { get; set; }
-
-        public List<Register> ExistingRegisters { get; set; }
 
         public string SelectedSubject { get; set; }
 

@@ -43,10 +43,8 @@
     <Compile Include="Repos\Models\AssessmentGroup.cs" />
     <Compile Include="Repos\Models\AssessmentResult.cs" />
     <Compile Include="Repos\Models\Boundary.cs" />
-    <Compile Include="Repos\Models\Candidate.cs" />
     <Compile Include="Repos\Models\CandidateTarget.cs" />
     <Compile Include="Repos\Models\GradeBoundaries.cs" />
-    <Compile Include="Repos\Models\Register.cs" />
     <Compile Include="Repos\Models\Subject.cs" />
     <Compile Include="Repos\Models\SubjectAssessment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,7 +52,6 @@
     <Compile Include="Repos\CandidateRepo.cs" />
     <Compile Include="Repos\GradeBoundariesRepo.cs" />
     <Compile Include="Repos\AssessmentsRepo.cs" />
-    <Compile Include="Repos\RegistersRepo.cs" />
     <Compile Include="Repos\SubjectRepo.cs" />
     <Compile Include="Models\AssessmentGrades.cs" />
     <Compile Include="Models\AssessmentStatistic.cs" />

@@ -10,10 +10,10 @@
     {
         private static readonly Dictionary<Guid, Assessment> Assessments = new Dictionary<Guid, Assessment>();
 
-        public Assessment Create(Guid registerId)
+        public Assessment Create()
         {
             var newId = Guid.NewGuid();
-            var assessment = new Assessment { Id = newId, RegisterId = registerId };
+            var assessment = new Assessment { Id = newId };
             Assessments.Add(newId, assessment);
             return assessment;
         }

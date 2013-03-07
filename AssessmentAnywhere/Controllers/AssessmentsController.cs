@@ -35,8 +35,6 @@ namespace AssessmentAnywhere.Controllers
             var model = new CreateModel
                             {
                                 Name = string.Empty,
-                                SelectedRegisterId = registerId,
-                                ExistingRegisters = GetRegistersForCreate(),
                                 SelectedSubject = string.Empty,
                                 AvailableSubjects = GetSubjectsForCreate(),
                             };
@@ -44,37 +42,22 @@ namespace AssessmentAnywhere.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string name, Guid? registerId, string subject)
+        public ActionResult Create(string name, string subject)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 var model = new CreateModel
                 {
                     Name = name,
-                    SelectedRegisterId = registerId,
-                    ExistingRegisters = GetRegistersForCreate(),
                     SelectedSubject = subject,
                     AvailableSubjects = GetSubjectsForCreate(),
                 };
                 return View(model);
             }
 
-            Register register;
-            if (!registerId.HasValue)
-            {
-                register = new RegistersRepo().Create();
-                register.Name = string.Format("{0} register", name);
-                registerId = register.Id;
-            }
-            else
-            {
-                register = new RegistersRepo().Open(registerId.Value);
-            }
-
             var assessmentsRepo = new AssessmentsRepo();
-            var assessment = assessmentsRepo.Create(registerId.Value);
+            var assessment = assessmentsRepo.Create();
             assessment.Name = name;
-            assessment.Results = register.Candidates.Select(c => new AssessmentResult { CandidateId = c.Id }).ToList();
 
             if (!string.IsNullOrWhiteSpace(subject))
             {
@@ -89,11 +72,6 @@ namespace AssessmentAnywhere.Controllers
             return new SubjectRepo().GetSubjects();
         }
 
-        private List<CreateModel.Register> GetRegistersForCreate()
-        {
-            return new RegistersRepo().QueryRegisters().Select(r => new CreateModel.Register { Id = r.Id, Name = r.Name }).ToList();
-        }
-
         public ActionResult Details(Guid id)
         {
             var assessment = new AssessmentGradesService().GetAssessmentGrades(id);
@@ -101,7 +79,7 @@ namespace AssessmentAnywhere.Controllers
                             {
                                 Id = assessment.AsssessmentId,
                                 Name = assessment.AssessmentName,
-                                Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Id = c.Id, Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
+                                Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
                                 HasBoundaries = assessment.Boundaries.Any(),
                                 AllAssessments = GetAssessmentsForIndex(),
                             };
@@ -112,18 +90,14 @@ namespace AssessmentAnywhere.Controllers
         public void AddCandidate(Guid id, string name)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            var register = new RegistersRepo().Open(assessment.RegisterId);
-            var candidateId = Guid.NewGuid();
-            register.Candidates.Add(new Candidate { Id = candidateId, Name = name });
-            assessment.Results.Add(new AssessmentResult { CandidateId = candidateId });
+            assessment.Results.Add(new AssessmentResult { CandidateName = name });
         }
 
         [HttpPost]
-        public ActionResult SetResult(Guid id, Guid candidateId, decimal? result)
+        public ActionResult SetResult(Guid id, string candidateName, decimal? result)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
-            assessment.Results.First(c => c.CandidateId == candidateId).Result = result;
+            assessment.Results.First(c => c.CandidateName == candidateName).Result = result;
             return RedirectToAction("Details", new { id = id });
         }
 

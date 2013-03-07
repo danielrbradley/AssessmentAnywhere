@@ -9,27 +9,10 @@
         {
             get
             {
-                var registerRepo = new RegistersRepo();
-                var registers = registerRepo.QueryRegisters();
+                var assessmentsRepo = new AssessmentsRepo();
+                var assessments = assessmentsRepo.QueryAssessments();
 
-                var names = new List<string>();
-
-                if (registers == null)
-                {
-                    return new List<string>();
-                }
-
-                foreach (var candidate in from register in registers 
-                                          where register != null && register.Candidates != null 
-                                          from candidate in register.Candidates 
-                                          where candidate != null && !string.IsNullOrEmpty(candidate.Name) 
-                                          where !names.Contains(candidate.Name) 
-                                          select candidate)
-                {
-                    names.Add(candidate.Name);
-                }
-
-                return names;
+                return assessments.SelectMany(a => a.Results.Select(r => r.CandidateName)).Distinct().ToList();
             }
         }
     }
