@@ -6,7 +6,6 @@
 <ul class="nav nav-tabs">
     <li>@Html.ActionLink("Home", "Index", "Home")</li>
     <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-    <li>@Html.ActionLink("Registers", "Index", "Registers")</li>
 </ul>
 @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
 {

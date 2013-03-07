@@ -6,18 +6,13 @@
 <ul class="nav nav-tabs">
     <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
     <li>@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-    <li>@Html.ActionLink("Registers", "Index", "Registers")</li>
 </ul>
 <div class="row-fluid">
-    <div class="span5 offset1 hero-unit">
-        <h3>@Html.ActionLink("Create new assessment", "Create", "Assessments")</h3>
-        <p>Create a new awesome assessment!</p>
+    <div class="span8 offset2 hero-unit">
+        <h2>Welcome to Assessment Anywhere</h2>
+        <p>Get started by creating an assessment below.</p>
+        <div class="pull-right">
+            @Html.ActionLink("Create assessment", "Create", "Assessments", null, new { @class = "btn btn-success btn-large" })
+        </div>
     </div>
-    <div class="span5 hero-unit">
-        <h3>@Html.ActionLink("Create new register", "Create", "Registers")</h3>
-        <p>Create a new register of candidates.</p>
-    </div>
-    
-    
-    @Html.ActionLink("Stats", "ShowStatistics", "Statistics", new {id = Guid.NewGuid()}, null)
 </div>
