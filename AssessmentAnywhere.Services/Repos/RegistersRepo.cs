@@ -23,9 +23,9 @@
             return Registers[registerId];
         }
 
-        public List<Register> GetRegisters()
+        public IQueryable<Register> QueryRegisters()
         {
-            return Registers.Values.ToList();
+            return Registers.Values.AsQueryable();
         }
     }
 }

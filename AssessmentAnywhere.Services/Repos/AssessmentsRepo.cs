@@ -23,9 +23,9 @@
             return Assessments[assessmentId];
         }
 
-        public List<Assessment> GetAssessments()
+        public IQueryable<Assessment> QueryAssessments()
         {
-            return Assessments.Values.ToList();
+            return Assessments.Values.AsQueryable();
         }
     }
 }

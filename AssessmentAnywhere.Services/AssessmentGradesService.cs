@@ -19,7 +19,7 @@
 
             var assessment = assessmentRepo.Open(assessmentId);
             var register = registersRepo.Open(assessment.RegisterId);
-            var gradeBoundaries = gradeBoundariesRepo.Open(assessmentId);
+            var gradeBoundaries = gradeBoundariesRepo.OpenOrCreate(assessmentId);
 
             return ConstructAssessmentGrades(assessment, register.Candidates, gradeBoundaries.Boundaries);
         }

@@ -3,8 +3,6 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using AssessmentAnywhere.Services.Repos.Models;
-
     public class CandidateRepo
     {
         public List<string> CandidateNames
@@ -12,7 +10,7 @@
             get
             {
                 var registerRepo = new RegistersRepo();
-                List<Register> registers = registerRepo.GetRegisters();
+                var registers = registerRepo.QueryRegisters();
 
                 var names = new List<string>();
 

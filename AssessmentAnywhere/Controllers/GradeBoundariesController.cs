@@ -15,7 +15,7 @@ namespace AssessmentAnywhere.Controllers
         public ActionResult Details(Guid id)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            var boundaries = new GradeBoundariesRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
             var model = new DetailsModel
                             {
                                 AssessmentId = id,
@@ -32,7 +32,7 @@ namespace AssessmentAnywhere.Controllers
 
         public ActionResult Add(Guid id, string grade, int minResult)
         {
-            var boundaries = new GradeBoundariesRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
             boundaries.Boundaries.Add(new Boundary { Grade = grade, MinResult = minResult });
 
             return RedirectToAction("Details", new { id = id });
@@ -40,7 +40,7 @@ namespace AssessmentAnywhere.Controllers
 
         public ActionResult Update(Guid id, string grade, int minResult)
         {
-            var boundaries = new GradeBoundariesRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
             boundaries.Boundaries.Single(b => b.Grade == grade).MinResult = minResult;
 
             return RedirectToAction("Details", new { id = id });
@@ -48,7 +48,7 @@ namespace AssessmentAnywhere.Controllers
 
         public ActionResult Remove(Guid id, string grade)
         {
-            var boundaries = new GradeBoundariesRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
             boundaries.Boundaries.RemoveAll(b => b.Grade == grade);
 
             return RedirectToAction("Details", new { id = id });

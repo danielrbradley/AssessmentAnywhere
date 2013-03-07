@@ -27,7 +27,7 @@ namespace AssessmentAnywhere.Controllers
         private List<Assessment> GetAssessmentsForIndex()
         {
             var repo = new AssessmentsRepo();
-            return repo.GetAssessments().Select(a => new Assessment { Id = a.Id, Name = a.Name }).ToList();
+            return repo.QueryAssessments().Select(a => new Assessment { Id = a.Id, Name = a.Name }).ToList();
         }
 
         public ActionResult Create(Guid? registerId)
@@ -91,7 +91,7 @@ namespace AssessmentAnywhere.Controllers
 
         private List<CreateModel.Register> GetRegistersForCreate()
         {
-            return new RegistersRepo().GetRegisters().Select(r => new CreateModel.Register { Id = r.Id, Name = r.Name }).ToList();
+            return new RegistersRepo().QueryRegisters().Select(r => new CreateModel.Register { Id = r.Id, Name = r.Name }).ToList();
         }
 
         public ActionResult Details(Guid id)
@@ -122,7 +122,7 @@ namespace AssessmentAnywhere.Controllers
         public ActionResult SetResult(Guid id, Guid candidateId, decimal? result)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            var boundaries = new GradeBoundariesRepo().Open(id);
+            var boundaries = new GradeBoundariesRepo().OpenOrCreate(id);
             assessment.Results.First(c => c.CandidateId == candidateId).Result = result;
             return RedirectToAction("Details", new { id = id });
         }
@@ -130,7 +130,7 @@ namespace AssessmentAnywhere.Controllers
         public ActionResult AddGradeBoundaries(Guid id)
         {
             var gradeBoundariesRepo = new GradeBoundariesRepo();
-            var boundary = gradeBoundariesRepo.Create(id);
+            var boundary = gradeBoundariesRepo.OpenOrCreate(id);
 
             var boundaryList = new List<Boundary>
                 {
