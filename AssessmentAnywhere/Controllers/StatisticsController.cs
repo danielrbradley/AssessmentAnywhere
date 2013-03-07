@@ -30,9 +30,9 @@ namespace AssessmentAnywhere.Controllers
         }
 
 
-        private List<AssessmentStatistic> GetStats(Guid assessmentId)
+        private IEnumerable<AssessmentStatistic> GetStats(Guid assessmentId)
         {
-            return new AssessmentGradesService().GetStatsForAssessment(assessmentId, false);
+            return new AssessmentService().GetStatsForAssessment(assessmentId, false);
             //var result = new List<AssessmentStatistic>
             //    {
             //        new AssessmentStatistic{StatisticName = "Min", StatisticValue = "23"}, 
@@ -44,7 +44,7 @@ namespace AssessmentAnywhere.Controllers
 
         private Dictionary<string, int> GetGradeCounts(Guid assessmentId)
         {
-            return new AssessmentGradesService().GetGradeCounts(assessmentId);
+            return new AssessmentService().GetGradeCounts(assessmentId);
             //var result = new Dictionary<string, int>
             //    {
             //        {"A", 16},

@@ -52,7 +52,7 @@
                         <td>
                             @using (Html.BeginForm("SetResult", "Assessments", new { id = Model.Id }, FormMethod.Post))
                             {
-                                <input type="hidden" name="candidateId" value="@candidate.Id" />
+                                <input type="hidden" name="candidateName" value="@candidate.Name" />
                                 <input type="number" name="result" value="@candidate.Result" />
                             }
                         </td>

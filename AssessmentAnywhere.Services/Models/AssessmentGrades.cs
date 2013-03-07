@@ -7,12 +7,23 @@
 
     public class AssessmentGrades
     {
-        public Guid AsssessmentId { get; set; }
+        public AssessmentGrades(Guid assessmentId, string assessmentName, decimal? totalMarks, IEnumerable<CandidateGrade> candidates, IEnumerable<Boundary> boundaries)
+        {
+            AssessmentId = assessmentId;
+            AssessmentName = assessmentName;
+            TotalMarks = totalMarks;
+            Candidates = candidates;
+            Boundaries = boundaries;
+        }
 
-        public string AssessmentName { get; set; }
+        public Guid AssessmentId { get; private set; }
 
-        public List<CandidateGrade> Candidates { get; set; }
+        public string AssessmentName { get; private set; }
 
-        public List<Boundary> Boundaries { get; set; }
+        public decimal? TotalMarks { get; private set; }
+
+        public IEnumerable<CandidateGrade> Candidates { get; private set; }
+
+        public IEnumerable<Boundary> Boundaries { get; private set; }
     }
 }

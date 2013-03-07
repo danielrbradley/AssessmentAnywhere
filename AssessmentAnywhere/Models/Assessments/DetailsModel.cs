@@ -24,8 +24,6 @@ namespace AssessmentAnywhere.Models.Assessments
 
         public class Candidate
         {
-            public Guid Id { get; set; }
-
             public string Name { get; set; }
 
             public decimal? Result { get; set; }

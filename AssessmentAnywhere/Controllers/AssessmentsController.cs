@@ -57,7 +57,7 @@ namespace AssessmentAnywhere.Controllers
 
             var assessmentsRepo = new AssessmentsRepo();
             var assessment = assessmentsRepo.Create();
-            assessment.Name = name;
+            assessment.SetName(name);
 
             if (!string.IsNullOrWhiteSpace(subject))
             {
@@ -74,10 +74,10 @@ namespace AssessmentAnywhere.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var assessment = new AssessmentGradesService().GetAssessmentGrades(id);
+            var assessment = new AssessmentService().GetAssessmentGrades(id);
             var model = new DetailsModel
                             {
-                                Id = assessment.AsssessmentId,
+                                Id = assessment.AssessmentId,
                                 Name = assessment.AssessmentName,
                                 Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
                                 HasBoundaries = assessment.Boundaries.Any(),
@@ -90,14 +90,14 @@ namespace AssessmentAnywhere.Controllers
         public void AddCandidate(Guid id, string name)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            assessment.Results.Add(new AssessmentResult { CandidateName = name });
+            assessment.AddCandidate(name);
         }
 
         [HttpPost]
         public ActionResult SetResult(Guid id, string candidateName, decimal? result)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            assessment.Results.First(c => c.CandidateName == candidateName).Result = result;
+            assessment.SetCandidateResult(candidateName, result);
             return RedirectToAction("Details", new { id = id });
         }
 

@@ -25,7 +25,7 @@
                 </tr>
             </thead>
 
-            @if (@Model.Statistics != null && @Model.Statistics.Count > 0)
+            @if (@Model.Statistics != null && this.Model.Statistics.Any())
             {
                 foreach (var p in @Model.Statistics)
                 {

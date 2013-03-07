@@ -13,7 +13,7 @@
         public Assessment Create()
         {
             var newId = Guid.NewGuid();
-            var assessment = new Assessment { Id = newId };
+            var assessment = new Assessment(newId);
             Assessments.Add(newId, assessment);
             return assessment;
         }
