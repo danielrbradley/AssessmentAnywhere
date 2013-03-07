@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Services.Services
+﻿namespace AssessmentAnywhere.Services.Models
 {
     using System;
 

@@ -1,9 +1,9 @@
-﻿namespace AssessmentAnywhere.Services.Services
+﻿namespace AssessmentAnywhere.Services.Models
 {
     using System;
     using System.Collections.Generic;
 
-    using AssessmentAnywhere.Services.Model;
+    using AssessmentAnywhere.Services.Repos.Models;
 
     public class AssessmentGrades
     {

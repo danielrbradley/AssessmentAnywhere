@@ -7,8 +7,8 @@ using System.Web.Mvc;
 namespace AssessmentAnywhere.Controllers
 {
     using AssessmentAnywhere.Models.GradeBoundaries;
-    using AssessmentAnywhere.Services.Model;
     using AssessmentAnywhere.Services.Repos;
+    using AssessmentAnywhere.Services.Repos.Models;
 
     public class GradeBoundariesController : Controller
     {

@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Services.Model
+﻿namespace AssessmentAnywhere.Services.Repos.Models
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     {
         public GradeBoundaries()
         {
-            Boundaries = new List<Boundary>();
+            this.Boundaries = new List<Boundary>();
         }
 
         public Guid AssessmentId { get; set; }

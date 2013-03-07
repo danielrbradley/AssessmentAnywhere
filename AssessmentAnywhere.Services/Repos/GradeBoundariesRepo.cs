@@ -3,7 +3,7 @@
     using System;
     using System.Collections.Generic;
 
-    using AssessmentAnywhere.Services.Model;
+    using AssessmentAnywhere.Services.Repos.Models;
 
     public class GradeBoundariesRepo
     {

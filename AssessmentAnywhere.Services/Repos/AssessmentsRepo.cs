@@ -1,11 +1,10 @@
-﻿using System.Linq;
-using AssessmentAnywhere.Services.Model;
-
-namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services.Repos
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
+    using AssessmentAnywhere.Services.Repos.Models;
 
     public class AssessmentsRepo
     {

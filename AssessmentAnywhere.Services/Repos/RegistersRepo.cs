@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    using AssessmentAnywhere.Services.Model;
+    using AssessmentAnywhere.Services.Repos.Models;
 
     public class RegistersRepo
     {
@@ -27,6 +27,5 @@
         {
             return Registers.Values.ToList();
         }
-        
     }
 }

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using AssessmentAnywhere.Services.Model;
 
 namespace AssessmentAnywhere.Controllers
 {
     using AssessmentAnywhere.Models.Assessments;
-    using AssessmentAnywhere.Services.Model;
+    using AssessmentAnywhere.Services;
     using AssessmentAnywhere.Services.Repos;
+    using AssessmentAnywhere.Services.Repos.Models;
 
     using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
@@ -96,7 +96,7 @@ namespace AssessmentAnywhere.Controllers
 
         public ActionResult Details(Guid id)
         {
-            var assessment = new Services.Services.AssessmentGradesService().GetAssessmentGrades(id);
+            var assessment = new AssessmentGradesService().GetAssessmentGrades(id);
             var model = new DetailsModel
                             {
                                 Id = assessment.AsssessmentId,
@@ -114,8 +114,8 @@ namespace AssessmentAnywhere.Controllers
             var assessment = new AssessmentsRepo().Open(id);
             var register = new RegistersRepo().Open(assessment.RegisterId);
             var candidateId = Guid.NewGuid();
-            register.Candidates.Add(new Services.Model.Candidate { Id = candidateId, Name = name });
-            assessment.Results.Add(new Services.Model.AssessmentResult { CandidateId = candidateId });
+            register.Candidates.Add(new Candidate { Id = candidateId, Name = name });
+            assessment.Results.Add(new AssessmentResult { CandidateId = candidateId });
         }
 
         [HttpPost]

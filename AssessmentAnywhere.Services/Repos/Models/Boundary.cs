@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Services.Model
+﻿namespace AssessmentAnywhere.Services.Repos.Models
 {
     public class Boundary
     {

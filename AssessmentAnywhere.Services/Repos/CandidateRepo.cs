@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AssessmentAnywhere.Services.Model;
-
-namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services.Repos
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AssessmentAnywhere.Services.Repos.Models;
+
     public class CandidateRepo
     {
         public List<string> CandidateNames
@@ -22,22 +20,19 @@ namespace AssessmentAnywhere.Services.Repos
                 {
                     return new List<string>();
                 }
-                else
+
+                foreach (var candidate in from register in registers 
+                                          where register != null && register.Candidates != null 
+                                          from candidate in register.Candidates 
+                                          where candidate != null && !string.IsNullOrEmpty(candidate.Name) 
+                                          where !names.Contains(candidate.Name) 
+                                          select candidate)
                 {
-                    foreach (var candidate in from register in registers 
-                                              where register != null && register.Candidates != null 
-                                              from candidate in register.Candidates 
-                                              where candidate != null && !string.IsNullOrEmpty(candidate.Name) 
-                                              where !names.Contains(candidate.Name) 
-                                              select candidate)
-                    {
-                        names.Add(candidate.Name);
-                    }
+                    names.Add(candidate.Name);
                 }
+
                 return names;
             }
-            
-
         }
     }
 }

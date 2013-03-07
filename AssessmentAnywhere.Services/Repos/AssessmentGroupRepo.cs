@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AssessmentAnywhere.Services.Model;
-
-namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services.Repos
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using AssessmentAnywhere.Services.Repos.Models;
+
     public class AssessmentGroupRepo
     {
         private static readonly Dictionary<Guid, AssessmentGroup> AssessmentGroups = new Dictionary<Guid, AssessmentGroup>();

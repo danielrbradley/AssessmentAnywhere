@@ -4,10 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AssessmentAnywhere.Models.Stats;
-using AssessmentAnywhere.Services.Services;
 
 namespace AssessmentAnywhere.Controllers
 {
+    using AssessmentAnywhere.Services;
+    using AssessmentAnywhere.Services.Models;
+
     public class StatisticsController : Controller
     {
         
@@ -30,7 +32,7 @@ namespace AssessmentAnywhere.Controllers
 
         private List<AssessmentStatistic> GetStats(Guid assessmentId)
         {
-            return new Services.Services.AssessmentGradesService().GetStatsForAssessment(assessmentId, false);
+            return new AssessmentGradesService().GetStatsForAssessment(assessmentId, false);
             //var result = new List<AssessmentStatistic>
             //    {
             //        new AssessmentStatistic{StatisticName = "Min", StatisticValue = "23"}, 
@@ -42,7 +44,7 @@ namespace AssessmentAnywhere.Controllers
 
         private Dictionary<string, int> GetGradeCounts(Guid assessmentId)
         {
-            return new Services.Services.AssessmentGradesService().GetGradeCounts(assessmentId);
+            return new AssessmentGradesService().GetGradeCounts(assessmentId);
             //var result = new Dictionary<string, int>
             //    {
             //        {"A", 16},

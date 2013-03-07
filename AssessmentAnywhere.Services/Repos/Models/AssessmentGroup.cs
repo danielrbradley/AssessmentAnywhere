@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AssessmentAnywhere.Services.Model
+﻿namespace AssessmentAnywhere.Services.Repos.Models
 {
+    using System;
+    using System.Collections.Generic;
+
     public class AssessmentGroup
     {
         public AssessmentGroup()
         {
-            AssessmentIds = new List<Guid>();
+            this.AssessmentIds = new List<Guid>();
         }
 
         public Guid AssessmentGroupId { get; set; }
+
         public GradeBoundaries  Boundaries { get; set; }
+
         public List<Guid> AssessmentIds { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Services.Model
+﻿namespace AssessmentAnywhere.Services.Repos.Models
 {
     using System;
     using System.Collections.Generic;
@@ -7,7 +7,7 @@
     {
         public Assessment()
         {
-            Results = new List<AssessmentResult>();
+            this.Results = new List<AssessmentResult>();
         }
 
         public Guid Id { get; set; }
