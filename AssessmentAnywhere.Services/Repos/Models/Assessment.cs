@@ -6,7 +6,7 @@
 
     public class Assessment
     {
-        private readonly List<AssessmentResult> results = new List<AssessmentResult>();
+        private readonly Dictionary<Guid, AssessmentResult> results = new Dictionary<Guid, AssessmentResult>();
 
         public Assessment(Guid id)
             : this(id, string.Empty)
@@ -22,7 +22,10 @@
         {
             Id = id;
             Name = name;
-            this.results.AddRange(results);
+            foreach (var assessmentResult in results)
+            {
+                this.results.Add(assessmentResult.Id, assessmentResult);
+            }
         }
 
         public Guid Id { get; private set; }
@@ -33,13 +36,15 @@
         {
             get
             {
-                return this.results.AsEnumerable();
+                return this.results.Values;
             }
         }
 
-        public void AddCandidate(string candidateName)
+        public Guid AddCandidate(string candidateName)
         {
-            this.results.Add(new AssessmentResult(candidateName));
+            var assessmentResult = new AssessmentResult(candidateName);
+            this.results.Add(assessmentResult.Id, assessmentResult);
+            return assessmentResult.Id;
         }
 
         public void SetName(string name)
@@ -47,17 +52,21 @@
             this.Name = name;
         }
 
-        public void ChangeCandidateName(string candidateName, string newCandidateName)
+        public void SetCandidateName(Guid id, string newCandidateName)
         {
-            var candidateIndex = this.results.FindIndex(r => r.CandidateName == candidateName);
-            var result = this.results[candidateIndex].Result;
-            this.results[candidateIndex] = new AssessmentResult(newCandidateName, result);
+            var result = results[id].Result;
+            this.results[id] = new AssessmentResult(id, newCandidateName, result);
         }
 
-        public void SetCandidateResult(string candidateName, decimal? result)
+        public void SetCandidateResult(Guid id, decimal? result)
         {
-            var candidateIndex = this.results.FindIndex(r => r.CandidateName == candidateName);
-            this.results[candidateIndex] = new AssessmentResult(candidateName, result);
+            var candidateName = results[id].CandidateName;
+            this.results[id] = new AssessmentResult(id, candidateName, result);
+        }
+
+        public void RemoveResult(Guid id)
+        {
+            results.Remove(id);
         }
     }
 }

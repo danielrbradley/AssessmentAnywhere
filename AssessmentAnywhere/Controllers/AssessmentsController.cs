@@ -6,6 +6,8 @@ using System.Web.Mvc;
 
 namespace AssessmentAnywhere.Controllers
 {
+    using System.Collections;
+
     using AssessmentAnywhere.Models.Assessments;
     using AssessmentAnywhere.Services;
     using AssessmentAnywhere.Services.Repos;
@@ -16,6 +18,8 @@ namespace AssessmentAnywhere.Controllers
     public class AssessmentsController : Controller
     {
         private static readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+
+        private static readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
 
         // GET: /Assessments/
         public ActionResult Index()
@@ -75,60 +79,91 @@ namespace AssessmentAnywhere.Controllers
             return RedirectToAction("Details", new { id = assessment.Id });
         }
 
-        private List<string> GetSubjectsForCreate()
-        {
-            return new SubjectRepo().GetSubjects();
-        }
-
         public ActionResult Details(Guid id)
         {
-            var assessment = new AssessmentService().GetAssessmentGrades(id);
-            var model = new DetailsModel
-                            {
-                                Id = assessment.AssessmentId,
-                                Name = assessment.AssessmentName,
-                                Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
-                                HasBoundaries = assessment.Boundaries.Any(),
-                                AllAssessments = assessmentsRepo.QueryAssessments().Select(a => new Assessment(a)),
-                            };
+            var assessment = assessmentsRepo.Open(id);
+            var model = new DetailsModel(assessment);
             return View(model);
         }
 
-        [HttpPost]
-        public void AddCandidate(Guid id, string name)
+        public ActionResult Results(Guid id)
         {
-            var assessment = new AssessmentsRepo().Open(id);
-            assessment.AddCandidate(name);
+            var assessment = assessmentsRepo.Open(id);
+            bool hasBoundaries;
+            var boundaries = gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
+            IEnumerable<ResultRow> model;
+
+            if (hasBoundaries)
+                model = GenerateResultsFromRepoModels(assessment, boundaries);
+            else
+                model = GenerateResultsFromRepoModels(assessment);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        private static IEnumerable<ResultRow> GenerateResultsFromRepoModels(
+            Services.Repos.Models.Assessment assessment, GradeBoundaries boundaries)
+        {
+            var results = from result in assessment.Results
+                          let grade = boundaries.Boundaries.ForResult(result.Result)
+                          let percentage = result.Result / boundaries.MaxResult
+                          select new ResultRow(result.Id, result.CandidateName, result.Result, percentage, grade);
+
+            return results.ToList();
+        }
+
+        private static IEnumerable<ResultRow> GenerateResultsFromRepoModels(Services.Repos.Models.Assessment assessment)
+        {
+            var results = from result in assessment.Results
+                          select new ResultRow(result.Id, result.CandidateName, result.Result);
+            return results.ToList();
         }
 
         [HttpPost]
-        public ActionResult SetResult(Guid id, string candidateName, decimal? result)
+        public ActionResult AddResult(Guid id, AddResultRowModel postbackModel)
         {
             var assessment = new AssessmentsRepo().Open(id);
-            assessment.SetCandidateResult(candidateName, result);
-            return RedirectToAction("Details", new { id = id });
+            var rowId = assessment.AddCandidate(postbackModel.CandidateName);
+            assessment.SetCandidateResult(rowId, postbackModel.Result);
+            var returnModel = new ResultRow(rowId, postbackModel.CandidateName, postbackModel.Result);
+            return Json(returnModel);
         }
 
-        public ActionResult AddGradeBoundaries(Guid id)
+        [HttpPost]
+        public void DeleteResult(Guid id, DeleteResultRowModel postbackModel)
         {
-            var gradeBoundariesRepo = new GradeBoundariesRepo();
-            var boundary = gradeBoundariesRepo.OpenOrCreate(id);
-
-            var boundaryList = new List<Boundary>
-                {
-                    new Boundary {Grade = "A*", MinResult = 80},
-                    new Boundary {Grade = "A", MinResult = 70},
-                    new Boundary {Grade = "B", MinResult = 60},
-                    new Boundary {Grade = "C", MinResult = 50},
-                    new Boundary {Grade = "D", MinResult = 40},
-                    new Boundary {Grade = "E", MinResult = 30},
-                };
-            boundary.Boundaries = boundaryList;
-
-
-
-
-            return RedirectToAction("Details", new { id = id });
+            var assessment = new AssessmentsRepo().Open(id);
+            assessment.RemoveResult(postbackModel.RowId);
         }
+
+        [HttpPost]
+        public void UpdateResult(Guid id, UpdateResultRowModel postbackModel)
+        {
+            var assessment = new AssessmentsRepo().Open(id);
+            assessment.SetCandidateName(postbackModel.RowId, postbackModel.CandidateName);
+            assessment.SetCandidateResult(postbackModel.RowId, postbackModel.Result);
+        }
+
+        //public ActionResult AddGradeBoundaries(Guid id)
+        //{
+        //    var gradeBoundariesRepo = new GradeBoundariesRepo();
+        //    var boundary = gradeBoundariesRepo.OpenOrCreate(id);
+
+        //    var boundaryList = new List<Boundary>
+        //        {
+        //            new Boundary {Grade = "A*", MinResult = 80},
+        //            new Boundary {Grade = "A", MinResult = 70},
+        //            new Boundary {Grade = "B", MinResult = 60},
+        //            new Boundary {Grade = "C", MinResult = 50},
+        //            new Boundary {Grade = "D", MinResult = 40},
+        //            new Boundary {Grade = "E", MinResult = 30},
+        //        };
+        //    boundary.Boundaries = boundaryList;
+
+
+
+
+        //    return RedirectToAction("Details", new { id = id });
+        //}
     }
 }

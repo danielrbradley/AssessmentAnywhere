@@ -1,23 +1,31 @@
 ﻿namespace AssessmentAnywhere.Services.Repos
 {
     using System;
-    using System.Collections.Concurrent;
     using System.Collections.Generic;
 
     using AssessmentAnywhere.Services.Repos.Models;
 
     public class GradeBoundariesRepo
     {
-        private static readonly ConcurrentDictionary<Guid, GradeBoundaries> GradeBoundaries = new ConcurrentDictionary<Guid, GradeBoundaries>();
+        private static readonly Dictionary<Guid, GradeBoundaries> GradeBoundaries = new Dictionary<Guid, GradeBoundaries>();
 
-        public GradeBoundaries OpenOrCreate(Guid assessmentId)
+        public GradeBoundaries Create(Guid assessmentId, decimal maxResult)
         {
-            if (!GradeBoundaries.ContainsKey(assessmentId))
+            var boundaries = new GradeBoundaries(assessmentId, maxResult);
+            GradeBoundaries.Add(assessmentId, boundaries);
+            return boundaries;
+        }
+
+        public GradeBoundaries TryOpen(Guid assessmentId, out bool success)
+        {
+            if (GradeBoundaries.ContainsKey(assessmentId))
             {
-                GradeBoundaries.TryAdd(assessmentId, new GradeBoundaries { AssessmentId = assessmentId });
+                success = true;
+                return GradeBoundaries[assessmentId];
             }
 
-            return GradeBoundaries[assessmentId];
+            success = false;
+            return null;
         }
     }
 }

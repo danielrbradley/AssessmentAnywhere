@@ -126,6 +126,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Models\Assessments\AddResultRowModel.cs" />
+    <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
+    <Compile Include="Models\Assessments\DetailsModel.cs" />
     <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -134,8 +137,9 @@
     </Compile>
     <Compile Include="Models\Assessments\Assessment.cs" />
     <Compile Include="Models\Assessments\CreateModel.cs" />
-    <Compile Include="Models\Assessments\DetailsModel.cs" />
+    <Compile Include="Models\Assessments\ResultRow.cs" />
     <Compile Include="Models\Assessments\IndexModel.cs" />
+    <Compile Include="Models\Assessments\UpdateResultRowModel.cs" />
     <Compile Include="Models\Stats\AssessmentStatisticsModel.cs" />
     <Compile Include="Models\GradeBoundaries\DetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

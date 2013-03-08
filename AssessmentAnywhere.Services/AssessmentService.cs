@@ -17,9 +17,14 @@
             var gradeBoundariesRepo = new GradeBoundariesRepo();
 
             var assessment = assessmentRepo.Open(assessmentId);
-            var gradeBoundaries = gradeBoundariesRepo.OpenOrCreate(assessmentId);
 
-            return ConstructAssessmentGrades(assessment, gradeBoundaries.Boundaries);
+            bool hasBoundaries;
+            var gradeBoundaries = gradeBoundariesRepo.TryOpen(assessmentId, out hasBoundaries);
+
+            if (hasBoundaries)
+                return ConstructAssessmentGrades(assessment, gradeBoundaries.Boundaries);
+
+            return ConstructAssessmentGrades(assessment, Enumerable.Empty<Boundary>());
         }
 
         public IEnumerable<AssessmentStatistic> GetStatsForAssessmentGroup(Guid assessmentGroupId, bool includeGradeCounts)

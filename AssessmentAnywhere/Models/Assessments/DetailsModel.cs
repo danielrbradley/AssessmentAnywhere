@@ -1,34 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace AssessmentAnywhere.Models.Assessments
+﻿namespace AssessmentAnywhere.Models.Assessments
 {
+    using System;
+
     public class DetailsModel
     {
-        public DetailsModel()
-        {
-            Candidates = new List<Candidate>();
-        }
-
         public Guid Id { get; set; }
 
         public string Name { get; set; }
 
-        public bool HasBoundaries { get; set; }
-
-        public List<Candidate> Candidates { get; set; }
-
-        public IEnumerable<Assessment> AllAssessments { get; set; }
-
-        public class Candidate
+        public DetailsModel(Guid id, string name)
         {
-            public string Name { get; set; }
+            Id = id;
+            Name = name;
+        }
 
-            public decimal? Result { get; set; }
-
-            public string Grade { get; set; }
+        public DetailsModel(Services.Repos.Models.Assessment assessment)
+            : this(assessment.Id, assessment.Name)
+        {
         }
     }
 }

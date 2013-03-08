@@ -8,135 +8,75 @@
 {
     <link href="@Url.Content("~/css/kendo.common.min.css")" rel="stylesheet" />
     <link href="@Url.Content("~/css/kendo.bootstrap.min.css")" rel="stylesheet" />
+    <style type="text/css">
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    </style>
 }
 
-<div class="k-content">
-    <div id="assessments-grid">
-    </div>
+<div class="row-fluid">
+    <ul class="breadcrumb">
+        <li>@Html.ActionLink("Home", "Index", "Home") <span class="divider">/</span></li>
+        <li>@Html.ActionLink("Assessments", "Index") <span class="divider">/</span></li>
+        <li class="active">@Model.Name</li>
+    </ul>
 </div>
 
 <div class="row-fluid">
     <div class="span3">
-        <p>
-            @Html.ActionLink("New assessment", "Create", "Assessments", null, new { @class = "btn btn-primary" })
-        </p>
-        @*<div class="navbar">
-            <div class="navbar-inner">
-                <form class="navbar-search pull-left" action="">
-                    <input type="text" class="search-query" placeholder="Search" />
-                </form>
-            </div>
-        </div>*@
-        <ul class="nav nav-pills nav-stacked">
-            @foreach (var assessment in Model.AllAssessments)
-            {
-                var activeClass = (assessment.Id == Model.Id) ? "active" : "";
-                <li class="@activeClass">
-                    @Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id })
-                </li>
-            }
-        </ul>
-
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li class="nav-header">Actions</li>
+                <li><a href="@Url.Action("Create")"><i class='icon-plus'></i>New Assessment</a></li>
+                <li><a href="#"><i class="icon-download-alt"></i>Import names</a></li>
+            </ul>
+        </div>
     </div>
     <div class="span9">
-        <table class="table table-bordered table-striped" id="candidates">
-            <caption></caption>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Result</th>
-                    @if (Model.HasBoundaries)
-                    {
-                        <th>Grades</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var candidate in Model.Candidates)
-                {
-                    <tr>
-                        <td>@candidate.Name</td>
-                        <td>
-                            @using (Html.BeginForm("SetResult", "Assessments", new { id = Model.Id }, FormMethod.Post))
-                            {
-                                <input type="hidden" name="candidateName" value="@candidate.Name" />
-                                <input type="number" name="result" value="@candidate.Result" />
-                            }
-                        </td>
-                        @if (Model.HasBoundaries)
-                        {
-                            <td>@candidate.Grade</td>
-                        }
-                    </tr>
-                }
-                <tr>
-                    <td>
-                        <div class="control-group" id="newControls">
-                            <div class="input-append">
-                                <input id="newName" type="text" placeholder="New candidate ..." />
-                                <button id="newbtn" class="btn"><i class="icon-plus"></i>Save</button>
-                            </div>
-                        </div>
-                    </td>
-                    <td></td>
-                    @if (Model.HasBoundaries)
-                    {
-                        <td></td>
-                    }
-                </tr>
-            </tbody>
-        </table>
-        <div class="btn-group">
-            @Html.ActionLink("Edit grade boundaries", "Details", "GradeBoundaries", new { id = Model.Id }, new { @class = "btn" })
-            @Html.ActionLink("Show Statistics", "ShowStatistics", "Statistics", new { id = Model.Id }, new { @class = "btn" })
+        <div class="k-content">
+            <div id="assessments-grid">
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts
 {
+    <script src="@Url.Content("~/js/kendo.web.min.js")" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function () {
-            var addCandidate = function () {
-                var name = $('#newName').val();
-                if (name != '') {
-                    $.post(
-                        '@Url.Action("AddCandidate", new { id = Model.Id })',
-                        { name: name },
-                        function () {
-                            location.reload();
-                        },
-                        'json');
-                } else {
-                    $('#newControls').addClass("error");
-                }
-            };
-            $('#newName').keypress(function (event) {
-                if (event.which == 13) {
-                    addCandidate();
-                }
-            }).focusin(function () {
-                $('#newControls').removeClass("error");
-            });
-            $('#newbtn').click(addCandidate);
-
-
-        });
-    </script>
-    <script src="@Url.Content("~/js/kendo.grid.min.js")" type="text/javascript"></script>
-    <script type="text/javascript">
-        $(function () {
+        $(function() {
             var assessmentsDataSource = new kendo.data.DataSource({
                 transport: {
                     read: {
-                        url: '@Url.Action("SearchAssessments", "Assessments")', // the remove service url
+                        url: '@Url.Action("Results", "Assessments", new { id = Model.Id })',
                         dataType: "json",
+                    },
+                    create: {
+                        url: '@Url.Action("AddResult", "Assessments", new { id = Model.Id })',
+                        type: 'POST',
+                        datatype: "json"
+                    },
+                    destroy: {
+                        url: '@Url.Action("DeleteResult", "Assessments", new { id = Model.Id })',
+                        type: 'POST',
+                        datatype: "json"
+                    },
+                    update: {
+                        url: '@Url.Action("UpdateResult", "Assessments", new { id = Model.Id })',
+                        type: 'POST',
+                        datatype: "json"
                     }
                 },
                 schema: {
                     model: {
+                        id: "RowId",
                         fields: {
-                            Name: { type: "string" }
+                            RowId: { editable: false, nullable: true },
+                            CandidateName: { type: "string", validation: { required: true } },
+                            Result: { type: "number", validation: { required: false, min: 0 } },
+                            Percentage: { type: "string", editable: false },
+                            Grade: { type: "string", editable: false }
                         }
                     }
                 },
@@ -144,7 +84,27 @@
 
             $('#assessments-grid').kendoGrid({
                 dataSource: assessmentsDataSource,
-
+                filterable: true,
+                sortable: true,
+                toolbar: ["create"],
+                editable: "inline",
+                columns: [{
+                        field: "CandidateName",
+                        title: "Candidate Name"
+                    }, {
+                        field: "Result",
+                        width: 200,
+                    }, {
+                        field: "Percentage",
+                        width: 100,
+                        format: '{0:P}'
+                    }, {
+                        field: "Grade"
+                    }, {
+                        command: ["edit", "destroy"],
+                        title: "&nbsp;",
+                        width: "210px"
+                    }]
             });
         });
     </script>
