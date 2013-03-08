@@ -5,8 +5,14 @@
 }
 
 <div class="row-fluid">
+    <div class="span8 offset2">
+        <h2>Create your first assessment</h2>
+        <p>Get started by creating a new assessment below.</p>
+    </div>
+</div>
+<div class="row-fluid">
     <div class="span8 offset2 well">
-        @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
+        @using (Html.BeginForm("CreateFirst", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <fieldset>
                 <legend>New assessment</legend>

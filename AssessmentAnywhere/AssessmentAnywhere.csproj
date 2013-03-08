@@ -199,6 +199,7 @@
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\kendo.common.min.css" />
     <Content Include="img\kendo\editor.png" />
     <Content Include="img\kendo\imagebrowser.png" />
     <Content Include="img\kendo\loading-image.gif" />
@@ -290,6 +291,7 @@
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
     <Content Include="Views\GradeBoundaries\Details.cshtml" />
     <Content Include="Views\Assessments\_Layout.cshtml" />
+    <Content Include="Views\Assessments\CreateFirst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

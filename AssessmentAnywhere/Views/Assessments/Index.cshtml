@@ -4,25 +4,30 @@
     Layout = "_Layout.cshtml";
 }
 
+@section Head
+{
+    <style type="text/css">
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+    </style>
+}
+
 <div class="row-fluid">
     <div class="span3">
-        <p>
-            @Html.ActionLink("New assessment", "Create", "Assessments", null, new { @class = "btn btn-primary" })
-        </p>
-        @*<div class="navbar">
-            <div class="navbar-inner">
-                <form class="navbar-search pull-left" action="">
-                    <input type="text" class="search-query" placeholder="Search" />
-                </form>
-            </div>
-        </div>*@
-        <ul class="nav nav-pills nav-stacked">
+        <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+                <li class="nav-header">Actions</li>
+                <li><a href="@Url.Action("Create")"><i class='icon-plus'></i> New Assessment</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="span9">
+        <ul class="nav nav-tabs nav-stacked">
             @foreach (var assessment in Model.Assessments)
             {
                 <li>@Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id })</li>
             }
         </ul>
-    </div>
-    <div class="span9">
     </div>
 </div>

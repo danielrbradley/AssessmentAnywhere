@@ -4,6 +4,17 @@
     Layout = "_Layout.cshtml";
 }
 
+@section Head
+{
+    <link href="@Url.Content("~/css/kendo.common.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/css/kendo.bootstrap.min.css")" rel="stylesheet" />
+}
+
+<div class="k-content">
+    <div id="assessments-grid">
+    </div>
+</div>
+
 <div class="row-fluid">
     <div class="span3">
         <p>
@@ -110,6 +121,31 @@
             $('#newbtn').click(addCandidate);
 
 
+        });
+    </script>
+    <script src="@Url.Content("~/js/kendo.grid.min.js")" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var assessmentsDataSource = new kendo.data.DataSource({
+                transport: {
+                    read: {
+                        url: '@Url.Action("SearchAssessments", "Assessments")', // the remove service url
+                        dataType: "json",
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            Name: { type: "string" }
+                        }
+                    }
+                },
+            });
+
+            $('#assessments-grid').kendoGrid({
+                dataSource: assessmentsDataSource,
+
+            });
         });
     </script>
 }

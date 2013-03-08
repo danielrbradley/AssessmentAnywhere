@@ -20,8 +20,32 @@ namespace AssessmentAnywhere.Controllers
         // GET: /Assessments/
         public ActionResult Index()
         {
-            var model = new IndexModel(assessmentsRepo.QueryAssessments().Select(a => new Assessment(a)));
-            return View(model);
+            if (assessmentsRepo.QueryAssessments().Any())
+            {
+                return View(new IndexModel(assessmentsRepo.QueryAssessments().Select(a => new Assessment(a))));
+            }
+
+            return View("CreateFirst", new CreateModel());
+        }
+
+        [HttpPost]
+        public ActionResult CreateFirst(CreateModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            if (assessmentsRepo.QueryAssessments().Any(a => a.Name == model.Name))
+            {
+                ModelState.AddModelError("Name", "You've already got another assessment with this name.");
+                return View(model);
+            }
+
+            var assessment = assessmentsRepo.Create();
+            assessment.SetName(model.Name);
+
+            return RedirectToAction("Index");
         }
 
         // GET: /Assessments/Create?registerId={registerId}
@@ -104,7 +128,7 @@ namespace AssessmentAnywhere.Controllers
 
 
 
-            return RedirectToAction("Details", new {id = id});
+            return RedirectToAction("Details", new { id = id });
         }
     }
 }

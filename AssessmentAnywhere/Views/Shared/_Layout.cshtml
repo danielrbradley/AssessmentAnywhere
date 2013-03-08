@@ -13,6 +13,7 @@
       }
     </style>
     @Styles.Render("~/css/bootstrap-responsive.min.css")
+    @RenderSection("Head", false)
 </head>
     <body>
         <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,11 +29,7 @@
             </div>
         </div>
         
-        <div class="container">
-
-            @RenderBody()
-
-        </div>
+        @RenderBody()
 
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/js/bootstrap.min.js")

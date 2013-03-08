@@ -3,16 +3,18 @@
     ViewBag.ActiveNavItem = "Home";
 }
 
-<ul class="nav nav-tabs">
-    <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-    <li>@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-</ul>
-<div class="row-fluid">
-    <div class="span8 offset2 hero-unit">
-        <h2>Welcome to Assessment Anywhere</h2>
-        <p>Get started by creating a new assessment by clicking the green button!</p>
-        <div class="pull-right">
-            @Html.ActionLink("Create assessment", "Create", "Assessments", null, new { @class = "btn btn-success btn-large" })
+<div class="container-fluid">
+    <ul class="nav nav-tabs">
+        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("Assessments", "Index", "Assessments")</li>
+    </ul>
+    <div class="row-fluid">
+        <div class="span8 offset2 hero-unit">
+            <h2>Welcome to Assessment Anywhere</h2>
+            <p>Get started by creating a new assessment by clicking the green button!</p>
+            <div class="pull-right">
+                @Html.ActionLink("Create assessment", "Create", "Assessments", null, new { @class = "btn btn-success btn-large" })
+            </div>
         </div>
     </div>
 </div>

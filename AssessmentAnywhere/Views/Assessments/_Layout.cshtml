@@ -2,12 +2,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<ul class="nav nav-tabs">
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-</ul>
+@section Head
+{
+    @RenderSection("Head", false)
+}
 
-@RenderBody()
+<div class="container-fluid">
+    
+    <div class="row-fluid">
+        <ul class="nav nav-tabs">
+            <li>@Html.ActionLink("Home", "Index", "Home")</li>
+            <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
+        </ul>
+    </div>
+
+    @RenderBody()
+
+</div>
 
 @section Scripts
 {
