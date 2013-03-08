@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "_Layout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ul class="nav nav-tabs">
+    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
+</ul>
+
+@RenderBody()
+
+@section Scripts
+{
+    @RenderSection("scripts", required: false)
+}

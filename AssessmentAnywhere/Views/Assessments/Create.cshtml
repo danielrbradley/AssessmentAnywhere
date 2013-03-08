@@ -1,46 +1,47 @@
 ﻿@model AssessmentAnywhere.Models.Assessments.CreateModel
 @{
     ViewBag.Title = "New assessment";
+    Layout = "_Layout.cshtml";
 }
 
-<ul class="nav nav-tabs">
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-</ul>
-@using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
-{
-    <fieldset>
-        <legend>New assessment</legend>
-        <div class="control-group">
-            <label class="control-label" for="input-name">Name</label>
-            <div class="controls">
-                <input type="text" id="input-name" name="name" placeholder="Name" value="@Model.Name" />
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" for="input-subject">Subject</label>
-            <div class="controls">
-                <select id="input-subject" name="subject">
-                    <option value="">Select a subject</option>
-                    @if (Model.AvailableSubjects.Any())
-                    {
-                        foreach (var subject in Model.AvailableSubjects)
-                        {
-                            <option value="@subject">@subject</option>
-                        }
-                    }
-                    else
-                    {
-                        <option value="" disabled="disabled">No subjects available</option>
-                    }
-                </select>
-                <span class="help-inline">(optional)</span>
-            </div>
-        </div>
-        <div class="control-group">
-            <div class="controls">
-                <button type="submit" class="btn btn-primary">Create</button>
-            </div>
-        </div>
-    </fieldset>
-}
+<div class="row">
+    <div class="span8 offset2 well">
+        @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <fieldset>
+                <legend>New assessment</legend>
+                <div class="control-group">
+                    <label class="control-label" for="input-name">Name</label>
+                    <div class="controls">
+                        <input type="text" id="input-name" name="name" placeholder="Name" value="@Model.Name" />
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label" for="input-subject">Subject</label>
+                    <div class="controls">
+                        <select id="input-subject" name="subject">
+                            <option value="">Select a subject</option>
+                            @if (Model.AvailableSubjects.Any())
+                            {
+                                foreach (var subject in Model.AvailableSubjects)
+                                {
+                                <option value="@subject">@subject</option>
+                                }
+                            }
+                            else
+                            {
+                                <option value="" disabled="disabled">No subjects available</option>
+                            }
+                        </select>
+                        <span class="help-inline">(optional)</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

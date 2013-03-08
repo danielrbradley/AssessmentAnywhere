@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-
-namespace AssessmentAnywhere.Models.Assessments
+﻿namespace AssessmentAnywhere.Models.Assessments
 {
+    using System.Collections.Generic;
+
     public class IndexModel
     {
-        public IndexModel()
+        public IndexModel(IEnumerable<Assessment> assessments)
         {
-            Assessments = new List<Assessment>();
+            Assessments = assessments;
         }
 
-        public List<Assessment> Assessments { get; set; }
+        public IEnumerable<Assessment> Assessments { get; private set; }
     }
 }

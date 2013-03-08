@@ -1,12 +1,9 @@
 ﻿@model AssessmentAnywhere.Models.Assessments.IndexModel
 @{
     ViewBag.Title = "Index";
+    Layout = "_Layout.cshtml";
 }
 
-<ul class="nav nav-tabs">
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-</ul>
 <div class="row-fluid">
     <div class="span3">
         <p>

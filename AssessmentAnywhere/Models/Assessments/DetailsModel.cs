@@ -20,7 +20,7 @@ namespace AssessmentAnywhere.Models.Assessments
 
         public List<Candidate> Candidates { get; set; }
 
-        public List<Assessment> AllAssessments { get; set; }
+        public IEnumerable<Assessment> AllAssessments { get; set; }
 
         public class Candidate
         {

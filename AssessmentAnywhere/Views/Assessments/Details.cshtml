@@ -1,12 +1,9 @@
 ﻿@model AssessmentAnywhere.Models.Assessments.DetailsModel
 @{
     ViewBag.Title = Model.Name;
+    Layout = "_Layout.cshtml";
 }
 
-<ul class="nav nav-tabs">
-    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-    <li class="active">@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-</ul>
 <div class="row-fluid">
     <div class="span3">
         <p>
@@ -78,14 +75,11 @@
                 </tr>
             </tbody>
         </table>
-        @Html.ActionLink("Edit grade boundaries", "Details", "GradeBoundaries", new { id = Model.Id }, new { @class = "btn" })
+        <div class="btn-group">
+            @Html.ActionLink("Edit grade boundaries", "Details", "GradeBoundaries", new { id = Model.Id }, new { @class = "btn" })
+            @Html.ActionLink("Show Statistics", "ShowStatistics", "Statistics", new { id = Model.Id }, new { @class = "btn" })
+        </div>
     </div>
-</div>
-
-<div>
-         <p>
-            @Html.ActionLink("Show Statistics", "ShowStatistics", "Statistics", new {id=Model.Id}, new { @class = "btn btn-primary" })
-        </p>
 </div>
 
 @section Scripts
@@ -114,7 +108,7 @@
                 $('#newControls').removeClass("error");
             });
             $('#newbtn').click(addCandidate);
-            
+
 
         });
     </script>

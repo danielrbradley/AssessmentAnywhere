@@ -4,8 +4,19 @@
 
     public class Assessment
     {
-        public Guid Id { get; set; }
+        public Assessment(Guid id, string name)
+        {
+            Id = id;
+            Name = name;
+        }
 
-        public string Name { get; set; }
+        public Assessment(Services.Repos.Models.Assessment assessment)
+            : this(assessment.Id, assessment.Name)
+        {
+        }
+
+        public Guid Id { get; private set; }
+
+        public string Name { get; private set; }
     }
 }

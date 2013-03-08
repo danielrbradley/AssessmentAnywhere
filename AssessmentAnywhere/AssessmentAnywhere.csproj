@@ -128,7 +128,6 @@
     <Compile Include="Controllers\AssessmentsController.cs" />
     <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RegistersController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -236,11 +235,11 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\TopNavItem.cshtml" />
     <Content Include="Views\Assessments\Index.cshtml" />
-    <Content Include="Views\Registers\Index.cshtml" />
     <Content Include="Views\Assessments\Details.cshtml" />
     <Content Include="Views\Assessments\Create.cshtml" />
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
     <Content Include="Views\GradeBoundaries\Details.cshtml" />
+    <Content Include="Views\Assessments\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

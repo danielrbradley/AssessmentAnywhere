@@ -15,29 +15,19 @@ namespace AssessmentAnywhere.Controllers
 
     public class AssessmentsController : Controller
     {
-        //
-        // GET: /Assessments/
+        private static readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
+        // GET: /Assessments/
         public ActionResult Index()
         {
-            var model = new IndexModel { Assessments = GetAssessmentsForIndex() };
+            var model = new IndexModel(assessmentsRepo.QueryAssessments().Select(a => new Assessment(a)));
             return View(model);
         }
 
-        private List<Assessment> GetAssessmentsForIndex()
-        {
-            var repo = new AssessmentsRepo();
-            return repo.QueryAssessments().Select(a => new Assessment { Id = a.Id, Name = a.Name }).ToList();
-        }
-
+        // GET: /Assessments/Create?registerId={registerId}
         public ActionResult Create(Guid? registerId)
         {
-            var model = new CreateModel
-                            {
-                                Name = string.Empty,
-                                SelectedSubject = string.Empty,
-                                AvailableSubjects = GetSubjectsForCreate(),
-                            };
+            var model = new CreateModel();
             return View(model);
         }
 
@@ -81,7 +71,7 @@ namespace AssessmentAnywhere.Controllers
                                 Name = assessment.AssessmentName,
                                 Candidates = assessment.Candidates.Select(c => new DetailsModel.Candidate { Name = c.Name, Result = c.Result, Grade = c.Grade }).ToList(),
                                 HasBoundaries = assessment.Boundaries.Any(),
-                                AllAssessments = GetAssessmentsForIndex(),
+                                AllAssessments = assessmentsRepo.QueryAssessments().Select(a => new Assessment(a)),
                             };
             return View(model);
         }
