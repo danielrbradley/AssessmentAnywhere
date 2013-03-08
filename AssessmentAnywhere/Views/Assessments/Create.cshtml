@@ -11,29 +11,11 @@
             <fieldset>
                 <legend>New assessment</legend>
                 <div class="control-group">
-                    <label class="control-label" for="input-name">Name</label>
+                    @Html.LabelFor(m => m.Name, "Assessment Name", new { @class = "control-label" })
                     <div class="controls">
-                        <input type="text" id="input-name" name="name" placeholder="Name" value="@Model.Name" />
-                    </div>
-                </div>
-                <div class="control-group">
-                    <label class="control-label" for="input-subject">Subject</label>
-                    <div class="controls">
-                        <select id="input-subject" name="subject">
-                            <option value="">Select a subject</option>
-                            @if (Model.AvailableSubjects.Any())
-                            {
-                                foreach (var subject in Model.AvailableSubjects)
-                                {
-                                <option value="@subject">@subject</option>
-                                }
-                            }
-                            else
-                            {
-                                <option value="" disabled="disabled">No subjects available</option>
-                            }
-                        </select>
-                        <span class="help-inline">(optional)</span>
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Assessment Name" })
+                        <em>@Html.ValidationMessageFor(m => m.Name)</em>
+                        <span class="help-block">Give your new assessment a helpful, discriptive name.</span>
                     </div>
                 </div>
                 <div class="control-group">

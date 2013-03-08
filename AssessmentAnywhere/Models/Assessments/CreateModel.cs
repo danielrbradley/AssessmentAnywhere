@@ -1,26 +1,20 @@
 ﻿namespace AssessmentAnywhere.Models.Assessments
 {
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.ComponentModel.DataAnnotations;
 
     public class CreateModel
     {
         public CreateModel()
-            : this(string.Empty, string.Empty, Enumerable.Empty<string>())
+            : this(string.Empty)
         {
         }
 
-        public CreateModel(string name, string selectedSubject, IEnumerable<string> availableSubjects)
+        public CreateModel(string name)
         {
             Name = name;
-            SelectedSubject = selectedSubject;
-            AvailableSubjects = availableSubjects;
         }
 
+        [Required(ErrorMessage = "The assessment name is required")]
         public string Name { get; set; }
-
-        public string SelectedSubject { get; set; }
-
-        public IEnumerable<string> AvailableSubjects { get; set; }
     }
 }

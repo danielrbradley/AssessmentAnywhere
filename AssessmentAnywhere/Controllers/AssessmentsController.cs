@@ -32,27 +32,21 @@ namespace AssessmentAnywhere.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string name, string subject)
+        public ActionResult Create(CreateModel model)
         {
-            if (string.IsNullOrWhiteSpace(name))
+            if (!ModelState.IsValid)
             {
-                var model = new CreateModel
-                {
-                    Name = name,
-                    SelectedSubject = subject,
-                    AvailableSubjects = GetSubjectsForCreate(),
-                };
                 return View(model);
             }
 
-            var assessmentsRepo = new AssessmentsRepo();
-            var assessment = assessmentsRepo.Create();
-            assessment.SetName(name);
-
-            if (!string.IsNullOrWhiteSpace(subject))
+            if (assessmentsRepo.QueryAssessments().Any(a => a.Name == model.Name))
             {
-                new SubjectRepo().AddSubjectAssessment(assessment.Id, subject);
+                ModelState.AddModelError("Name", "You've already got another assessment with this name.");
+                return View(model);
             }
+
+            var assessment = assessmentsRepo.Create();
+            assessment.SetName(model.Name);
 
             return RedirectToAction("Details", new { id = assessment.Id });
         }
