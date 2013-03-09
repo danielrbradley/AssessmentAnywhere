@@ -2,8 +2,14 @@
 {
     public class Boundary
     {
-        public int MinResult { get; set; }
+        public decimal MinResult { get; private set; }
 
-        public string Grade { get; set; }
+        public string Grade { get; private set; }
+
+        public Boundary(string grade, decimal minResult)
+        {
+            this.Grade = grade;
+            this.MinResult = minResult;
+        }
     }
 }

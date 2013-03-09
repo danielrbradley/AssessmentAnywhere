@@ -1,5 +1,7 @@
 ﻿namespace AssessmentAnywhere.Services.Repos.Models
 {
+    using System;
+
     public class AssessmentResult
     {
         public AssessmentResult(string candidateName)
@@ -8,10 +10,18 @@
         }
 
         public AssessmentResult(string candidateName, decimal? result)
+            : this(Guid.NewGuid(), candidateName, result)
         {
+        }
+
+        public AssessmentResult(Guid id, string candidateName, decimal? result)
+        {
+            Id = id;
             CandidateName = candidateName;
             Result = result;
         }
+
+        public Guid Id { get; private set; }
 
         public string CandidateName { get; private set; }
 

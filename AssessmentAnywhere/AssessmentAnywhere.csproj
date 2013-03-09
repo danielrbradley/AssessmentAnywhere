@@ -126,6 +126,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Models\Assessments\AddResultRowModel.cs" />
+    <Compile Include="Models\Assessments\UpdateModel.cs" />
+    <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
+    <Compile Include="Models\Assessments\DetailsModel.cs" />
     <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
@@ -134,8 +138,9 @@
     </Compile>
     <Compile Include="Models\Assessments\Assessment.cs" />
     <Compile Include="Models\Assessments\CreateModel.cs" />
-    <Compile Include="Models\Assessments\DetailsModel.cs" />
+    <Compile Include="Models\Assessments\ResultRow.cs" />
     <Compile Include="Models\Assessments\IndexModel.cs" />
+    <Compile Include="Models\Assessments\UpdateResultRow.cs" />
     <Compile Include="Models\Stats\AssessmentStatisticsModel.cs" />
     <Compile Include="Models\GradeBoundaries\DetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -291,7 +296,6 @@
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
     <Content Include="Views\GradeBoundaries\Details.cshtml" />
     <Content Include="Views\Assessments\_Layout.cshtml" />
-    <Content Include="Views\Assessments\CreateFirst.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
