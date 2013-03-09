@@ -89,6 +89,7 @@
                                     {
                                         @class = "input-small",
                                         placeholder = "Surname",
+                                        tabindex = (i * 2) + 1,
                                     })
                                         <span class="add-on">,</span>
                                     </div>
@@ -97,6 +98,7 @@
                                         {
                                             @class = "input-small",
                                             placeholder = "Forenames",
+                                            tabindex = (i * 2) + 2
                                         })
                                 </td>
                                 <td>
@@ -108,6 +110,7 @@
                                                     @class = "input-mini",
                                                     placeholder = "#",
                                                     autofocus = "autofocus",
+                                                    tabindex = (Model.Results.Count * 2) + 3 + i,
                                                 })
                                     }
                                     else
@@ -117,6 +120,7 @@
                                                 {
                                                     @class = "input-mini",
                                                     placeholder = "#",
+                                                    tabindex = (Model.Results.Count * 2) + 3 + i,
                                                 })
                                     }
                                 </td>
@@ -170,6 +174,7 @@
                                             placeholder = "Surname",
                                             @class = "input-small",
                                             autofocus = "autofocus",
+                                            tabindex = (Model.Results.Count * 2) + 1,
                                         })
                                         <span class="add-on">,</span>
                                     </div>
@@ -179,6 +184,7 @@
                                         {
                                             placeholder = "Forenames",
                                             @class = "input-small",
+                                            tabindex = (Model.Results.Count * 2) + 2,
                                         })
                             </td>
                             <td>
