@@ -51,7 +51,7 @@
             var results = from result in assessment.Results
                           let grade = boundaries.Boundaries.ForResult(result.Result)
                           let percentage = result.Result / boundaries.MaxResult
-                          select new ResultRow(result.Id, result.CandidateName, result.Result, percentage, grade);
+                          select new ResultRow(result.Id, result.Surname, result.Forenames, result.Result, percentage, grade);
 
             return results.ToList();
         }
@@ -59,7 +59,7 @@
         private static IList<ResultRow> GenerateResultsFromRepoModels(Services.Repos.Models.Assessment assessment)
         {
             var results = from result in assessment.Results
-                          select new ResultRow(result.Id, result.CandidateName, result.Result);
+                          select new ResultRow(result.Id, result.Surname, result.Forenames, result.Result);
             return results.ToList();
         }
 

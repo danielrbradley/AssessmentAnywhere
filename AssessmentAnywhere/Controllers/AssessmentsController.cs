@@ -1,39 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace AssessmentAnywhere.Controllers
+﻿namespace AssessmentAnywhere.Controllers
 {
-    using System.Collections;
+    using System;
+    using System.Linq;
+    using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.Assessments;
-    using AssessmentAnywhere.Services;
     using AssessmentAnywhere.Services.Repos;
-    using AssessmentAnywhere.Services.Repos.Models;
 
     using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
     public class AssessmentsController : Controller
     {
-        private static readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
-        private static readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
+        private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
 
         // GET: /Assessments/
         public ActionResult Index()
         {
-            var assessments = assessmentsRepo.QueryAssessments().Select(a => new Assessment(a));
+            var assessments = this.assessmentsRepo.QueryAssessments().Select(a => new Assessment(a));
             var model = new IndexModel(assessments);
-            return View(model);
+            return this.View(model);
         }
 
         // GET: /Assessments/Create?registerId={registerId}
         public ActionResult Create(Guid? registerId)
         {
             var model = new CreateModel();
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
@@ -41,27 +35,27 @@ namespace AssessmentAnywhere.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return this.View(model);
             }
 
-            if (assessmentsRepo.QueryAssessments().Any(a => a.Name == model.Name))
+            if (this.assessmentsRepo.QueryAssessments().Any(a => a.Name == model.Name))
             {
                 ModelState.AddModelError("Name", "You've already got another assessment with this name.");
-                return View(model);
+                return this.View(model);
             }
 
-            var assessment = assessmentsRepo.Create();
+            var assessment = this.assessmentsRepo.Create();
             assessment.SetName(model.Name);
 
-            return RedirectToAction("Details", new { id = assessment.Id });
+            return this.RedirectToAction("Details", new { id = assessment.Id });
         }
 
         [HttpGet]
         public ActionResult Details(Guid id, int? lastSelectedResult)
         {
-            var assessment = assessmentsRepo.Open(id);
+            var assessment = this.assessmentsRepo.Open(id);
             bool hasBoundaries;
-            var boundaries = gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
+            var boundaries = this.gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
             DetailsModel model;
 
             if (hasBoundaries)
@@ -73,15 +67,13 @@ namespace AssessmentAnywhere.Controllers
                 model = new DetailsModel(assessment, lastSelectedResult);
             }
 
-            return View(model);
+            return this.View(model);
         }
 
         [HttpPost]
         public ActionResult Update(Guid id, UpdateModel model)
         {
-            var assessment = assessmentsRepo.Open(id);
-            bool hasBoundaries;
-            var boundaries = gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
+            var assessment = this.assessmentsRepo.Open(id);
 
             if (model.Name != assessment.Name)
             {
@@ -95,9 +87,9 @@ namespace AssessmentAnywhere.Controllers
             {
                 var assessmentResult = assessment.Results.Single(r => r.Id == modelResult.RowId);
 
-                if (modelResult.CandidateName != assessmentResult.CandidateName)
+                if (modelResult.Forenames != assessmentResult.Forenames || modelResult.Surname != assessmentResult.Surname)
                 {
-                    assessment.SetCandidateName(assessmentResult.Id, modelResult.CandidateName);
+                    assessment.SetCandidateNames(assessmentResult.Id, modelResult.Surname, modelResult.Forenames);
                 }
 
                 if (modelResult.Result != assessmentResult.Result)
@@ -108,67 +100,23 @@ namespace AssessmentAnywhere.Controllers
             }
 
             // Check for new row
-            if (model.Results.Last().RowId == Guid.Empty && !string.IsNullOrWhiteSpace(model.Results.Last().CandidateName))
+            var lastRow = model.Results.Last();
+            if (lastRow.RowId == Guid.Empty
+                && !string.IsNullOrWhiteSpace(lastRow.Surname)
+                && !string.IsNullOrWhiteSpace(lastRow.Forenames))
             {
-                assessment.AddCandidate(model.Results.Last().CandidateName);
+                assessment.AddCandidate(lastRow.Surname, lastRow.Forenames);
             }
 
-            return RedirectToAction("Details", new { id, lastSelectedResult });
+            return this.RedirectToAction("Details", new { id, lastSelectedResult });
         }
 
         public ActionResult DeleteResultRow(Guid id, Guid rowId)
         {
-            var assessment = assessmentsRepo.Open(id);
+            var assessment = this.assessmentsRepo.Open(id);
             assessment.RemoveResult(rowId);
 
-            return RedirectToAction("Details", new { id });
+            return this.RedirectToAction("Details", new { id });
         }
-
-        [HttpPost]
-        public ActionResult AddResult(Guid id, AddResultRowModel postbackModel)
-        {
-            var assessment = new AssessmentsRepo().Open(id);
-            var rowId = assessment.AddCandidate(postbackModel.CandidateName);
-            assessment.SetCandidateResult(rowId, postbackModel.Result);
-            var returnModel = new ResultRow(rowId, postbackModel.CandidateName, postbackModel.Result);
-            return Json(returnModel);
-        }
-
-        [HttpPost]
-        public void DeleteResult(Guid id, DeleteResultRowModel postbackModel)
-        {
-            var assessment = new AssessmentsRepo().Open(id);
-            assessment.RemoveResult(postbackModel.RowId);
-        }
-
-        [HttpPost]
-        public void UpdateResult(Guid id, UpdateResultRow postbackModel)
-        {
-            var assessment = new AssessmentsRepo().Open(id);
-            assessment.SetCandidateName(postbackModel.RowId, postbackModel.CandidateName);
-            assessment.SetCandidateResult(postbackModel.RowId, postbackModel.Result);
-        }
-
-        //public ActionResult AddGradeBoundaries(Guid id)
-        //{
-        //    var gradeBoundariesRepo = new GradeBoundariesRepo();
-        //    var boundary = gradeBoundariesRepo.OpenOrCreate(id);
-
-        //    var boundaryList = new List<Boundary>
-        //        {
-        //            new Boundary {Grade = "A*", MinResult = 80},
-        //            new Boundary {Grade = "A", MinResult = 70},
-        //            new Boundary {Grade = "B", MinResult = 60},
-        //            new Boundary {Grade = "C", MinResult = 50},
-        //            new Boundary {Grade = "D", MinResult = 40},
-        //            new Boundary {Grade = "E", MinResult = 30},
-        //        };
-        //    boundary.Boundaries = boundaryList;
-
-
-
-
-        //    return RedirectToAction("Details", new { id = id });
-        //}
     }
 }

@@ -57,7 +57,6 @@
     <Compile Include="Models\AssessmentGrades.cs" />
     <Compile Include="Models\AssessmentStatistic.cs" />
     <Compile Include="Models\CandidateGrade.cs" />
-    <Compile Include="AssessmentService.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

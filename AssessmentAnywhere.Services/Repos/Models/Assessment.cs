@@ -40,9 +40,9 @@
             }
         }
 
-        public Guid AddCandidate(string candidateName)
+        public Guid AddCandidate(string surname, string forenames)
         {
-            var assessmentResult = new AssessmentResult(candidateName);
+            var assessmentResult = new AssessmentResult(surname, forenames);
             this.results.Add(assessmentResult.Id, assessmentResult);
             return assessmentResult.Id;
         }
@@ -52,16 +52,16 @@
             this.Name = name;
         }
 
-        public void SetCandidateName(Guid id, string newCandidateName)
+        public void SetCandidateNames(Guid id, string surname, string forenames)
         {
             var result = results[id].Result;
-            this.results[id] = new AssessmentResult(id, newCandidateName, result);
+            this.results[id] = new AssessmentResult(id, surname, forenames, result);
         }
 
         public void SetCandidateResult(Guid id, decimal? result)
         {
-            var candidateName = results[id].CandidateName;
-            this.results[id] = new AssessmentResult(id, candidateName, result);
+            var oldCandidate = results[id];
+            this.results[id] = new AssessmentResult(id, oldCandidate.Surname, oldCandidate.Forenames, result);
         }
 
         public void RemoveResult(Guid id)

@@ -132,7 +132,6 @@
     <Compile Include="Models\Assessments\DetailsModel.cs" />
     <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

@@ -12,7 +12,7 @@
                 var assessmentsRepo = new AssessmentsRepo();
                 var assessments = assessmentsRepo.QueryAssessments();
 
-                return assessments.SelectMany(a => a.Results.Select(r => r.CandidateName)).Distinct().ToList();
+                return assessments.SelectMany(a => a.Results.Select(r => string.Concat(r.Surname, ", ", r.Forenames))).Distinct().ToList();
             }
         }
     }

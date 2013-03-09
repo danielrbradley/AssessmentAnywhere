@@ -63,7 +63,7 @@
                     <caption></caption>
                     <thead>
                         <tr>
-                            <th>Name</th>
+                            <th>Surname, Fornames</th>
                             <th>Result</th>
                             <th>Percentage</th>
                             <th>Grade</th>
@@ -79,7 +79,21 @@
                             <tr>
                                 <td>
                                     @Html.HiddenFor(m => m.Results[i].RowId)
-                                    @Html.TextBoxFor(m => m.Results[i].CandidateName)
+                                    <div class="input-append">
+                                    @Html.TextBoxFor(m => m.Results[i].Surname,
+                                    new
+                                    {
+                                        @class = "input-small",
+                                        placeholder = "Surname",
+                                    })
+                                        <span class="add-on">,</span>
+                                    </div>
+                                    @Html.TextBoxFor(m => m.Results[i].Forenames,
+                                    new
+                                        {
+                                            @class = "input-small",
+                                            placeholder = "Forenames",
+                                        })
                                 </td>
                                 <td>
                                     @if (Model.SelectedResultIndex.HasValue && Model.SelectedResultIndex.Value == i)
@@ -103,12 +117,15 @@
                                     }
                                 </td>
                                 <td>
-                                    @Html.TextBoxFor(m => m.Results[i].Percentage,
-                                    new
-                                        {
-                                            @class = "input-mini",
-                                            disabled = "disabled",
-                                        })
+                                    <div class="input-append">
+                                        @Html.TextBoxFor(m => m.Results[i].Percentage,
+                                        new
+                                            {
+                                                @class = "input-mini",
+                                                disabled = "disabled",
+                                            })
+                                        <span class="add-on">%</span>
+                                    </div>
                                 </td>
                                 <td>
                                     @Html.TextBoxFor(m => m.Results[i].Grade,
@@ -130,12 +147,35 @@
                             <td>
                                 @if (Model.SelectedResultIndex.HasValue)
                                 {
-                                    @Html.TextBox("Results[" + Model.Results.Count + "].CandidateName", "", new { });
+                                    <div class="input-append">
+                                        @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
+                                    new
+                                        {
+                                            placeholder = "Surname",
+                                            @class = "input-small",
+                                        })
+                                        <span class="add-on">,</span>
+                                    </div>
                                 }
                                 else
                                 {
-                                    @Html.TextBox("Results[" + Model.Results.Count + "].CandidateName", "", new { autofocus = "autofocus", });
+                                    <div class="input-append">
+                                        @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
+                                    new
+                                        {
+                                            placeholder = "Surname",
+                                            @class = "input-small",
+                                            autofocus = "autofocus",
+                                        })
+                                        <span class="add-on">,</span>
+                                    </div>
                                 }
+                                @Html.TextBox("Results[" + Model.Results.Count + "].Forenames", "",
+                                    new
+                                        {
+                                            placeholder = "Forenames",
+                                            @class = "input-small",
+                                        })
                             </td>
                             <td>
                                 @Html.TextBox("Results[" + Model.Results.Count + "].Result", "",
