@@ -12,6 +12,9 @@
         .sidebar-nav {
             padding: 9px 0;
         }
+        td > * {
+            margin-bottom: 0  !important;
+        }
     </style>
 }
 
@@ -52,22 +55,36 @@
         <div class="span9">
             <div class="row-fluid">
                 <div class="span6">
-                    @Html.TextBoxFor(m => m.Name, new { title = "Assessment name", @class = "span12" })
+                    @Html.TextBoxFor(m => m.Name, 
+                    new
+                        {
+                            title = "Assessment name", 
+                            @class = "span12",
+                            tabindex = 1,
+                        })
                 </div>
                 <div class="span5 form-inline">
                     @Html.LabelFor(m => m.TotalMarks, "Out of: ")
-                    @Html.TextBoxFor(m => m.TotalMarks, new { @class = "input-mini", type = "number", placeholder = "total #" })
+                    @Html.TextBoxFor(m => m.TotalMarks, 
+                    new
+                        {
+                            @class = "input-mini", 
+                            type = "number", 
+                            placeholder = "total #",
+                            tabindex = 2,
+                        })
                 </div>
                 <div class="span1">
-                    <input type="submit" class="btn btn-primary pull-right" value="Save changes" title="Hint: you can also just press enter!" />
+                    <input type="submit" class="btn btn-primary pull-right" 
+                        value="Save changes" title="Hint: you can also just press enter!" tabindex="@((Model.Results.Count * 3) + 5)" />
                 </div>
             </div>
             <div class="row-fluid">
-                <table class="table table-bordered table-striped" id="candidates">
-                    <caption></caption>
+                <table class="table" id="candidates">
                     <thead>
                         <tr>
-                            <th>Surname, Fornames</th>
+                            <th>Surname</th>
+                            <th>Fornames</th>
                             <th>Result</th>
                             <th>Percentage</th>
                             <th>Grade</th>
@@ -83,23 +100,22 @@
                             <tr>
                                 <td>
                                     @Html.HiddenFor(m => m.Results[i].RowId)
-                                    <div class="input-append">
-                                        @Html.TextBoxFor(m => m.Results[i].Surname,
-                                    new
-                                    {
-                                        @class = "input-small",
-                                        placeholder = "Surname",
-                                        tabindex = (i * 2) + 1,
-                                    })
-                                        <span class="add-on">,</span>
-                                    </div>
+                                    @Html.TextBoxFor(m => m.Results[i].Surname,
+                                        new
+                                            {
+                                                @class = "input-small",
+                                                placeholder = "Surname",
+                                                tabindex = (i * 2) + 3,
+                                            })
+                                </td>
+                                <td>
                                     @Html.TextBoxFor(m => m.Results[i].Forenames,
-                                    new
-                                        {
-                                            @class = "input-small",
-                                            placeholder = "Forenames",
-                                            tabindex = (i * 2) + 2
-                                        })
+                                        new
+                                            {
+                                                @class = "input-small",
+                                                placeholder = "Forenames",
+                                                tabindex = (i * 2) + 4
+                                            })
                                 </td>
                                 <td>
                                     @if (Model.SelectedResultIndex.HasValue && Model.SelectedResultIndex.Value == i)
@@ -110,7 +126,8 @@
                                                     @class = "input-mini",
                                                     placeholder = "#",
                                                     autofocus = "autofocus",
-                                                    tabindex = (Model.Results.Count * 2) + 3 + i,
+                                                    type = "number",
+                                                    tabindex = (Model.Results.Count * 2) + 5 + i,
                                                 })
                                     }
                                     else
@@ -120,18 +137,19 @@
                                                 {
                                                     @class = "input-mini",
                                                     placeholder = "#",
-                                                    tabindex = (Model.Results.Count * 2) + 3 + i,
+                                                    type = "number",
+                                                    tabindex = (Model.Results.Count * 2) + 5 + i,
                                                 })
                                     }
                                 </td>
                                 <td>
                                     <div class="input-append">
                                         @Html.TextBoxFor(m => m.Results[i].Percentage,
-                                        new
-                                            {
-                                                @class = "input-mini",
-                                                disabled = "disabled",
-                                            })
+                                            new
+                                                {
+                                                    @class = "input-mini",
+                                                    disabled = "disabled",
+                                                })
                                         <span class="add-on">%</span>
                                     </div>
                                 </td>
@@ -144,7 +162,7 @@
                                             })
                                 </td>
                                 <td>
-                                    <a href="@Url.Action("DeleteResultRow", new { id = Model.Id, rowId = Model.Results[i].RowId })" class="btn btn-danger">
+                                    <a tabindex="@((Model.Results.Count * 3) + 6 + i)" href="@Url.Action("DeleteResultRow", new { id = Model.Id, rowId = Model.Results[i].RowId })" class="btn btn-danger">
                                         <i class="icon-remove"></i>
                                         Delete
                                     </a>
@@ -155,56 +173,53 @@
                             <td>
                                 @if (Model.SelectedResultIndex.HasValue)
                                 {
-                                    <div class="input-append">
-                                        @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
-                                    new
-                                        {
-                                            placeholder = "Surname",
-                                            @class = "input-small",
-                                        })
-                                        <span class="add-on">,</span>
-                                    </div>
+                                    @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
+                                        new
+                                            {
+                                                placeholder = "Surname",
+                                                @class = "input-small",
+                                                tabindex = (Model.Results.Count * 2) + 3,
+                                            })
                                 }
                                 else
                                 {
-                                    <div class="input-append">
-                                        @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
-                                    new
-                                        {
-                                            placeholder = "Surname",
-                                            @class = "input-small",
-                                            autofocus = "autofocus",
-                                            tabindex = (Model.Results.Count * 2) + 1,
-                                        })
-                                        <span class="add-on">,</span>
-                                    </div>
+                                    @Html.TextBox("Results[" + Model.Results.Count + "].Surname", "",
+                                        new
+                                            {
+                                                placeholder = "Surname",
+                                                @class = "input-small",
+                                                autofocus = "autofocus",
+                                                tabindex = (Model.Results.Count * 2) + 3,
+                                            })
                                 }
+                            </td>
+                            <td>
                                 @Html.TextBox("Results[" + Model.Results.Count + "].Forenames", "",
                                     new
                                         {
                                             placeholder = "Forenames",
                                             @class = "input-small",
-                                            tabindex = (Model.Results.Count * 2) + 2,
+                                            tabindex = (Model.Results.Count * 2) + 4,
                                         })
                             </td>
                             <td>
                                 @Html.TextBox("Results[" + Model.Results.Count + "].Result", "",
-                                new
-                                    {
-                                        @class = "input-mini",
-                                        type = "number",
-                                        disabled = "disabled",
-                                        placeholder = "#",
-                                    })
+                                    new
+                                        {
+                                            @class = "input-mini",
+                                            type = "number",
+                                            disabled = "disabled",
+                                            placeholder = "#",
+                                        })
                             </td>
                             <td>
                                 <div class="input-append">
                                     @Html.TextBox("Results[" + Model.Results.Count + "].Percentage", "",
-                                    new
-                                        {
-                                            @class = "input-mini",
-                                            disabled = "disabled",
-                                        })
+                                        new
+                                            {
+                                                @class = "input-mini",
+                                                disabled = "disabled",
+                                            })
                                     <span class="add-on">%</span>
                                 </div>
                             </td>
