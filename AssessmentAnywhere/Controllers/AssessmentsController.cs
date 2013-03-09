@@ -80,9 +80,14 @@
                 assessment.SetName(model.Name);
             }
 
-            int? lastSelectedResult = null;
+            // Check for total marks update.
+            if (model.TotalMarks != assessment.TotalMarks)
+            {
+                assessment.SetTotalMarks(model.TotalMarks);
+            }
 
             // Check for updates
+            int? lastSelectedResult = null;
             foreach (var modelResult in model.Results.Where(r => r.RowId != Guid.Empty))
             {
                 var assessmentResult = assessment.Results.Single(r => r.Id == modelResult.RowId);

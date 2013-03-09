@@ -8,15 +8,12 @@
     {
         private readonly Dictionary<string, Boundary> boundaries = new Dictionary<string, Boundary>();
 
-        public GradeBoundaries(Guid assessmentId, decimal maxResult)
+        public GradeBoundaries(Guid assessmentId)
         {
             AssessmentId = assessmentId;
-            MaxResult = maxResult;
         }
 
         public Guid AssessmentId { get; private set; }
-
-        public decimal MaxResult { get; private set; }
 
         public IEnumerable<Boundary> Boundaries
         {
@@ -24,11 +21,6 @@
             {
                 return boundaries.Values;
             }
-        }
-
-        public void SetMaxResult(decimal maxResult)
-        {
-            this.MaxResult = maxResult;
         }
 
         public void AddBoundary(string grade, decimal minResult)

@@ -14,13 +14,16 @@
 
         public IList<ResultRow> Results { get; private set; }
 
+        public decimal? TotalMarks { get; private set; }
+
         public int? SelectedResultIndex { get; private set; }
 
-        public DetailsModel(Guid id, string name, IList<ResultRow> results, int? selectedResultIndex)
+        public DetailsModel(Guid id, string name, IList<ResultRow> results, decimal? totalMarks, int? selectedResultIndex)
         {
             Id = id;
             Name = name;
             Results = results;
+            TotalMarks = totalMarks;
             SelectedResultIndex = selectedResultIndex;
         }
 
@@ -29,6 +32,7 @@
                 assessment.Id,
                 assessment.Name,
                 GenerateResultsFromRepoModels(assessment),
+                assessment.TotalMarks,
                 GetSelectedResultIndex(lastSelectedResult, assessment.Results))
         {
         }
@@ -41,6 +45,7 @@
                 assessment.Id,
                 assessment.Name,
                 GenerateResultsFromRepoModels(assessment, boundaries),
+                assessment.TotalMarks,
                 GetSelectedResultIndex(lastSelectedResult, assessment.Results))
         {
         }
@@ -50,7 +55,7 @@
         {
             var results = from result in assessment.Results
                           let grade = boundaries.Boundaries.ForResult(result.Result)
-                          let percentage = result.Result / boundaries.MaxResult
+                          let percentage = result.Result / assessment.TotalMarks * 100
                           select new ResultRow(result.Id, result.Surname, result.Forenames, result.Result, percentage, grade);
 
             return results.ToList();
@@ -59,7 +64,8 @@
         private static IList<ResultRow> GenerateResultsFromRepoModels(Services.Repos.Models.Assessment assessment)
         {
             var results = from result in assessment.Results
-                          select new ResultRow(result.Id, result.Surname, result.Forenames, result.Result);
+                          let percentage = result.Result / assessment.TotalMarks * 100
+                          select new ResultRow(result.Id, result.Surname, result.Forenames, result.Result, percentage);
             return results.ToList();
         }
 

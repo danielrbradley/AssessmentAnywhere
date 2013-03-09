@@ -14,14 +14,15 @@
         }
 
         public Assessment(Guid id, string name)
-            : this(id, name, Enumerable.Empty<AssessmentResult>())
+            : this(id, name, null, Enumerable.Empty<AssessmentResult>())
         {
         }
 
-        public Assessment(Guid id, string name, IEnumerable<AssessmentResult> results)
+        public Assessment(Guid id, string name, decimal? totalMarks, IEnumerable<AssessmentResult> results)
         {
             Id = id;
             Name = name;
+            TotalMarks = totalMarks;
             foreach (var assessmentResult in results)
             {
                 this.results.Add(assessmentResult.Id, assessmentResult);
@@ -31,6 +32,8 @@
         public Guid Id { get; private set; }
 
         public string Name { get; private set; }
+
+        public decimal? TotalMarks { get; private set; }
 
         public IList<AssessmentResult> Results
         {
@@ -50,6 +53,11 @@
         public void SetName(string name)
         {
             this.Name = name;
+        }
+
+        public void SetTotalMarks(decimal? totalMarks)
+        {
+            this.TotalMarks = totalMarks;
         }
 
         public void SetCandidateNames(Guid id, string surname, string forenames)

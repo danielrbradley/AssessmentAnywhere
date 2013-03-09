@@ -9,9 +9,9 @@
     {
         private static readonly Dictionary<Guid, GradeBoundaries> GradeBoundaries = new Dictionary<Guid, GradeBoundaries>();
 
-        public GradeBoundaries Create(Guid assessmentId, decimal maxResult)
+        public GradeBoundaries Create(Guid assessmentId)
         {
-            var boundaries = new GradeBoundaries(assessmentId, maxResult);
+            var boundaries = new GradeBoundaries(assessmentId);
             GradeBoundaries.Add(assessmentId, boundaries);
             return boundaries;
         }

@@ -10,5 +10,7 @@
         public string Name { get; set; }
 
         public IList<UpdateResultRow> Results { get; set; }
+
+        public decimal? TotalMarks { get; set; }
     }
 }

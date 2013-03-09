@@ -4,8 +4,8 @@
 
     public class ResultRow
     {
-        public ResultRow(Guid rowId, string surname, string forenames, decimal? result)
-            : this(rowId, surname, forenames, result, null, string.Empty)
+        public ResultRow(Guid rowId, string surname, string forenames, decimal? result, decimal? percentage)
+            : this(rowId, surname, forenames, result, percentage, string.Empty)
         {
         }
 
