@@ -6,7 +6,7 @@
 
     using AssessmentAnywhere.Services.Repos.Models;
 
-    public class DetailsModel
+    public class EditModel
     {
         public Guid Id { get; private set; }
 
@@ -18,7 +18,7 @@
 
         public int? SelectedResultIndex { get; private set; }
 
-        public DetailsModel(Guid id, string name, IList<ResultRow> results, decimal? totalMarks, int? selectedResultIndex)
+        public EditModel(Guid id, string name, IList<ResultRow> results, decimal? totalMarks, int? selectedResultIndex)
         {
             Id = id;
             Name = name;
@@ -27,7 +27,7 @@
             SelectedResultIndex = selectedResultIndex;
         }
 
-        public DetailsModel(Services.Repos.Models.Assessment assessment, int? lastSelectedResult)
+        public EditModel(Services.Repos.Models.Assessment assessment, int? lastSelectedResult)
             : this(
                 assessment.Id,
                 assessment.Name,
@@ -37,7 +37,7 @@
         {
         }
 
-        public DetailsModel(
+        public EditModel(
             Services.Repos.Models.Assessment assessment,
             Services.Repos.Models.GradeBoundaries boundaries,
             int? lastSelectedResult)

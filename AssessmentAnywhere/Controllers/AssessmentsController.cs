@@ -47,7 +47,7 @@
             var assessment = this.assessmentsRepo.Create();
             assessment.SetName(model.Name);
 
-            return this.RedirectToAction("Details", new { id = assessment.Id });
+            return this.RedirectToAction("Edit", new { id = assessment.Id });
         }
 
         public ActionResult Delete(Guid id)
@@ -69,20 +69,20 @@
         }
 
         [HttpGet]
-        public ActionResult Details(Guid id, int? lastSelectedResult)
+        public ActionResult Edit(Guid id, int? lastSelectedResult)
         {
             var assessment = this.assessmentsRepo.Open(id);
             bool hasBoundaries;
             var boundaries = this.gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
-            DetailsModel model;
+            EditModel model;
 
             if (hasBoundaries)
             {
-                model = new DetailsModel(assessment, boundaries, lastSelectedResult);
+                model = new EditModel(assessment, boundaries, lastSelectedResult);
             }
             else
             {
-                model = new DetailsModel(assessment, lastSelectedResult);
+                model = new EditModel(assessment, lastSelectedResult);
             }
 
             return this.View(model);
@@ -131,7 +131,7 @@
                 assessment.AddCandidate(lastRow.Surname, lastRow.Forenames);
             }
 
-            return this.RedirectToAction("Details", new { id, lastSelectedResult });
+            return this.RedirectToAction("Edit", new { id, lastSelectedResult });
         }
 
         public ActionResult DeleteResultRow(Guid id, Guid rowId)
@@ -139,7 +139,7 @@
             var assessment = this.assessmentsRepo.Open(id);
             assessment.RemoveResult(rowId);
 
-            return this.RedirectToAction("Details", new { id });
+            return this.RedirectToAction("Edit", new { id });
         }
     }
 }

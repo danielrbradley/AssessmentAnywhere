@@ -130,7 +130,7 @@
     <Compile Include="Models\Assessments\DeleteModel.cs" />
     <Compile Include="Models\Assessments\UpdateModel.cs" />
     <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
-    <Compile Include="Models\Assessments\DetailsModel.cs" />
+    <Compile Include="Models\Assessments\EditModel.cs" />
     <Compile Include="Controllers\GradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -291,7 +291,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\TopNavItem.cshtml" />
     <Content Include="Views\Assessments\Index.cshtml" />
-    <Content Include="Views\Assessments\Details.cshtml" />
+    <Content Include="Views\Assessments\Edit.cshtml" />
     <Content Include="Views\Assessments\Create.cshtml" />
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
     <Content Include="Views\GradeBoundaries\Details.cshtml" />

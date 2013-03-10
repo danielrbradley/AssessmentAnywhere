@@ -31,7 +31,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id }, new { @style = "display: block" })
+                                @Html.ActionLink(assessment.Name, "Edit", new { id = assessment.Id }, new { @style = "display: block" })
                             </td>
                             <td>
                                 <a href="@Url.Action("Delete", new { id = assessment.Id })" class="btn btn-small btn-danger pull-right" data-assessment-id="@assessment.Id">
