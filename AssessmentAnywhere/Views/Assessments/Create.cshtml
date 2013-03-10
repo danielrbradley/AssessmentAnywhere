@@ -13,14 +13,27 @@
                 <div class="control-group">
                     @Html.LabelFor(m => m.Name, "Assessment Name", new { @class = "control-label" })
                     <div class="controls">
-                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Assessment Name" })
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Assessment Name", autofocus = "autofocus" })
                         <em>@Html.ValidationMessageFor(m => m.Name)</em>
                         <span class="help-block">Give your new assessment a helpful, discriptive name.</span>
                     </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-primary">Create</button>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="icon-ok icon-white"></i>
+                                    Create
+                                </button>
+                            </div>
+                            <div class="span6">
+                                <a href="@Url.Action("Index")" class="btn btn-danger">
+                                    <i class="icon-remove icon-white"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>
