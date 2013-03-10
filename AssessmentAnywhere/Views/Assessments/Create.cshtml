@@ -4,142 +4,26 @@
     Layout = "_Layout.cshtml";
 }
 
-@section Head
-{
-    <style type="text/css">
-        .sidebar-nav {
-            padding: 9px 0;
+<div class="row-fluid">
+    <div class="span8 offset2 well">
+        @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <fieldset>
+                <legend>New assessment</legend>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.Name, "Assessment Name", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.Name, new { placeholder = "Assessment Name" })
+                        <em>@Html.ValidationMessageFor(m => m.Name)</em>
+                        <span class="help-block">Give your new assessment a helpful, discriptive name.</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                    </div>
+                </div>
+            </fieldset>
         }
-        td > * {
-            margin-bottom: 0  !important;
-        }
-    </style>
-}
-
-@using (Html.BeginForm("Create", "Assessments", FormMethod.Post))
-{
-        <div class="row-fluid">
-        <div class="span3">
-            <div class="well sidebar-nav">
-                <ul class="nav nav-list">
-                    <li>
-                        <a href="@Url.Action("Index")">
-                            <i class="icon-arrow-left"></i>
-                            back to assessments
-                        </a>
-                    </li>
-                    <li class="nav-header">Actions</li>
-                    <li class="disabled">
-                        <a href="#" title="Save your assessment first">
-                            <i class="icon-download-alt"></i>
-                            Import names...
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#" title="Save your assessment first">
-                            <i class="icon-arrow-down"></i>
-                            Sort results...
-                        </a>
-                    </li>
-                    <li class="disabled">
-                        <a href="#" title="Save your assessment first">
-                            <i class="icon-pencil"></i>
-                            Edit grade boundaries...
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="span9">
-            <div class="row-fluid">
-                <div class="span6">
-                    @Html.TextBoxFor(m => m.Name, 
-                    new
-                        {
-                            title = "Assessment name", 
-                            @class = "span12",
-                        })
-                </div>
-                <div class="span5 form-inline">
-                    @Html.Label("TotalMarks", "Out of: ")
-                    @Html.TextBox("TotalMarks", "",
-                    new
-                        {
-                            @class = "input-mini", 
-                            type = "number", 
-                            placeholder = "total #",
-                            disabled = "disabled",
-                        })
-                </div>
-                <div class="span1">
-                    <input type="submit" class="btn btn-primary pull-right" 
-                        value="Create assessment" title="Hint: you can also just press enter!" />
-                </div>
-            </div>
-            <div class="row-fluid">
-                <table class="table table-condensed" id="candidates">
-                    <thead>
-                        <tr>
-                            <th>Surname</th>
-                            <th>Fornames</th>
-                            <th>Result</th>
-                            <th>Percentage</th>
-                            <th>Grade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                @Html.TextBox("Results[0].Surname", "",
-                                    new
-                                        {
-                                            placeholder = "Surname",
-                                            @class = "input-small",
-                                            disabled = "disabled",
-                                        })
-                            </td>
-                            <td>
-                                @Html.TextBox("Results[0].Forenames", "",
-                                    new
-                                        {
-                                            placeholder = "Forenames",
-                                            @class = "input-small",
-                                            disabled = "disabled",
-                                        })
-                            </td>
-                            <td>
-                                @Html.TextBox("Results[0].Result", "",
-                                    new
-                                        {
-                                            @class = "input-mini",
-                                            type = "number",
-                                            disabled = "disabled",
-                                            placeholder = "#",
-                                        })
-                            </td>
-                            <td>
-                                <div class="input-append">
-                                    @Html.TextBox("Results[0].Percentage", "",
-                                        new
-                                            {
-                                                @class = "input-mini",
-                                                disabled = "disabled",
-                                            })
-                                    <span class="add-on">%</span>
-                                </div>
-                            </td>
-                            <td>
-                                @Html.TextBox("Results[0].Grade", "",
-                                    new
-                                        {
-                                            @class = "input-mini",
-                                            disabled = "disabled",
-                                        })
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
-}
+</div>

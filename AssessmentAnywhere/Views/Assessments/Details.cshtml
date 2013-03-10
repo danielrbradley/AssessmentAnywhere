@@ -13,6 +13,9 @@
         td > * {
             margin-bottom: 0  !important;
         }
+        input[readonly] {
+            cursor: default !important;
+        }
     </style>
 }
 
@@ -59,6 +62,7 @@
                             title = "Assessment name", 
                             @class = "span12",
                             tabindex = 1,
+                            placeholder = "Assessment name"
                         })
                 </div>
                 <div class="span5 form-inline">
@@ -146,7 +150,7 @@
                                             new
                                                 {
                                                     @class = "input-mini",
-                                                    disabled = "disabled",
+                                                    @readonly = "readonly",
                                                 })
                                         <span class="add-on">%</span>
                                     </div>
@@ -156,7 +160,7 @@
                                         new
                                             {
                                                 @class = "input-mini",
-                                                disabled = "disabled",
+                                                @readonly = "readonly",
                                             })
                                 </td>
                                 <td>
@@ -208,6 +212,7 @@
                                             type = "number",
                                             disabled = "disabled",
                                             placeholder = "#",
+                                            title = "Enter names first",
                                         })
                             </td>
                             <td>
@@ -216,7 +221,7 @@
                                         new
                                             {
                                                 @class = "input-mini",
-                                                disabled = "disabled",
+                                                @readonly = "readonly",
                                             })
                                     <span class="add-on">%</span>
                                 </div>
@@ -226,7 +231,7 @@
                                     new
                                         {
                                             @class = "input-mini",
-                                            disabled = "disabled",
+                                            @readonly = "readonly",
                                         })
                             </td>
                             @if (Model.Results.Any())

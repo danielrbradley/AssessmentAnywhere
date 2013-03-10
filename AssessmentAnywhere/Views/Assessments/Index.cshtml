@@ -47,8 +47,15 @@
         else
         {
             <div class="hero-unit">
-                <h2>Getting started</h2>
-                <p>Creating your first assessment by clicking "New assessment..." button on the actions menu to the left.</p>
+                <h2>Welcome to Assessment Anywhere</h2>
+                <p class="lead">Get started by creating a new assessment by creating a new assessment to put marks into!</p>
+                <p>Click the button below or select "New assessment..." from the menu on the left.</p>
+                <div class="pull-right">
+                    <a href="@Url.Action("Create", "Assessments")" class="btn btn-success btn-large">
+                        <i class="icon-plus icon-white"></i>
+                        Create new assessment...
+                    </a>
+                </div>
             </div>
         }
     </div>
