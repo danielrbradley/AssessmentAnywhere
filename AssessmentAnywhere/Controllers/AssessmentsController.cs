@@ -47,7 +47,7 @@
             var assessment = this.assessmentsRepo.Create();
             assessment.SetName(model.Name);
 
-            return this.RedirectToAction("Edit", new { id = assessment.Id });
+            return this.RedirectToAction("Index");
         }
 
         public ActionResult Delete(Guid id)
