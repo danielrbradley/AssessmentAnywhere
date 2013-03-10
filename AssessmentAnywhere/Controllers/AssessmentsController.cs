@@ -50,6 +50,24 @@
             return this.RedirectToAction("Details", new { id = assessment.Id });
         }
 
+        public ActionResult Delete(Guid id)
+        {
+            if (this.Request.HttpMethod.Equals("GET", StringComparison.InvariantCultureIgnoreCase))
+            {
+                var assessment = this.assessmentsRepo.Open(id);
+                var model = new DeleteModel(assessment);
+                return this.View(model);
+            }
+            
+            if (this.Request.HttpMethod.Equals("POST", StringComparison.InvariantCultureIgnoreCase))
+            {
+                this.assessmentsRepo.Delete(id);
+                return this.RedirectToAction("Index");
+            }
+
+            return this.HttpNotFound();
+        }
+
         [HttpGet]
         public ActionResult Details(Guid id, int? lastSelectedResult)
         {

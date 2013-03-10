@@ -18,46 +18,37 @@
         <div class="well sidebar-nav">
             <ul class="nav nav-list">
                 <li class="nav-header">Actions</li>
-                <li><a href="@Url.Action("Create")"><i class='icon-plus'></i> New Assessment</a></li>
+                <li><a href="@Url.Action("Create")"><i class='icon-plus'></i>New assessment ...</a></li>
             </ul>
         </div>
     </div>
     <div class="span9">
-        <ul class="nav nav-tabs nav-stacked">
-            @foreach (var assessment in Model.Assessments)
-            {
-                <li>@Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id })</li>
-            }
-        </ul>
-        @if (!Model.Assessments.Any())
+        @if (Model.Assessments.Any())
         {
-            <div class="row-fluid">
-                <div class="span8 offset2">
-                    <h2>Create your first assessment</h2>
-                    <p>Get started by creating a new assessment below.</p>
-                </div>
-            </div>
-            <div class="row-fluid">
-                <div class="span12 well">
-                    @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
+            <table class="table table-hover">
+                <tbody>
+                    @foreach (var assessment in Model.Assessments)
                     {
-                        <fieldset>
-                            <legend>New assessment</legend>
-                            <div class="control-group">
-                                @Html.Label("Name", "Assessment Name", new { @class = "control-label" })
-                                <div class="controls">
-                                    @Html.TextBox("Name", "", new { placeholder = "Assessment Name" })
-                                    <span class="help-block">Give your new assessment a helpful, discriptive name.</span>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="controls">
-                                    <button type="submit" class="btn btn-primary">Create</button>
-                                </div>
-                            </div>
-                        </fieldset>
+                        <tr>
+                            <td>
+                                @Html.ActionLink(assessment.Name, "Details", new { id = assessment.Id }, new { @style = "display: block" })
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Delete", new { id = assessment.Id })" class="btn btn-small btn-danger pull-right" data-assessment-id="@assessment.Id">
+                                    <i class="icon-remove icon-white"></i>
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
                     }
-                </div>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="hero-unit">
+                <h2>Getting started</h2>
+                <p>Creating your first assessment by clicking "New assessment..." button on the actions menu to the left.</p>
             </div>
         }
     </div>

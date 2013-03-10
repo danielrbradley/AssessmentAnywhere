@@ -1,0 +1,28 @@
+﻿@model AssessmentAnywhere.Models.Assessments.DeleteModel
+@{
+    ViewBag.Title = "New assessment";
+    Layout = "_Layout.cshtml";
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2 well">
+        @using (Html.BeginForm("Delete", "Assessments", new { id = Model.Id }, FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <fieldset>
+                <legend>Are you sure you want to delete the assessment named @Model.Name?</legend>
+                <div class="control-group">
+                    <div class="controls">
+                        <button type="submit" class="btn btn-danger">
+                            <i class="icon-ok icon-white"></i>
+                            Yes
+                        </button>
+                        <a href="@Url.Action("Index")" class="btn">
+                            <i class="icon-ban-circle"></i>
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>

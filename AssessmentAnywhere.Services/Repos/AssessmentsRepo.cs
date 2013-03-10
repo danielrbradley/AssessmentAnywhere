@@ -27,5 +27,10 @@
         {
             return Assessments.Values.AsQueryable();
         }
+
+        public void Delete(Guid id)
+        {
+            Assessments.Remove(id);
+        }
     }
 }

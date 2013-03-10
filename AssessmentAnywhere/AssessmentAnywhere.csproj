@@ -127,6 +127,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
     <Compile Include="Models\Assessments\AddResultRowModel.cs" />
+    <Compile Include="Models\Assessments\DeleteModel.cs" />
     <Compile Include="Models\Assessments\UpdateModel.cs" />
     <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
     <Compile Include="Models\Assessments\DetailsModel.cs" />
@@ -295,6 +296,7 @@
     <Content Include="Views\Statistics\ShowStatistics.cshtml" />
     <Content Include="Views\GradeBoundaries\Details.cshtml" />
     <Content Include="Views\Assessments\_Layout.cshtml" />
+    <Content Include="Views\Assessments\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
