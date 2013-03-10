@@ -74,16 +74,10 @@
             var assessment = this.assessmentsRepo.Open(id);
             bool hasBoundaries;
             var boundaries = this.gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
-            EditModel model;
 
-            if (hasBoundaries)
-            {
-                model = new EditModel(assessment, boundaries, lastSelectedResult);
-            }
-            else
-            {
-                model = new EditModel(assessment, lastSelectedResult);
-            }
+            var model = hasBoundaries 
+                ? new EditModel(assessment, boundaries, lastSelectedResult) 
+                : new EditModel(assessment, lastSelectedResult);
 
             return this.View(model);
         }
