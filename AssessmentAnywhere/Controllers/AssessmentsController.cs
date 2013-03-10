@@ -58,7 +58,7 @@
                 var model = new DeleteModel(assessment);
                 return this.View(model);
             }
-            
+
             if (this.Request.HttpMethod.Equals("POST", StringComparison.InvariantCultureIgnoreCase))
             {
                 this.assessmentsRepo.Delete(id);
@@ -75,8 +75,8 @@
             bool hasBoundaries;
             var boundaries = this.gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
 
-            var model = hasBoundaries 
-                ? new EditModel(assessment, boundaries, lastSelectedResult) 
+            var model = hasBoundaries
+                ? new EditModel(assessment, boundaries, lastSelectedResult)
                 : new EditModel(assessment, lastSelectedResult);
 
             return this.View(model);
@@ -86,6 +86,29 @@
         public ActionResult Update(Guid id, UpdateModel model)
         {
             var assessment = this.assessmentsRepo.Open(id);
+
+            // Validate
+            if (!string.IsNullOrWhiteSpace(model.NewRow.Surname)
+                || !string.IsNullOrWhiteSpace(model.NewRow.Forenames))
+            {
+                if (string.IsNullOrWhiteSpace(model.NewRow.Surname))
+                {
+                    ModelState.AddModelError("NewRow.Surname", "Surname cannot be blank");
+                }
+                else if (string.IsNullOrWhiteSpace(model.NewRow.Forenames))
+                {
+                    ModelState.AddModelError("NewRow.Forenames", "Forenames cannot be blank");
+                }
+            }
+
+            if (!ModelState.IsValid)
+            {
+                bool hasBoundaries;
+                var boundaries = this.gradeBoundariesRepo.TryOpen(id, out hasBoundaries);
+                var viewModel = hasBoundaries ? new EditModel(id, model, boundaries) : new EditModel(id, model);
+
+                return this.View("Edit", viewModel);
+            }
 
             if (model.Name != assessment.Name)
             {
@@ -100,29 +123,30 @@
 
             // Check for updates
             int? lastSelectedResult = null;
-            foreach (var modelResult in model.Results.Where(r => r.RowId != Guid.Empty))
+            if (model.Results != null)
             {
-                var assessmentResult = assessment.Results.Single(r => r.Id == modelResult.RowId);
-
-                if (modelResult.Forenames != assessmentResult.Forenames || modelResult.Surname != assessmentResult.Surname)
+                foreach (var modelResult in model.Results.Where(r => r.RowId != Guid.Empty))
                 {
-                    assessment.SetCandidateNames(assessmentResult.Id, modelResult.Surname, modelResult.Forenames);
-                }
+                    var assessmentResult = assessment.Results.Single(r => r.Id == modelResult.RowId);
 
-                if (modelResult.Result != assessmentResult.Result)
-                {
-                    lastSelectedResult = model.Results.IndexOf(modelResult);
-                    assessment.SetCandidateResult(assessmentResult.Id, modelResult.Result);
+                    if (modelResult.Forenames != assessmentResult.Forenames
+                        || modelResult.Surname != assessmentResult.Surname)
+                    {
+                        assessment.SetCandidateNames(assessmentResult.Id, modelResult.Surname, modelResult.Forenames);
+                    }
+
+                    if (modelResult.Result != assessmentResult.Result)
+                    {
+                        lastSelectedResult = model.Results.IndexOf(modelResult);
+                        assessment.SetCandidateResult(assessmentResult.Id, modelResult.Result);
+                    }
                 }
             }
 
             // Check for new row
-            var lastRow = model.Results.Last();
-            if (lastRow.RowId == Guid.Empty
-                && !string.IsNullOrWhiteSpace(lastRow.Surname)
-                && !string.IsNullOrWhiteSpace(lastRow.Forenames))
+            if (!string.IsNullOrWhiteSpace(model.NewRow.Surname) && !string.IsNullOrWhiteSpace(model.NewRow.Forenames))
             {
-                assessment.AddCandidate(lastRow.Surname, lastRow.Forenames);
+                assessment.AddCandidate(model.NewRow.Surname, model.NewRow.Forenames);
             }
 
             return this.RedirectToAction("Edit", new { id, lastSelectedResult });

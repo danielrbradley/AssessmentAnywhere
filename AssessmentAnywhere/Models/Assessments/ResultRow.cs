@@ -30,5 +30,7 @@
         public decimal? Percentage { get; private set; }
 
         public string Grade { get; private set; }
+
+        public static readonly ResultRow NewRow = new ResultRow(Guid.Empty, string.Empty, string.Empty, null, null);
     }
 }

@@ -11,6 +11,8 @@
 
         public IList<UpdateResultRow> Results { get; set; }
 
+        public UpdateResultRow NewRow { get; set; }
+
         public decimal? TotalMarks { get; set; }
     }
 }
