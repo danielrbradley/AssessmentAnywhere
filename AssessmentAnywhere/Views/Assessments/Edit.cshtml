@@ -58,7 +58,7 @@
                                     placeholder = "Assessment name"
                                 })
                     </div>
-                    <div class="span5 form-inline">
+                    <div class="span3 form-inline">
                         @Html.LabelFor(m => m.TotalMarks, "Out of: ")
                         @Html.TextBoxFor(m => m.TotalMarks, 
                             new
@@ -69,9 +69,12 @@
                                     tabindex = 2,
                                 })
                     </div>
-                    <div class="span1">
-                        <input type="submit" class="btn btn-primary pull-right has-tooltip" data-toggle="tooltip" data-placement="bottom"
-                               value="Save changes" title="Hint: you can also just press enter after editing!" tabindex="@((Model.Results.Count * 3) + 5)" />
+                    <div class="span3">
+                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 5)"
+                            data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
+                            <i class="icon-check icon-white"></i>
+                            Save changes
+                        </button>
                     </div>
                 </div>
                 <div class="row-fluid">
@@ -203,7 +206,7 @@
                                 </td>
                                 <td colspan="3">
                                     <button type="submit" class="btn btn-success">
-                                        <i class="icon-plus"></i>
+                                        <i class="icon-plus icon-white"></i>
                                         Add new candidate
                                     </button>
                                 </td>
