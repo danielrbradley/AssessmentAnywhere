@@ -85,10 +85,15 @@
         [HttpPost]
         public ActionResult Update(Guid id, UpdateModel model)
         {
+            if (model == null)
+            {
+                return this.RedirectToAction("Edit", new { id });
+            }
+
             var assessment = this.assessmentsRepo.Open(id);
 
             // Validate
-            if (!string.IsNullOrWhiteSpace(model.NewRow.Surname)
+            if (model.NewRow != null && !string.IsNullOrWhiteSpace(model.NewRow.Surname)
                 || !string.IsNullOrWhiteSpace(model.NewRow.Forenames))
             {
                 if (string.IsNullOrWhiteSpace(model.NewRow.Surname))
@@ -144,7 +149,7 @@
             }
 
             // Check for new row
-            if (!string.IsNullOrWhiteSpace(model.NewRow.Surname) && !string.IsNullOrWhiteSpace(model.NewRow.Forenames))
+            if (model.NewRow != null && !string.IsNullOrWhiteSpace(model.NewRow.Surname) && !string.IsNullOrWhiteSpace(model.NewRow.Forenames))
             {
                 assessment.AddCandidate(model.NewRow.Surname, model.NewRow.Forenames);
             }
