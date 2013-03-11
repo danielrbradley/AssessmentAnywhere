@@ -5,6 +5,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentAnywhere", "Asses
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssessmentAnywhere.Services", "AssessmentAnywhere.Services\AssessmentAnywhere.Services.csproj", "{C5D6E14A-C61E-4606-A9CE-0EC617B336D2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6570F1D3-7740-4E5F-93D8-1BA2FD928B31}"
+	ProjectSection(SolutionItems) = preProject
+		Roadmap.markdown = Roadmap.markdown
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
