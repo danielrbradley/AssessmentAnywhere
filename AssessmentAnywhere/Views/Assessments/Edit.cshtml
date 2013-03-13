@@ -37,8 +37,8 @@
                                 Sort results...
                             </a>
                         </li>
-                        <li class="disabled">
-                            <a href="#" title="Coming soon!">
+                        <li>
+                            <a href="@Url.Action("Edit", "AssessmentGradeBoundaries", new { id = Model.Id })">
                                 <i class="icon-pencil"></i>
                                 Edit grade boundaries...
                             </a>
@@ -59,7 +59,7 @@
                                 })
                     </div>
                     <div class="span3 form-inline">
-                        @Html.LabelFor(m => m.TotalMarks, "Out of: ")
+                        @Html.LabelFor(m => m.TotalMarks, "Total marks ")
                         @Html.TextBoxFor(m => m.TotalMarks, 
                             new
                                 {

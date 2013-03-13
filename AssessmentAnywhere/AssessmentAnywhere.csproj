@@ -126,12 +126,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Models\AssessmentGradeBoundaries\UpdatedGradeBoundary.cs" />
+    <Compile Include="Models\AssessmentGradeBoundaries\UpdateModel.cs" />
+    <Compile Include="Models\AssessmentGradeBoundaries\EditModel.cs" />
+    <Compile Include="Models\AssessmentGradeBoundaries\GradeBoundary.cs" />
     <Compile Include="Models\Assessments\AddResultRowModel.cs" />
     <Compile Include="Models\Assessments\DeleteModel.cs" />
     <Compile Include="Models\Assessments\UpdateModel.cs" />
     <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
     <Compile Include="Models\Assessments\EditModel.cs" />
-    <Compile Include="Controllers\GradeBoundariesController.cs" />
+    <Compile Include="Controllers\AssessmentGradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -297,6 +301,7 @@
     <Content Include="Views\GradeBoundaries\Details.cshtml" />
     <Content Include="Views\Assessments\_Layout.cshtml" />
     <Content Include="Views\Assessments\Delete.cshtml" />
+    <Content Include="Views\AssessmentGradeBoundaries\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

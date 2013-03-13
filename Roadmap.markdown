@@ -2,6 +2,7 @@
 ## V.1
 ### Bugs
 - Fix tabbing order: go from new names to add button
+- Remove result up/down buttons
 
 ### Improvements
 - Separate new entry form for postbacks

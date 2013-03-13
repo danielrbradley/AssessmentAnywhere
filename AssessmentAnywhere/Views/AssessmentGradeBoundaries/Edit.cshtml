@@ -1,0 +1,91 @@
+﻿@model AssessmentAnywhere.Models.AssessmentGradeBoundaries.EditModel
+
+@{
+    ViewBag.Title = "Grade Boundaries for " + Model.AssessmentName;
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <a href="@Url.Action("Edit", "Assessments", new { id = Model.AssessmentId })">
+            <i class="icon-arrow-left"></i>
+            return to assessment
+        </a>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8 offset2 well">
+        @using (Html.BeginForm("Update", "AssessmentGradeBoundaries", new { id = Model.AssessmentId } , FormMethod.Post, new { @class = "form-horizontal" }))
+        {
+            <fieldset>
+                <legend>Edit Grade Boundaries for @Model.AssessmentName</legend>
+                <div class="control-group">
+                    @Html.LabelFor(m => m.TotalMarks, "Total Marks", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.TotalMarks, new { placeholder = "Total marks", @class = "input-small" })
+                        <em>@Html.ValidationMessageFor(m => m.TotalMarks)</em>
+                        <span class="help-inline">What's the total number of available marks in the assessment?</span>
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Boundary</th>
+                                <th>Minimum Reults Required</th>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Boundaries.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Boundaries[i].Grade, new { placeholder = "Grade", @class = "input-small" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Boundaries[i].MinResult, new { placeholder = "Min Result", @class = "input-small" })
+                                    </td>
+                                    <td>
+                                        <em>@Html.ValidationMessageFor(m => m.Boundaries[i].Grade)</em>
+                                        <em>@Html.ValidationMessageFor(m => m.Boundaries[i].MinResult)</em>
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td>
+                                    @Html.TextBoxFor(m => m.NewBoundary.Grade, new { placeholder = "New Grade", @class = "input-small", autofocus = "autofocus" })
+                                </td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.NewBoundary.MinResult, new { placeholder = "Min Result", @class = "input-small" })
+                                </td>
+                                <td>
+                                    <em>@Html.ValidationMessageFor(m => m.NewBoundary.Grade)</em>
+                                    <em>@Html.ValidationMessageFor(m => m.NewBoundary.MinResult)</em>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="icon-ok icon-white"></i>
+                                    Save changes
+                                </button>
+                            </div>
+                            <div class="span6">
+                                <button type="reset" class="btn btn-warning">
+                                    <i class="icon-remove icon-white"></i>
+                                    Reset
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>
