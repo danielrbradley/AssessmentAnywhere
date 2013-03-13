@@ -1,12 +1,9 @@
 # Roadmap
 ## V.1
 ### Bugs
-- Fix tabbing order: go from new names to add button
 - Remove result up/down buttons
 
 ### Improvements
-- Separate new entry form for postbacks
-- Create grade boundaries editing screen
 - Add confirmations of destructive operations
 - Add AJAX MVVM model to assessment editor
 - Add sorting of candidates (+drag n' drop)

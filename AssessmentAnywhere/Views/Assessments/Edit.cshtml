@@ -70,7 +70,7 @@
                                 })
                     </div>
                     <div class="span3">
-                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 5)"
+                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 6)"
                             data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
                             <i class="icon-check icon-white"></i>
                             Save changes
@@ -125,7 +125,7 @@
                                                         placeholder = "#",
                                                         autofocus = "autofocus",
                                                         type = "number",
-                                                        tabindex = (Model.Results.Count * 2) + 5 + i,
+                                                        tabindex = (Model.Results.Count * 2) + 6 + i,
                                                     })
                                         }
                                         else
@@ -136,7 +136,7 @@
                                                         @class = "input-mini",
                                                         placeholder = "#",
                                                         type = "number",
-                                                        tabindex = (Model.Results.Count * 2) + 5 + i,
+                                                        tabindex = (Model.Results.Count * 2) + 6 + i,
                                                     })
                                         }
                                     </td>
@@ -160,7 +160,7 @@
                                                 })
                                     </td>
                                     <td>
-                                        <a tabindex="@((Model.Results.Count * 3) + 6 + i)" href="@Url.Action("DeleteResultRow", new { id = Model.Id, rowId = Model.Results[i].RowId })" class="btn btn-danger">
+                                        <a tabindex="@((Model.Results.Count * 3) + 7 + i)" href="@Url.Action("DeleteResultRow", new { id = Model.Id, rowId = Model.Results[i].RowId })" class="btn btn-danger">
                                             <i class="icon-remove icon-white"></i>
                                             Delete
                                         </a>
@@ -205,7 +205,7 @@
                                     </div>
                                 </td>
                                 <td colspan="3">
-                                    <button type="submit" class="btn btn-success">
+                                    <button type="submit" class="btn btn-success" tabindex="@((Model.Results.Count * 2) + 5)">
                                         <i class="icon-plus icon-white"></i>
                                         Add new candidate
                                     </button>
