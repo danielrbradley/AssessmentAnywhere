@@ -63,9 +63,8 @@
                         @Html.TextBoxFor(m => m.TotalMarks, 
                             new
                                 {
-                                    @class = "input-mini", 
-                                    type = "number", 
-                                    placeholder = "total",
+                                    @class = "input-small",
+                                    placeholder = "Total Marks",
                                     tabindex = 2,
                                 })
                     </div>
@@ -116,15 +115,15 @@
                                                 })
                                     </td>
                                     <td>
+                                        @{ var marksInputTextPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "0-#";}
                                         @if (Model.SelectedResultIndex.HasValue && Model.SelectedResultIndex.Value == i)
                                         {
                                             @Html.TextBoxFor(m => m.Results[i].Result,
                                                 new
                                                     {
                                                         @class = "input-mini",
-                                                        placeholder = "#",
+                                                        placeholder = marksInputTextPlaceholder,
                                                         autofocus = "autofocus",
-                                                        type = "number",
                                                         tabindex = (Model.Results.Count * 2) + 6 + i,
                                                     })
                                         }
@@ -134,8 +133,7 @@
                                                 new
                                                     {
                                                         @class = "input-mini",
-                                                        placeholder = "#",
-                                                        type = "number",
+                                                        placeholder = marksInputTextPlaceholder,
                                                         tabindex = (Model.Results.Count * 2) + 6 + i,
                                                     })
                                         }

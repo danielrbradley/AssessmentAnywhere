@@ -1,12 +1,10 @@
 # Roadmap
 ## V.1
 ### Bugs
-- Remove result up/down buttons
 
 ### Improvements
 - Add confirmations of destructive operations
-- Add AJAX MVVM model to assessment editor
-- Add sorting of candidates (+drag n' drop)
+- Add sorting of candidates (+drag n' drop?)
 
 ### New Features
 - Import/Export with Excel/CSV
@@ -16,6 +14,7 @@
 ### Optional
 - Copy names from another assessment
 - Copy boundaries from another assessment (or by template)
+- Add AJAX MVVM model to assessment editor
 
 ## V.2
 - Assessment tags
