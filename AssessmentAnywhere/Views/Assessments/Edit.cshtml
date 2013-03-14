@@ -1,6 +1,7 @@
 ﻿@model AssessmentAnywhere.Models.Assessments.EditModel
 @{
     ViewBag.Title = Model.Name;
+    var marksInputTextPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "0-#";
 }
 
 @section Head
@@ -69,7 +70,7 @@
                                 })
                     </div>
                     <div class="span3">
-                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 6)"
+                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 7)"
                             data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
                             <i class="icon-check icon-white"></i>
                             Save changes
@@ -115,7 +116,6 @@
                                                 })
                                     </td>
                                     <td>
-                                        @{ var marksInputTextPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "0-#";}
                                         @if (Model.SelectedResultIndex.HasValue && Model.SelectedResultIndex.Value == i)
                                         {
                                             @Html.TextBoxFor(m => m.Results[i].Result,
@@ -124,7 +124,7 @@
                                                         @class = "input-mini",
                                                         placeholder = marksInputTextPlaceholder,
                                                         autofocus = "autofocus",
-                                                        tabindex = (Model.Results.Count * 2) + 6 + i,
+                                                        tabindex = (Model.Results.Count * 2) + 7 + i,
                                                     })
                                         }
                                         else
@@ -134,7 +134,7 @@
                                                     {
                                                         @class = "input-mini",
                                                         placeholder = marksInputTextPlaceholder,
-                                                        tabindex = (Model.Results.Count * 2) + 6 + i,
+                                                        tabindex = (Model.Results.Count * 2) + 7 + i,
                                                     })
                                         }
                                     </td>
@@ -202,7 +202,16 @@
                                                 })
                                     </div>
                                 </td>
-                                <td colspan="3">
+                                <td>
+                                    @Html.TextBoxFor(m => m.NewRow.Result,
+                                                new
+                                                    {
+                                                        @class = "input-mini",
+                                                        placeholder = marksInputTextPlaceholder,
+                                                        tabindex = (Model.Results.Count * 2) + 5,
+                                                    })
+                                </td>
+                                <td colspan="2">
                                     <button type="submit" class="btn btn-success" tabindex="@((Model.Results.Count * 2) + 5)">
                                         <i class="icon-plus icon-white"></i>
                                         Add new candidate
