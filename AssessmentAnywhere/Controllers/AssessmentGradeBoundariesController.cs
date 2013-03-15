@@ -8,6 +8,7 @@
     using AssessmentAnywhere.Models.AssessmentGradeBoundaries;
     using AssessmentAnywhere.Services.Repos;
 
+    [Authorize]
     public class AssessmentGradeBoundariesController : Controller
     {
         private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();

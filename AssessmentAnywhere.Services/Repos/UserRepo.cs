@@ -6,7 +6,7 @@
 
     public class UserRepo
     {
-        private static readonly Dictionary<string, User> Users = new Dictionary<string, User>();
+        private static readonly Dictionary<string, User> Users = new Dictionary<string, User>() { { "test", new User("test", "123") } };
 
         public User Create(string username, string password)
         {
@@ -20,12 +20,12 @@
             return Users.ContainsKey(username.ToLower());
         }
 
-        public User Get(string username)
+        public User Open(string username)
         {
             return Users[username.ToLower()];
         }
 
-        public User GetCurrentUser()
+        public User OpenCurrentUser()
         {
             return Users[System.Threading.Thread.CurrentPrincipal.Identity.Name.ToLower()];
         }

@@ -1,6 +1,7 @@
 # Roadmap
 ## V.1
 ### Bugs
+- All assessments are globally visible
 
 ### Improvements
 - Add confirmations of destructive operations
@@ -8,7 +9,6 @@
 
 ### New Features
 - Import/Export with Excel/CSV
-- User logins
 - Persistent storage of data
 
 ### Optional

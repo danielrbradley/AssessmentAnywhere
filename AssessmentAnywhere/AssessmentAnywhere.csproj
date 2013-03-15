@@ -126,6 +126,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Models\Account\ChangePasswordModel.cs" />
+    <Compile Include="Models\Account\LogOnModel.cs" />
+    <Compile Include="Models\Account\RegisterModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdatedGradeBoundary.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdateModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\EditModel.cs" />
@@ -302,10 +306,12 @@
     <Content Include="Views\Assessments\_Layout.cshtml" />
     <Content Include="Views\Assessments\Delete.cshtml" />
     <Content Include="Views\AssessmentGradeBoundaries\Edit.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
+    <Content Include="Views\Account\SignIn.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>

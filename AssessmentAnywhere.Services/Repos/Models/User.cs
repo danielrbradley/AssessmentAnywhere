@@ -1,9 +1,11 @@
 namespace AssessmentAnywhere.Services.Repos.Models
 {
+    using System;
+
     public class User
     {
         private readonly string username;
-        private readonly string password;
+        private string password;
 
         public User(string username, string password)
         {
@@ -19,9 +21,28 @@ namespace AssessmentAnywhere.Services.Repos.Models
             }
         }
 
-        public bool CheckPassword(string passwordToTest)
+        public bool ValidatePassword(string passwordToTest)
         {
             return string.Equals(this.password, passwordToTest);
         }
+
+        public void ChangePassword(string newPassword, string existingPassword)
+        {
+            if (!ValidatePassword(existingPassword))
+            {
+                throw new IncorrectPasswordException();
+            }
+
+            if (string.IsNullOrWhiteSpace(newPassword))
+            {
+                throw new ArgumentNullException("newPassword", "Password must have a value.");
+            }
+
+            this.password = newPassword;
+        }
+    }
+
+    public class IncorrectPasswordException : Exception
+    {
     }
 }

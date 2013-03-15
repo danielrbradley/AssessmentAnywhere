@@ -8,26 +8,53 @@
     <!-- Bootstrap -->
     @Styles.Render("~/css/bootstrap.min.css")
     <style>
-      body {
-        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
-      }
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
     </style>
     @Styles.Render("~/css/bootstrap-responsive.min.css")
     @RenderSection("Head", false)
 </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    @Html.ActionLink("Assessment Anywhere", "Index", "Home", null, new { @class = "brand" })
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container-fluid">
+
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+                @Html.ActionLink("Assessment Anywhere", "Index", "Home", null, new { @class = "brand" })
+
+                <div class="nav-collapse collapse">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <ul class="nav pull-right">
+                            <li>
+                                <div class="btn-group">
+                                    <a href="@Url.Action("SignOut", "Account")" class="btn btn-inverse">Sign out
+                                    </a>
+                                    <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon-user icon-white"></i>
+                                        <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", null, new { id = "change-password-link" })</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </div>
         </div>
-        
-        @RenderBody()
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/js/bootstrap.min.js")
-        @RenderSection("scripts", required: false)
-    </body>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/js/bootstrap.min.js")
+    @RenderSection("scripts", required: false)
+</body>
 </html>

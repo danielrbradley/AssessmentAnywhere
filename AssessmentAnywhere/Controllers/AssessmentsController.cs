@@ -10,6 +10,7 @@
 
     using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
+    [Authorize]
     public class AssessmentsController : Controller
     {
         private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
