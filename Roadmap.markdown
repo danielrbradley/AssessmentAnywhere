@@ -1,7 +1,6 @@
 # Roadmap
 ## V.1
 ### Bugs
-- All assessments are globally visible
 
 ### Improvements
 - Add confirmations of destructive operations

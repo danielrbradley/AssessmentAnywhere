@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Repos\CurrentUserDictionary.cs" />
     <Compile Include="Repos\Models\Assessment.cs" />
     <Compile Include="Repos\Models\AssessmentGroup.cs" />
     <Compile Include="Repos\Models\AssessmentResult.cs" />

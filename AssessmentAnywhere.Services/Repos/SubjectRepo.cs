@@ -10,7 +10,7 @@
     {
         public static readonly List<CandidateTarget> CandidateTargets = new List<CandidateTarget>();
 
-        public static readonly Dictionary<string, SubjectAssessment> SubjectAssessments = new Dictionary<string, SubjectAssessment>();
+        public static readonly CurrentUserDictionary<string, SubjectAssessment> SubjectAssessments = new CurrentUserDictionary<string, SubjectAssessment>();
 
         private static readonly List<string> Subjects = new List<string>
             {

@@ -8,7 +8,7 @@
 
     public class AssessmentsRepo
     {
-        private static readonly Dictionary<Guid, Assessment> Assessments = new Dictionary<Guid, Assessment>();
+        private static readonly CurrentUserDictionary<Guid, Assessment> Assessments = new CurrentUserDictionary<Guid, Assessment>();
 
         public Assessment Create()
         {

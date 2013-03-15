@@ -8,9 +8,9 @@
 
     public class AssessmentGroupRepo
     {
-        private static readonly Dictionary<Guid, AssessmentGroup> AssessmentGroups = new Dictionary<Guid, AssessmentGroup>();
+        private static readonly CurrentUserDictionary<Guid, AssessmentGroup> AssessmentGroups = new CurrentUserDictionary<Guid, AssessmentGroup>();
 
-        public AssessmentGroup Create(List<Guid> assessmentIds, GradeBoundaries boundaries )
+        public AssessmentGroup Create(List<Guid> assessmentIds, GradeBoundaries boundaries)
         {
             var newId = Guid.NewGuid();
             var assessmentGroup = new AssessmentGroup { AssessmentGroupId = newId, AssessmentIds = assessmentIds, Boundaries = boundaries};

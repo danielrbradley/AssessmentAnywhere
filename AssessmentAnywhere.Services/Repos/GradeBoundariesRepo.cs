@@ -7,7 +7,7 @@
 
     public class GradeBoundariesRepo
     {
-        private static readonly Dictionary<Guid, GradeBoundaries> GradeBoundaries = new Dictionary<Guid, GradeBoundaries>();
+        private static readonly CurrentUserDictionary<Guid, GradeBoundaries> GradeBoundaries = new CurrentUserDictionary<Guid, GradeBoundaries>();
 
         public GradeBoundaries Create(Guid assessmentId)
         {
