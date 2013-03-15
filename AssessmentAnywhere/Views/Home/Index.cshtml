@@ -4,17 +4,42 @@
 }
 
 <div class="container-fluid">
-    <ul class="nav nav-tabs">
-        <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
-        <li>@Html.ActionLink("Assessments", "Index", "Assessments")</li>
-    </ul>
     <div class="row-fluid">
-        <div class="span8 offset2 hero-unit">
+        <div class="span8 hero-unit">
             <h2>Welcome to Assessment Anywhere</h2>
-            <p>Get started by creating a new assessment by clicking the green button!</p>
-            <div class="pull-right">
-                @Html.ActionLink("Create assessment", "Create", "Assessments", null, new { @class = "btn btn-success btn-large" })
-            </div>
+            <p class="lead muted">The no-nonsense marking helper</p>
+            <p>Sign in or register for free to get started!</p>
+            <a href="@Url.Action("Register", "Account")" class="btn btn-info btn-large">
+                <i class="icon-asterisk icon-white"></i>
+                Register
+            </a>
+        </div>
+        <div class="span4 well">
+            @using (Html.BeginForm("SignIn", "Account", FormMethod.Post))
+            {
+                <div>
+                    <fieldset>
+                        <legend>Sign In</legend>
+
+                        @Html.Label("UserName", new { @class = "control-label" })
+                        @Html.TextBox("UserName")
+
+                        @Html.Label("Password", new { @class = "control-label" })
+                        @Html.Password("Password")
+
+                        <label class="checkbox">
+                            @Html.CheckBox("RememberMe")
+                            Remember me
+                        </label>
+                        
+                        <button type="submit" class="btn btn-large btn-success">
+                            <i class="icon-ok icon-white"></i>
+                            Sign In
+                        </button>
+
+                    </fieldset>
+                </div>
+            }
         </div>
     </div>
 </div>

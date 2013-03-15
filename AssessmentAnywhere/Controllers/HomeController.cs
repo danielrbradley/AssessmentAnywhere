@@ -7,7 +7,12 @@
         // GET: /
         public ActionResult Index()
         {
-            return this.RedirectToAction("Index", "Assessments");
+            if (Request.IsAuthenticated)
+            {
+                return this.RedirectToAction("Index", "Assessments");
+            }
+
+            return this.View();
         }
     }
 }

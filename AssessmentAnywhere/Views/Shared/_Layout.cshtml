@@ -28,9 +28,9 @@
                 @Html.ActionLink("Assessment Anywhere", "Index", "Home", null, new { @class = "brand" })
 
                 <div class="nav-collapse collapse">
-                    @if (Request.IsAuthenticated)
-                    {
-                        <ul class="nav pull-right">
+                    <ul class="nav pull-right">
+                        @if (Request.IsAuthenticated)
+                        {
                             <li>
                                 <div class="btn-group">
                                     <a href="@Url.Action("SignOut", "Account")" class="btn btn-inverse">Sign out
@@ -44,8 +44,16 @@
                                     </ul>
                                 </div>
                             </li>
-                        </ul>
-                    }
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="btn-group">
+                                    @Html.ActionLink("Sign In", "SignIn", "Account", null, new { @class = "btn btn-inverse" })
+                                </div>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
