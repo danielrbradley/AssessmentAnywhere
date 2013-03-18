@@ -42,7 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentParser.cs" />
+    <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultRow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
