@@ -52,7 +52,7 @@
                 }
                 <div class="control-group">
                     <div class="control-label" style="padding-top: 0;">
-                        @Html.TextBoxFor(m => m.NewBoundary.Grade, new { placeholder = "Grade", @class = "input-small" })
+                        @Html.TextBoxFor(m => m.NewBoundary.Grade, new { placeholder = "Grade", @class = "input-small", autofocus = "autofocus" })
                     </div>
                     <div class="controls">
                         @Html.TextBoxFor(m => m.NewBoundary.MinResult, new { placeholder = minResultPlaceholder, @class = "input-medium" })
