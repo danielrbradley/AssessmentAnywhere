@@ -1,0 +1,118 @@
+﻿@model AssessmentAnywhere.Models.AssessmentImport.UploadViewModel
+
+@{
+    ViewBag.Title = "Upload assessment";
+}
+
+@section Head
+{
+    @Styles.Render("~/css/bootstrap-fileupload.min.css")
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <a href="@Url.Action("Edit", "Assessments", new { id = Model.AssessmentId })">
+            <i class="icon-arrow-left"></i>
+            return to assessment
+        </a>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span8 offset2 well">
+        @using (Html.BeginForm("Upload", "AssessmentImport", new { id = Model.AssessmentId }, FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+            <fieldset>
+                <legend>Import data for @Model.AssessmentName</legend>
+                <p>Import names (and optionally results) from an excel file <span class="muted">(this will append the imported data to your existing assessment)</span>.</p>
+
+                <div class="control-group">
+                    <label for="fileToImport" class="control-label">File to import</label>
+                    <div class="controls">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <div class="input-append">
+                                <div class="uneditable-input span3"><i class="icon-file fileupload-exists"></i><span class="fileupload-preview"></span></div>
+                                <span class="btn btn-file"><span class="fileupload-new">Select file</span><span class="fileupload-exists">Change</span><input type="file" id="fileToImport" name="fileToImport" /></span><a href="#" class="btn fileupload-exists" data-dismiss="fileupload">Remove</a>
+                            </div>
+                        </div>
+                        <em>@Html.ValidationMessage("fileToImport")</em>
+                        <span class="help-block">Select an excel file to import.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.WorksheetNumber, "Worksheet number", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.WorksheetNumber, new { placeholder = "Worksheet number", @class = "input-medium" })
+                        <em>@Html.ValidationMessageFor(m => m.WorksheetNumber)</em>
+                        <span class="help-block">Which worksheet contains the data to import?
+                            <br />
+                            E.g. put 1 if the data is in the first worksheet.</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.SurnameColumn, "Surname column", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.SurnameColumn, new { placeholder = "Surname column", @class = "input-medium" })
+                        <em>@Html.ValidationMessageFor(m => m.SurnameColumn)</em>
+                        <span class="help-block">Which column letter contains the surnames of the candidates?</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.ForenamesColumn, "Forenames column", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.ForenamesColumn, new { placeholder = "Forenames column", @class = "input-medium" })
+                        <em>@Html.ValidationMessageFor(m => m.ForenamesColumn)</em>
+                        <span class="help-block">Which column letter contains the first (given) names of the candidates?</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.ResultColumn, "Result column", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.ResultColumn, new { placeholder = "Result column", @class = "input-medium" })
+                        <span class="help-inline">(Optional)</span>
+                        <em>@Html.ValidationMessageFor(m => m.ResultColumn)</em>
+                        <span class="help-block">Which column letter results (marks) of the candidates?</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    @Html.LabelFor(m => m.StartRow, "First row number", new { @class = "control-label" })
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.StartRow, new { placeholder = "First row number", @class = "input-medium" })
+                        <span class="help-inline"></span>
+                        <em>@Html.ValidationMessageFor(m => m.StartRow)</em>
+                        <span class="help-block">Which row is the first candidate on?</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <div class="controls">
+                        <div class="row-fluid">
+                            <div class="pull-left">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="icon-ok icon-white"></i>
+                                    Import
+                                </button>
+                            </div>
+                            <div class="pull-left offset1">
+                                <a href="@Url.Action("Edit", "Assessments", new { id = Model.AssessmentId })" class="btn btn-warning">
+                                    <i class="icon-remove icon-white"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        }
+    </div>
+</div>
+
+@section Scripts
+{
+    @Scripts.Render("~/js/bootstrap-fileupload.min.js")
+}

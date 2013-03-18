@@ -125,6 +125,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AssessmentImportController.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Models\Account\ChangePasswordModel.cs" />
@@ -134,6 +135,8 @@
     <Compile Include="Models\AssessmentGradeBoundaries\UpdateModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\EditModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\GradeBoundary.cs" />
+    <Compile Include="Models\AssessmentImport\UploadPostbackModel.cs" />
+    <Compile Include="Models\AssessmentImport\UploadViewModel.cs" />
     <Compile Include="Models\Assessments\AddResultRowModel.cs" />
     <Compile Include="Models\Assessments\DeleteModel.cs" />
     <Compile Include="Models\Assessments\UpdateModel.cs" />
@@ -208,6 +211,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="css\bootstrap-fileupload.css" />
+    <Content Include="css\bootstrap-fileupload.min.css" />
     <Content Include="css\bootstrap-responsive.css" />
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
@@ -226,6 +231,8 @@
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
+    <Content Include="js\bootstrap-fileupload.js" />
+    <Content Include="js\bootstrap-fileupload.min.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\kendo.autocomplete.min.js" />
@@ -310,12 +317,17 @@
     <Content Include="Views\Account\ChangePasswordSuccess.cshtml" />
     <Content Include="Views\Account\SignIn.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\AssessmentImport\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AssessmentAnywhere.Excel\AssessmentAnywhere.Excel.csproj">
+      <Project>{53FF3F92-2E86-4BC0-959A-C4898518602C}</Project>
+      <Name>AssessmentAnywhere.Excel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AssessmentAnywhere.Services\AssessmentAnywhere.Services.csproj">
       <Project>{c5d6e14a-c61e-4606-a9ce-0ec617b336d2}</Project>
       <Name>AssessmentAnywhere.Services</Name>
