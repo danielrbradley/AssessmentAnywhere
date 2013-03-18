@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Grade Boundaries for " + Model.AssessmentName;
+    var minResultPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "Min Result";
 }
 
 <div class="row-fluid">
@@ -27,45 +28,37 @@
                         <span class="help-inline">What's the total number of available marks in the assessment?</span>
                     </div>
                 </div>
-                <div class="container-fluid">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Boundary</th>
-                                <th>Minimum Reults Required</th>
-                                <td></td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (int i = 0; i < Model.Boundaries.Count; i++)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Boundaries[i].Grade, new { placeholder = "Grade", @class = "input-small" })
-                                    </td>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Boundaries[i].MinResult, new { placeholder = "Min Result", @class = "input-small" })
-                                    </td>
-                                    <td>
-                                        <em>@Html.ValidationMessageFor(m => m.Boundaries[i].Grade)</em>
-                                        <em>@Html.ValidationMessageFor(m => m.Boundaries[i].MinResult)</em>
-                                    </td>
-                                </tr>
-                            }
-                            <tr>
-                                <td>
-                                    @Html.TextBoxFor(m => m.NewBoundary.Grade, new { placeholder = "New Grade", @class = "input-small", autofocus = "autofocus" })
-                                </td>
-                                <td>
-                                    @Html.TextBoxFor(m => m.NewBoundary.MinResult, new { placeholder = "Min Result", @class = "input-small" })
-                                </td>
-                                <td>
-                                    <em>@Html.ValidationMessageFor(m => m.NewBoundary.Grade)</em>
-                                    <em>@Html.ValidationMessageFor(m => m.NewBoundary.MinResult)</em>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <hr />
+                <div class="control-group">
+                    <div class="control-label" style="padding-top: 0;">
+                        <b>Grade</b>
+                    </div>
+                    <div class="controls">
+                        <b>Minimum Marks Required</b>
+                    </div>
+                </div>
+                @for (int i = 0; i < Model.Boundaries.Count; i++)
+                {
+                    <div class="control-group">
+                        <div class="control-label" style="padding-top: 0;">
+                            @Html.TextBoxFor(m => m.Boundaries[i].Grade, new { placeholder = "Grade", @class = "input-small" })
+                        </div>
+                        <div class="controls">
+                            @Html.TextBoxFor(m => m.Boundaries[i].MinResult, new { placeholder = minResultPlaceholder, @class = "input-medium" })
+                            <em>@Html.ValidationMessageFor(m => m.Boundaries[i].Grade)</em>
+                            <em>@Html.ValidationMessageFor(m => m.Boundaries[i].MinResult)</em>
+                        </div>
+                    </div>
+                }
+                <div class="control-group">
+                    <div class="control-label" style="padding-top: 0;">
+                        @Html.TextBoxFor(m => m.NewBoundary.Grade, new { placeholder = "Grade", @class = "input-small" })
+                    </div>
+                    <div class="controls">
+                        @Html.TextBoxFor(m => m.NewBoundary.MinResult, new { placeholder = minResultPlaceholder, @class = "input-medium" })
+                        <em>@Html.ValidationMessageFor(m => m.NewBoundary.Grade)</em>
+                        <em>@Html.ValidationMessageFor(m => m.NewBoundary.MinResult)</em>
+                    </div>
                 </div>
                 <div class="control-group">
                     <div class="controls">
