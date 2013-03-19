@@ -132,6 +132,7 @@
     <Compile Include="Models\Account\ChangePasswordModel.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\AssessmentEditor\EditModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdatedGradeBoundary.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdateModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\EditModel.cs" />
@@ -140,9 +141,8 @@
     <Compile Include="Models\AssessmentImport\UploadViewModel.cs" />
     <Compile Include="Models\Assessments\AddResultRowModel.cs" />
     <Compile Include="Models\Assessments\DeleteModel.cs" />
-    <Compile Include="Models\Assessments\UpdateModel.cs" />
+    <Compile Include="Models\AssessmentEditor\UpdateModel.cs" />
     <Compile Include="Models\Assessments\DeleteResultRowModel.cs" />
-    <Compile Include="Models\Assessments\EditModel.cs" />
     <Compile Include="Controllers\AssessmentGradeBoundariesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -150,9 +150,9 @@
     </Compile>
     <Compile Include="Models\Assessments\Assessment.cs" />
     <Compile Include="Models\Assessments\CreateModel.cs" />
-    <Compile Include="Models\Assessments\ResultRow.cs" />
+    <Compile Include="Models\AssessmentEditor\ResultRow.cs" />
     <Compile Include="Models\Assessments\IndexModel.cs" />
-    <Compile Include="Models\Assessments\UpdateResultRow.cs" />
+    <Compile Include="Models\AssessmentEditor\UpdateResultRow.cs" />
     <Compile Include="Models\Stats\AssessmentStatisticsModel.cs" />
     <Compile Include="Models\GradeBoundaries\DetailsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

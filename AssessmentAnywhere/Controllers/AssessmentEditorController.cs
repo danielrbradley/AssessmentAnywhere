@@ -1,11 +1,10 @@
 ﻿namespace AssessmentAnywhere.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
 
-    using AssessmentAnywhere.Models.Assessments;
+    using AssessmentAnywhere.Models.AssessmentEditor;
     using AssessmentAnywhere.Services.Repos;
 
     [Authorize]
@@ -36,59 +35,7 @@
         {
             var assessment = this.assessmentsRepo.Open(id);
 
-            if (!string.IsNullOrWhiteSpace(model.NewRow.Surname)
-                || !string.IsNullOrWhiteSpace(model.NewRow.Forenames)
-                || model.NewRow.Result.HasValue)
-            {
-                if (string.IsNullOrWhiteSpace(model.NewRow.Surname))
-                {
-                    ModelState.AddModelError("NewRow.Surname", "Surname cannot be blank.");
-                }
-                else if (string.IsNullOrWhiteSpace(model.NewRow.Forenames))
-                {
-                    ModelState.AddModelError("NewRow.Forenames", "Forenames cannot be blank.");
-                }
-
-                if (model.NewRow.Result.HasValue)
-                {
-                    if (model.NewRow.Result < 0)
-                    {
-                        ModelState.AddModelError("NewRow.Result", "Result must be a positive number.");
-                    }
-
-                    if (model.TotalMarks.HasValue && model.NewRow.Result > model.TotalMarks)
-                    {
-                        ModelState.AddModelError("NewRow.Result", "Result cannot be greater than the total marks.");
-                    }
-                }
-            }
-
-            foreach (var result in model.Results)
-            {
-                var keyPrefix = string.Format("Results[{0}].", model.Results.IndexOf(result));
-                if (string.IsNullOrWhiteSpace(result.Surname))
-                {
-                    ModelState.AddModelError(keyPrefix + "Surname", "Surname cannot be blank.");
-                }
-
-                if (string.IsNullOrWhiteSpace(result.Forenames))
-                {
-                    ModelState.AddModelError(keyPrefix + "Forenames", "Forenames cannot be blank.");
-                }
-
-                if (result.Result.HasValue)
-                {
-                    if (result.Result < 0)
-                    {
-                        ModelState.AddModelError(keyPrefix + "Result", "Result must be a positive number.");
-                    }
-
-                    if (model.TotalMarks.HasValue && result.Result > model.TotalMarks)
-                    {
-                        ModelState.AddModelError(keyPrefix + "Result", "Result cannot be greater than the total marks.");
-                    }
-                }
-            }
+            model.Validate(this.ModelState);
 
             if (!ModelState.IsValid)
             {

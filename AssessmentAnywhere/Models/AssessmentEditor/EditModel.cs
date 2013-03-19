@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Models.Assessments
+namespace AssessmentAnywhere.Models.AssessmentEditor
 {
     using System;
     using System.Collections.Generic;
@@ -22,12 +22,12 @@
 
         public EditModel(Guid id, string name, IList<ResultRow> results, decimal? totalMarks, ResultRow newRow, int? selectedResultIndex)
         {
-            Id = id;
-            Name = name;
-            Results = results;
-            TotalMarks = totalMarks;
-            NewRow = newRow;
-            SelectedResultIndex = selectedResultIndex;
+            this.Id = id;
+            this.Name = name;
+            this.Results = results;
+            this.TotalMarks = totalMarks;
+            this.NewRow = newRow;
+            this.SelectedResultIndex = selectedResultIndex;
         }
 
         public EditModel(Guid id, string name, IList<ResultRow> results, decimal? totalMarks, int? selectedResultIndex)

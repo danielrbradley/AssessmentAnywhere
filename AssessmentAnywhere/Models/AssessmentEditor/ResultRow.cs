@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Models.Assessments
+﻿namespace AssessmentAnywhere.Models.AssessmentEditor
 {
     using System;
 
