@@ -34,12 +34,8 @@
         [HttpPost]
         public ActionResult Update(Guid id, UpdateModel model)
         {
-            if (model.NewRow == null) model.NewRow = new UpdateResultRow();
-            if (model.Results == null) model.Results = new List<UpdateResultRow>();
-
             var assessment = this.assessmentsRepo.Open(id);
 
-            // Validate
             if (!string.IsNullOrWhiteSpace(model.NewRow.Surname)
                 || !string.IsNullOrWhiteSpace(model.NewRow.Forenames)
                 || model.NewRow.Result.HasValue)
