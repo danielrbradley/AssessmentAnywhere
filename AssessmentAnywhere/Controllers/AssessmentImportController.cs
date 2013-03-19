@@ -61,7 +61,7 @@
                 }
             }
 
-            return this.RedirectToAction("Edit", "Assessments", new { id });
+            return this.RedirectToAction("Edit", "AssessmentEditor", new { id });
         }
     }
 }

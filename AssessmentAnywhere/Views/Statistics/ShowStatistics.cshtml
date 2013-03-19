@@ -6,7 +6,7 @@
 
 <ul class="breadcrumb">
     @{ var assessmentName = new AssessmentAnywhere.Services.Repos.AssessmentsRepo().Open(Model.AssessmentId).Name; }
-    <li>@Html.ActionLink(assessmentName, "Edit", "Assessments", new { id = Model.AssessmentId }, null) <span class="divider">/</span></li>
+    <li>@Html.ActionLink(assessmentName, "Edit", "AssessmentEditor", new { id = Model.AssessmentId }, null) <span class="divider">/</span></li>
     <li class="active">
     Assessment Statistics<li>
 </ul>

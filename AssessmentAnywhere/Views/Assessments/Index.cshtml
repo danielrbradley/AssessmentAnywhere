@@ -65,7 +65,7 @@
                     <tr>
                         <td>
                             <div class="container-fluid">
-                                @Html.ActionLink(assessment.Name, "Edit", new { id = assessment.Id }, new { target = "_blank" })
+                                @Html.ActionLink(assessment.Name, "Edit", "AssessmentEditor", new { id = assessment.Id }, new { target = "_blank" })
                             </div>
                         </td>
                         <td>
@@ -89,7 +89,7 @@
                 <p class="lead">Get started by creating a new assessment by creating a new assessment to put marks into!</p>
                 <p>Click the button below or select "New..." from the action menu.</p>
                 <div class="pull-right">
-                    <a href="@Url.Action("Create", "Assessments")" class="btn btn-success btn-large">
+                    <a href="@Url.Action("Create")" class="btn btn-success btn-large">
                         <i class="icon-plus icon-white"></i>
                         Create new assessment...
                     </a>
