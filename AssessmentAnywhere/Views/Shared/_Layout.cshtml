@@ -13,6 +13,10 @@
         }
     </style>
     @Styles.Render("~/css/bootstrap-responsive.min.css")
+    @Styles.Render("~/css/font-awesome.min.css")
+    <!--[if IE 7]>
+    @Styles.Render("~/css/font-awesome-ie7.min.css")
+    <![endif]-->
     @RenderSection("Head", false)
 </head>
 <body>
@@ -33,7 +37,9 @@
                         {
                             <li>
                                 <div class="btn-group">
-                                    <a href="@Url.Action("SignOut", "Account")" class="btn btn-inverse">Sign out
+                                    <a href="@Url.Action("SignOut", "Account")" class="btn btn-inverse">
+                                        <i class="icon-off"></i>
+                                        Sign out
                                     </a>
                                     <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
                                         <i class="icon-user icon-white"></i>

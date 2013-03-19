@@ -1,16 +1,18 @@
 # Roadmap
 ## V.1
 ### Bugs
+- Validation missing (everywhere!)
 
 ### Improvements
 - Add confirmations of destructive operations
 - Add sorting of candidates (+drag n' drop?)
 
 ### New Features
-- Import/Export with Excel/CSV
+- Export with Excel/CSV
 - Persistent storage of data
 
 ### Optional
+- Import CSV/XLS
 - Copy names from another assessment
 - Copy boundaries from another assessment (or by template)
 - Add AJAX MVVM model to assessment editor
