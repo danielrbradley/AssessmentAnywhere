@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class AssessmentResult
+    public class AssessmentResult : IComparable<AssessmentResult>
     {
         public AssessmentResult(string surname, string forenames)
             : this(surname, forenames, new decimal?())
@@ -29,5 +29,17 @@
         public string Forenames { get; private set; }
 
         public decimal? Result { get; private set; }
+
+        public int CompareTo(AssessmentResult other)
+        {
+            var surnameSort = string.Compare(this.Surname, other.Surname, StringComparison.OrdinalIgnoreCase);
+
+            if (surnameSort == 0)
+            {
+                return string.Compare(this.Forenames, other.Forenames, StringComparison.OrdinalIgnoreCase);
+            }
+
+            return surnameSort;
+        }
     }
 }

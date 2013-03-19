@@ -6,7 +6,7 @@
 
     public class Assessment
     {
-        private readonly Dictionary<Guid, AssessmentResult> results = new Dictionary<Guid, AssessmentResult>();
+        private readonly SortedSet<AssessmentResult> results;
 
         public Assessment(Guid id)
             : this(id, string.Empty)
@@ -23,10 +23,7 @@
             Id = id;
             Name = name;
             TotalMarks = totalMarks;
-            foreach (var assessmentResult in results)
-            {
-                this.results.Add(assessmentResult.Id, assessmentResult);
-            }
+            this.results = new SortedSet<AssessmentResult>(results);
         }
 
         public Guid Id { get; private set; }
@@ -39,14 +36,14 @@
         {
             get
             {
-                return this.results.Values.ToList();
+                return this.results.ToList();
             }
         }
 
         public Guid AddCandidate(string surname, string forenames)
         {
             var assessmentResult = new AssessmentResult(surname, forenames);
-            this.results.Add(assessmentResult.Id, assessmentResult);
+            this.results.Add(assessmentResult);
             return assessmentResult.Id;
         }
 
@@ -62,19 +59,24 @@
 
         public void SetCandidateNames(Guid id, string surname, string forenames)
         {
-            var result = results[id].Result;
-            this.results[id] = new AssessmentResult(id, surname, forenames, result);
+            var existingResult = results.Single(r => r.Id == id);
+            var newResult = new AssessmentResult(id, surname, forenames, existingResult.Result);
+            this.results.Remove(existingResult);
+            this.results.Add(newResult);
         }
 
         public void SetCandidateResult(Guid id, decimal? result)
         {
-            var oldCandidate = results[id];
-            this.results[id] = new AssessmentResult(id, oldCandidate.Surname, oldCandidate.Forenames, result);
+            var existingResult = results.Single(r => r.Id == id);
+            var newResult = new AssessmentResult(id, existingResult.Surname, existingResult.Forenames, result);
+            this.results.Remove(existingResult);
+            this.results.Add(newResult);
         }
 
         public void RemoveResult(Guid id)
         {
-            results.Remove(id);
+            var result = results.Single(r => r.Id == id);
+            results.Remove(result);
         }
     }
 }

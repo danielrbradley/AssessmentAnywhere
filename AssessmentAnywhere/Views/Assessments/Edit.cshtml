@@ -27,15 +27,9 @@
                     <ul class="nav nav-list">
                         <li class="nav-header">Actions</li>
                         <li>
-                            <a href="@Url.Action("Upload", "AssessmentImport", new { id = Model.Id })" title="Coming soon!">
+                            <a href="@Url.Action("Upload", "AssessmentImport", new { id = Model.Id })">
                                 <i class="icon-download-alt"></i>
                                 Import names...
-                            </a>
-                        </li>
-                        <li class="disabled">
-                            <a href="#" title="Coming soon!">
-                                <i class="icon-arrow-down"></i>
-                                Sort results...
                             </a>
                         </li>
                         <li>
@@ -70,7 +64,7 @@
                                 })
                     </div>
                     <div class="span3">
-                        <button type="submit"  class="btn btn-primary pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 7)"
+                        <button type="submit"  class="btn btn-success pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 7)"
                             data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
                             <i class="icon-check icon-white"></i>
                             Save changes

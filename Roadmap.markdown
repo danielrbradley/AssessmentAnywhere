@@ -5,7 +5,6 @@
 
 ### Improvements
 - Add confirmations of destructive operations
-- Add sorting of candidates (+drag n' drop?)
 
 ### New Features
 - Export with Excel/CSV
@@ -26,4 +25,5 @@
 ## V.next
 - User sharing of assessments
 - Undo/redo of all actions
-- Column re-ordering (limited to percentage & grade)
+- Custom candidate ordering
+- Column re-ordering (limited to percentage & grade?)
