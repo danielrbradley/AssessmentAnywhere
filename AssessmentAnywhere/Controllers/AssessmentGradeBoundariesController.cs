@@ -1,7 +1,6 @@
 ﻿namespace AssessmentAnywhere.Controllers
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
 
@@ -41,56 +40,8 @@
         [HttpPost]
         public ActionResult Update(Guid id, UpdateModel model)
         {
-            if (model.Boundaries == null)
-            {
-                model.Boundaries = new List<UpdatedGradeBoundary>();
-            }
-
-            if (model.TotalMarks.HasValue)
-            {
-                if (model.TotalMarks.Value < 0)
-                {
-                    ModelState.AddModelError("TotalMarks", "Total marks must be a positive number");
-                }
-
-                var exceededBoundaries = model.Boundaries.Where(b => b.MinResult > model.TotalMarks);
-                foreach (var boundary in exceededBoundaries)
-                {
-                    ModelState.AddModelError(
-                        string.Format("Boundaries[{0}].MinResult", model.Boundaries.IndexOf(boundary)), "Min result must be less than total marks.");
-                }
-
-                if (model.NewBoundary != null && model.NewBoundary.MinResult.HasValue
-                    && model.NewBoundary.MinResult > model.TotalMarks)
-                {
-                    ModelState.AddModelError("NewBoundary.MinResult", "Min result must be less than total marks.");
-                }
-            }
-
-            if (model.NewBoundary != null
-                && !(string.IsNullOrWhiteSpace(model.NewBoundary.Grade) || !model.TotalMarks.HasValue))
-            {
-                if (string.IsNullOrWhiteSpace(model.NewBoundary.Grade))
-                {
-                    ModelState.AddModelError("NewBoundary.Grade", "Grade is required.");
-                }
-                else if (!model.NewBoundary.MinResult.HasValue)
-                {
-                    ModelState.AddModelError("NewBoundary.MinResult", "Minimum result is required.");
-                }
-            }
-
-            foreach (var boundary in model.Boundaries.Where(b => !string.IsNullOrWhiteSpace(b.Grade) && !b.MinResult.HasValue))
-            {
-                ModelState.AddModelError(
-                    string.Format("Boundaries[{0}].MinResult", model.Boundaries.IndexOf(boundary)), "Min result is required");
-            }
-
-            foreach (var boundary in model.Boundaries.Where(b => string.IsNullOrWhiteSpace(b.Grade) && b.MinResult.HasValue))
-            {
-                ModelState.AddModelError(
-                    string.Format("Boundaries[{0}].Grade", model.Boundaries.IndexOf(boundary)), "Grade is required");
-            }
+            // Validate
+            model.Validate(this.ModelState);
 
             var assessment = this.assessmentsRepo.Open(id);
 
@@ -105,11 +56,13 @@
                 return this.View("Edit", viewModel);
             }
 
-            var boundariesToSave = model.Boundaries.Where(b => !string.IsNullOrWhiteSpace(b.Grade) && b.MinResult.HasValue).ToList();
-            if (model.NewBoundary != null && !string.IsNullOrWhiteSpace(model.NewBoundary.Grade) && model.NewBoundary.MinResult.HasValue)
+            // ReSharper disable PossibleInvalidOperationException
+            var boundariesToSave = model.Boundaries.Select(b => new Services.Repos.Models.Boundary(b.Grade, b.MinResult.Value)).ToList();
+            if (model.HasNewBoundary)
             {
-                boundariesToSave.Add(model.NewBoundary);
+                boundariesToSave.Add(new Services.Repos.Models.Boundary(model.NewBoundary.Grade, model.NewBoundary.MinResult.Value));
             }
+            // ReSharper restore PossibleInvalidOperationException
 
             // Write changes to repos.
             bool hasBoundaries;
@@ -125,10 +78,9 @@
                 assessment.SetTotalMarks(model.TotalMarks);
             }
 
-            boundaries.SetBoundaries(
-                boundariesToSave.Select(b => new Services.Repos.Models.Boundary(b.Grade, b.MinResult.Value)));
+            boundaries.SetBoundaries(boundariesToSave);
 
-            return RedirectToAction("Edit", new { id = id });
+            return this.RedirectToAction("Edit", new { id });
         }
     }
 }
