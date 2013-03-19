@@ -46,6 +46,7 @@
     <Compile Include="Repos\Models\AssessmentGroup.cs" />
     <Compile Include="Repos\Models\AssessmentResult.cs" />
     <Compile Include="Repos\Models\Boundary.cs" />
+    <Compile Include="Repos\UniqueConstraintException.cs" />
     <Compile Include="Repos\Models\CandidateTarget.cs" />
     <Compile Include="Repos\Models\GradeBoundaries.cs" />
     <Compile Include="Repos\Models\GradeBoundariesExtensions.cs" />
