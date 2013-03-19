@@ -7,7 +7,7 @@
 - Add confirmations of destructive operations
 
 ### New Features
-- Export with Excel/CSV
+- Export to Excel/CSV
 - Persistent storage of data
 
 ### Optional

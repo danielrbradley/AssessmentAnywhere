@@ -59,9 +59,6 @@
     <Compile Include="Repos\AssessmentsRepo.cs" />
     <Compile Include="Repos\Models\User.cs" />
     <Compile Include="Repos\SubjectRepo.cs" />
-    <Compile Include="Models\AssessmentGrades.cs" />
-    <Compile Include="Models\AssessmentStatistic.cs" />
-    <Compile Include="Models\CandidateGrade.cs" />
     <Compile Include="Repos\UserRepo.cs" />
   </ItemGroup>
   <ItemGroup />
