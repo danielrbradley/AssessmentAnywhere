@@ -38,15 +38,20 @@
                             <li>
                                 <div class="btn-group">
                                     <a href="@Url.Action("SignOut", "Account")" class="btn btn-inverse">
-                                        <i class="icon-off"></i>
+                                        <i class="icon-signout"></i>
                                         Sign out
                                     </a>
                                     <a href="@Url.Action("ChangePassword", "Account")" class="btn btn-inverse dropdown-toggle" data-toggle="dropdown">
-                                        <i class="icon-user icon-white"></i>
-                                        <span class="caret"></span>
+                                        <i class="icon-user"></i>
+                                        <i class="icon-caret-down"></i>
                                     </a>
                                     <ul class="dropdown-menu pull-right">
-                                        <li>@Html.ActionLink("Change Password", "ChangePassword", "Account", null, new { id = "change-password-link" })</li>
+                                        <li>
+                                            <a href="@Url.Action("ChangePassword", "Account")" id="change-password-link">
+                                                <i class="icon-lock"></i>
+                                                Change Password
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -55,7 +60,10 @@
                         {
                             <li>
                                 <div class="btn-group">
-                                    @Html.ActionLink("Sign In", "SignIn", "Account", null, new { @class = "btn btn-inverse" })
+                                    <a href="@Url.Action("SignIn", "Account")" class="btn btn-inverse">
+                                        <i class="icon-signin"></i>
+                                        Sign in
+                                    </a>
                                 </div>
                             </li>
                         }

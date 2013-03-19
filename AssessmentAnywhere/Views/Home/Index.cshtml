@@ -10,7 +10,7 @@
             <p class="lead muted">The no-nonsense marking helper</p>
             <p>Sign in or register for free to get started!</p>
             <a href="@Url.Action("Register", "Account")" class="btn btn-info btn-large">
-                <i class="icon-asterisk icon-white"></i>
+                <i class="icon-star-empty"></i>
                 Register
             </a>
         </div>
@@ -19,9 +19,12 @@
             {
                 <div>
                     <fieldset>
-                        <legend>Sign In</legend>
+                        <legend>
+                            <i class="icon-signin"></i>
+                            Sign In
+                        </legend>
 
-                        @Html.Label("UserName", new { @class = "control-label" })
+                        @Html.Label("UserName", "User name", new { @class = "control-label" })
                         @Html.TextBox("UserName")
 
                         @Html.Label("Password", new { @class = "control-label" })
@@ -33,7 +36,7 @@
                         </label>
                         
                         <button type="submit" class="btn btn-large btn-success">
-                            <i class="icon-ok icon-white"></i>
+                            <i class="icon-signin"></i>
                             Sign In
                         </button>
 

@@ -39,7 +39,10 @@
                 <div class="navbar-form pull-left form-search">
                     <div class="input-append">
                         <input class="input-large search-query" type="text" placeholder="Coming soon...">
-                        <input type="submit" value="Search" class="btn" />
+                        <button type="submit" class="btn">
+                            <i class="icon-search"></i>
+                            Search
+                        </button>
                     </div>
                 </div>
             </div>
@@ -71,7 +74,7 @@
                         <td>
                             <div class="container-fluid">
                                 <a href="@Url.Action("Delete", new { id = assessment.Id })" class="btn btn-small btn-danger pull-right" data-assessment-id="@assessment.Id">
-                                    <i class="icon-remove icon-white"></i>
+                                    <i class="icon-trash"></i>
                                     Delete
                                 </a>
                             </div>
@@ -90,7 +93,7 @@
                 <p>Click the button below or select "New..." from the action menu.</p>
                 <div class="pull-right">
                     <a href="@Url.Action("Create")" class="btn btn-success btn-large">
-                        <i class="icon-plus icon-white"></i>
+                        <i class="icon-plus"></i>
                         Create new assessment...
                     </a>
                 </div>

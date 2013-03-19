@@ -12,14 +12,20 @@
                 <legend>Are you sure you want to delete the assessment named @Model.Name?</legend>
                 <div class="control-group">
                     <div class="controls">
-                        <button type="submit" class="btn btn-danger">
-                            <i class="icon-ok icon-white"></i>
-                            Yes
-                        </button>
-                        <a href="@Url.Action("Index")" class="btn">
-                            <i class="icon-ban-circle"></i>
-                            Cancel
-                        </a>
+                        <div class="row-fluid">
+                            <div class="pull-left">
+                                <a href="@Url.Action("Index")" class="btn">
+                                    <i class="icon-remove"></i>
+                                    Cancel
+                                </a>
+                            </div>
+                            <div class="pull-left offset1">
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="icon-trash"></i>
+                                    Yes, Delete
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </fieldset>

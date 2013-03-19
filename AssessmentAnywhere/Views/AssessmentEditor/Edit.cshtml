@@ -72,7 +72,7 @@
                     <div class="span3">
                         <button type="submit"  class="btn btn-success pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 7)"
                             data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
-                            <i class="icon-check icon-white"></i>
+                            <i class="icon-check"></i>
                             Save changes
                         </button>
                     </div>
@@ -165,7 +165,7 @@
                                     </td>
                                     <td>
                                         <a tabindex="@((Model.Results.Count * 3) + 7 + i)" href="@Url.Action("DeleteResultRow", new { id = Model.Id, rowId = Model.Results[i].RowId })" class="btn btn-danger">
-                                            <i class="icon-remove icon-white"></i>
+                                            <i class="icon-trash"></i>
                                             Delete
                                         </a>
                                     </td>
@@ -221,7 +221,7 @@
                                 </td>
                                 <td colspan="2">
                                     <button type="submit" class="btn btn-success" tabindex="@((Model.Results.Count * 2) + 5)">
-                                        <i class="icon-plus icon-white"></i>
+                                        <i class="icon-plus"></i>
                                         Add new candidate
                                     </button>
                                 </td>

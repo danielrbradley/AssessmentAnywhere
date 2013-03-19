@@ -9,7 +9,10 @@
         @using (Html.BeginForm("Create", "Assessments", FormMethod.Post, new { @class = "form-horizontal" }))
         {
             <fieldset>
-                <legend>New assessment</legend>
+                <legend>
+                    <i class="icon-plus"></i>
+                    New assessment
+                </legend>
                 <div class="control-group">
                     @Html.LabelFor(m => m.Name, "Assessment Name", new { @class = "control-label" })
                     <div class="controls">
@@ -21,15 +24,15 @@
                 <div class="control-group">
                     <div class="controls">
                         <div class="row-fluid">
-                            <div class="span6">
-                                <button type="submit" class="btn btn-success">
-                                    <i class="icon-ok icon-white"></i>
+                            <div class="pull-left">
+                                <button type="submit" class="btn btn-success btn-large">
+                                    <i class="icon-ok"></i>
                                     Create
                                 </button>
                             </div>
-                            <div class="span6">
-                                <a href="@Url.Action("Index")" class="btn btn-danger">
-                                    <i class="icon-remove icon-white"></i>
+                            <div class="pull-left offset1">
+                                <a href="@Url.Action("Index")" class="btn">
+                                    <i class="icon-remove"></i>
                                     Cancel
                                 </a>
                             </div>
