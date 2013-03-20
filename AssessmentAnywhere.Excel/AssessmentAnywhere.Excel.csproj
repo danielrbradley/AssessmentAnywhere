@@ -42,6 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentExport\Assessment.cs" />
+    <Compile Include="AssessmentExport\AssessmentExporter.cs" />
+    <Compile Include="AssessmentExport\AssessmentRow.cs" />
+    <Compile Include="AssessmentExport\GradeBoundary.cs" />
     <Compile Include="AssessmentParser.cs" />
     <Compile Include="ParseResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
