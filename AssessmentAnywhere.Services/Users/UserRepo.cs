@@ -1,14 +1,12 @@
-﻿namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services.Users
 {
     using System.Collections.Generic;
 
-    using AssessmentAnywhere.Services.Repos.Models;
-
-    public class UserRepo
+    public class UserRepo : IUserRepo
     {
         private static readonly Dictionary<string, User> Users = new Dictionary<string, User>() { { "test", new User("test", "123") } };
 
-        public User Create(string username, string password)
+        public IUser Create(string username, string password)
         {
             var newUser = new User(username, password);
             Users.Add(username.ToLower(), newUser);
@@ -20,12 +18,12 @@
             return Users.ContainsKey(username.ToLower());
         }
 
-        public User Open(string username)
+        public IUser Open(string username)
         {
             return Users[username.ToLower()];
         }
 
-        public User OpenCurrentUser()
+        public IUser OpenCurrentUser()
         {
             return Users[System.Threading.Thread.CurrentPrincipal.Identity.Name.ToLower()];
         }

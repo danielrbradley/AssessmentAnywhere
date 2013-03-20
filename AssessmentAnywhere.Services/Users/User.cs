@@ -1,8 +1,8 @@
-namespace AssessmentAnywhere.Services.Repos.Models
+namespace AssessmentAnywhere.Services.Users
 {
     using System;
 
-    public class User
+    internal class User : IUser
     {
         private readonly string username;
         private string password;
@@ -28,7 +28,7 @@ namespace AssessmentAnywhere.Services.Repos.Models
 
         public void ChangePassword(string newPassword, string existingPassword)
         {
-            if (!ValidatePassword(existingPassword))
+            if (!this.ValidatePassword(existingPassword))
             {
                 throw new IncorrectPasswordException();
             }
