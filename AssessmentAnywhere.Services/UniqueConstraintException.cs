@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services
 {
     using System;
     using System.Runtime.Serialization;

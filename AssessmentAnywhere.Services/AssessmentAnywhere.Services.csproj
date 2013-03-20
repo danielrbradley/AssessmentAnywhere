@@ -41,12 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Repos\CurrentUserDictionary.cs" />
+    <Compile Include="CurrentUserDictionary.cs" />
     <Compile Include="Repos\Models\Assessment.cs" />
     <Compile Include="Repos\Models\AssessmentGroup.cs" />
     <Compile Include="Repos\Models\AssessmentResult.cs" />
     <Compile Include="Repos\Models\Boundary.cs" />
-    <Compile Include="Repos\UniqueConstraintException.cs" />
+    <Compile Include="UniqueConstraintException.cs" />
     <Compile Include="Repos\Models\CandidateTarget.cs" />
     <Compile Include="Repos\Models\GradeBoundaries.cs" />
     <Compile Include="Repos\Models\GradeBoundariesExtensions.cs" />
