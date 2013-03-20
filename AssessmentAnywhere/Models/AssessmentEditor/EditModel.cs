@@ -4,6 +4,8 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
     using System.Collections.Generic;
     using System.Linq;
 
+    using AssessmentAnywhere.Services;
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos.Models;
 
     public class EditModel
@@ -47,7 +49,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
 
         public EditModel(
             Services.Repos.Models.Assessment assessment,
-            Services.Repos.Models.GradeBoundaries boundaries,
+            IGradeBoundaries boundaries,
             int? lastSelectedResult)
             : this(
                 assessment.Id,
@@ -58,7 +60,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         {
         }
 
-        public EditModel(Guid id, UpdateModel model, Services.Repos.Models.GradeBoundaries boundaries)
+        public EditModel(Guid id, UpdateModel model, IGradeBoundaries boundaries)
             : this(
                 id,
                 model.Name,
@@ -80,7 +82,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         {
         }
 
-        private static List<ResultRow> GenerateResultsFromUpdateModel(UpdateModel model, GradeBoundaries boundaries)
+        private static List<ResultRow> GenerateResultsFromUpdateModel(UpdateModel model, IGradeBoundaries boundaries)
         {
             if (model.Results == null)
             {
@@ -117,7 +119,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         }
 
         private static IList<ResultRow> GenerateResultsFromRepoModels(
-            Services.Repos.Models.Assessment assessment, Services.Repos.Models.GradeBoundaries boundaries)
+            Services.Repos.Models.Assessment assessment, IGradeBoundaries boundaries)
         {
             var results = from result in assessment.Results
                           let grade = boundaries.Boundaries.ForResult(result.Result)

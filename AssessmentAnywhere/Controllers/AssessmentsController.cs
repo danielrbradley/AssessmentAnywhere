@@ -6,6 +6,7 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.Assessments;
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos;
 
     using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;

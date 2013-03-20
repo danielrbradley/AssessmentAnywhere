@@ -5,6 +5,7 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.AssessmentEditor;
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos;
 
     [Authorize]

@@ -1,11 +1,13 @@
-﻿namespace AssessmentAnywhere.Services.Repos.Models
+﻿namespace AssessmentAnywhere.Services
 {
     using System.Collections.Generic;
     using System.Linq;
 
+    using AssessmentAnywhere.Services.GradeBoundaries;
+
     public static class GradeBoundariesExtensions
     {
-        public static string ForResult(this IEnumerable<Boundary> boundaries, decimal? result)
+        public static string ForResult(this IEnumerable<IBoundary> boundaries, decimal? result)
         {
             if (result.HasValue)
             {

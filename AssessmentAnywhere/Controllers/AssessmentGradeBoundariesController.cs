@@ -5,6 +5,7 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.AssessmentGradeBoundaries;
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos;
 
     [Authorize]
@@ -57,10 +58,10 @@
             }
 
             // ReSharper disable PossibleInvalidOperationException
-            var boundariesToSave = model.Boundaries.Select(b => new Services.Repos.Models.Boundary(b.Grade, b.MinResult.Value)).ToList();
+            var boundariesToSave = model.Boundaries.Select(b => new Boundary(b.Grade, b.MinResult.Value)).ToList();
             if (model.HasNewBoundary)
             {
-                boundariesToSave.Add(new Services.Repos.Models.Boundary(model.NewBoundary.Grade, model.NewBoundary.MinResult.Value));
+                boundariesToSave.Add(new Boundary(model.NewBoundary.Grade, model.NewBoundary.MinResult.Value));
             }
             // ReSharper restore PossibleInvalidOperationException
 

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos.Models;
 
     public class AssessmentGroupRepo

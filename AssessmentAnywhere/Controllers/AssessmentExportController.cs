@@ -6,6 +6,7 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Excel.AssessmentExport;
+    using AssessmentAnywhere.Services.GradeBoundaries;
     using AssessmentAnywhere.Services.Repos;
     using AssessmentAnywhere.Services.Repos.Models;
 
@@ -41,12 +42,12 @@
             return results.Select(r => new AssessmentRow { Surname = r.Surname, Forenames = r.Forenames, Result = r.Result }).ToList();
         }
 
-        private static Assessment ForExport(Services.Repos.Models.Assessment assessment, Services.Repos.Models.GradeBoundaries gradeBoundaries)
+        private static Assessment ForExport(Services.Repos.Models.Assessment assessment, IGradeBoundaries gradeBoundaries)
         {
             return new Assessment { TotalMarks = assessment.TotalMarks, Rows = ForExport(assessment.Results), GradeBoundaries = ForExport(gradeBoundaries) };
         }
 
-        private static IList<GradeBoundary> ForExport(GradeBoundaries gradeBoundaries)
+        private static IList<GradeBoundary> ForExport(IGradeBoundaries gradeBoundaries)
         {
             return gradeBoundaries.Boundaries.Select(b => new GradeBoundary { Grade = b.Grade, MinResult = b.MinResult }).ToList();
         }

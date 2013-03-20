@@ -1,31 +1,31 @@
-﻿namespace AssessmentAnywhere.Services.Repos.Models
+﻿namespace AssessmentAnywhere.Services.GradeBoundaries
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class GradeBoundaries
+    public class GradeBoundaries : IGradeBoundaries
     {
-        private Dictionary<string, Boundary> boundaries = new Dictionary<string, Boundary>();
+        private Dictionary<string, IBoundary> boundaries = new Dictionary<string, IBoundary>();
 
         public GradeBoundaries(Guid assessmentId)
         {
-            AssessmentId = assessmentId;
+            this.AssessmentId = assessmentId;
         }
 
         public Guid AssessmentId { get; private set; }
 
-        public IList<Boundary> Boundaries
+        public IList<IBoundary> Boundaries
         {
             get
             {
-                return boundaries.Values.OrderBy(b => b.Grade).ToList();
+                return this.boundaries.Values.OrderBy(b => b.Grade).ToList();
             }
         }
 
-        public void SetBoundaries(IEnumerable<Boundary> newBoundaries)
+        public void SetBoundaries(IEnumerable<IBoundary> newBoundaries)
         {
-            var newBoundariesList = newBoundaries as List<Boundary> ?? newBoundaries.ToList();
+            var newBoundariesList = newBoundaries as List<IBoundary> ?? newBoundaries.ToList();
             if (newBoundariesList.Select(b => b.Grade).Distinct().Count() != newBoundariesList.Count)
             {
                 throw new ArgumentException("Boundary grades must be unique.", "newBoundaries");
@@ -41,17 +41,17 @@
 
         public void AddBoundary(string grade, decimal minResult)
         {
-            boundaries.Add(grade, new Boundary(grade, minResult));
+            this.boundaries.Add(grade, new Boundary(grade, minResult));
         }
 
         public void UpdateBoundary(string grade, decimal minResult)
         {
-            boundaries[grade] = new Boundary(grade, minResult);
+            this.boundaries[grade] = new Boundary(grade, minResult);
         }
 
         public void RemoveBoundary(string grade)
         {
-            boundaries.Remove(grade);
+            this.boundaries.Remove(grade);
         }
     }
 }

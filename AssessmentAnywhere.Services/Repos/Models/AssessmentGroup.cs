@@ -3,6 +3,8 @@
     using System;
     using System.Collections.Generic;
 
+    using AssessmentAnywhere.Services.GradeBoundaries;
+
     public class AssessmentGroup
     {
         public AssessmentGroup()

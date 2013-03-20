@@ -1,5 +1,7 @@
 ﻿namespace AssessmentAnywhere.Models.AssessmentGradeBoundaries
 {
+    using AssessmentAnywhere.Services.GradeBoundaries;
+
     public class GradeBoundary
     {
         public string Grade { get; private set; }
@@ -20,7 +22,7 @@
             MinResult = minResult;
         }
 
-        public GradeBoundary(Services.Repos.Models.Boundary boundary)
+        public GradeBoundary(IBoundary boundary)
             : this(boundary.Grade, boundary.MinResult)
         {
         }

@@ -1,6 +1,6 @@
-﻿namespace AssessmentAnywhere.Services.Repos.Models
+﻿namespace AssessmentAnywhere.Services.GradeBoundaries
 {
-    public class Boundary
+    public class Boundary : IBoundary
     {
         public decimal MinResult { get; private set; }
 
