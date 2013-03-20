@@ -30,14 +30,20 @@
                         <li class="nav-header">Actions</li>
                         <li>
                             <a href="@Url.Action("Upload", "AssessmentImport", new { id = Model.Id })">
-                                <i class="icon-download-alt"></i>
-                                Import names...
+                                <i class="icon-download"></i>
+                                Import from excel...
                             </a>
                         </li>
                         <li>
                             <a href="@Url.Action("Edit", "AssessmentGradeBoundaries", new { id = Model.Id })">
                                 <i class="icon-pencil"></i>
                                 Edit grade boundaries...
+                            </a>
+                        </li>
+                        <li>
+                            <a href="@Url.Action("Xlsx", "AssessmentExport", new { id = Model.Id })">
+                                <i class="icon-upload"></i>
+                                Export to excel
                             </a>
                         </li>
                     </ul>
@@ -72,7 +78,7 @@
                     <div class="span3">
                         <button type="submit"  class="btn btn-success pull-right has-tooltip" tabindex="@((Model.Results.Count * 3) + 7)"
                             data-toggle="tooltip" data-placement="bottom" title="Hint: you can also just press enter after editing!">
-                            <i class="icon-check"></i>
+                            <i class="icon-save"></i>
                             Save changes
                         </button>
                     </div>
