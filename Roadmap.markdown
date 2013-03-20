@@ -7,11 +7,11 @@
 - Add confirmations of destructive operations
 
 ### New Features
-- Export to Excel/CSV
 - Persistent storage of data
 
 ### Optional
 - Import CSV/XLS
+- Export CSV/XLS
 - Copy names from another assessment
 - Copy boundaries from another assessment (or by template)
 - Add AJAX MVVM model to assessment editor
