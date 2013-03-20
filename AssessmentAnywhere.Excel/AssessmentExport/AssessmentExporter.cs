@@ -12,15 +12,25 @@
         public static Stream Export(Assessment assessment)
         {
             var package = new ExcelPackage();
+
+            // Create percent cell style
             var percentageStyle = package.Workbook.Styles.CreateNamedStyle("Percent");
             percentageStyle.BuildInId = 5;
             percentageStyle.Style.Numberformat.Format = "0%";
 
+            // Create headings cell style
+            var headingsStyle = package.Workbook.Styles.CreateNamedStyle("Heading");
+            headingsStyle.Style.Border.Bottom.Style = ExcelBorderStyle.Medium;
+            headingsStyle.Style.Font.Bold = true;
+
             var resultsWorksheet = package.Workbook.Worksheets.Add("Results");
 
             resultsWorksheet.SetValue(1, 1, "Surname");
+            resultsWorksheet.Column(1).Width = 15;
             resultsWorksheet.SetValue(1, 2, "Forenames");
+            resultsWorksheet.Column(2).Width = 15;
             resultsWorksheet.SetValue(1, 3, "Result");
+            resultsWorksheet.Column(3).Width = 7;
 
             for (int i = 0; i < assessment.Rows.Count; i++)
             {
@@ -40,19 +50,22 @@
             // Has percentages?
             if (assessment.TotalMarks.HasValue)
             {
-                var resultsPercentageColumn = ++lastResultsColumn;
+                var percentageColumn = ++lastResultsColumn;
 
                 // Definitions worksheet
                 var definitionsWorksheet = package.Workbook.Worksheets.Add("Definitions");
+                definitionsWorksheet.Column(1).Width = 14;
                 definitionsWorksheet.SetValue(1, 1, "Total Marks");
                 definitionsWorksheet.SetValue(1, 2, assessment.TotalMarks);
 
                 var totalMarksAddress = ExcelCellBase.GetFullAddress("Definitions", ExcelCellBase.GetAddress(1, 2, true));
 
                 // Create percentage column
-                resultsWorksheet.SetValue(1, resultsPercentageColumn, "Percentage");
+                resultsWorksheet.SetValue(1, percentageColumn, "Percentage");
+                resultsWorksheet.Column(percentageColumn).Width = 11;
+
                 var percentageCellsAddress = ExcelCellBase.GetAddress(
-                    2, resultsPercentageColumn, resultsWorksheet.Dimension.End.Row, resultsPercentageColumn);
+                    2, percentageColumn, resultsWorksheet.Dimension.End.Row, percentageColumn);
                 var percentageCells = resultsWorksheet.Cells[percentageCellsAddress];
                 percentageCells.StyleName = "Percent";
 
@@ -61,7 +74,7 @@
                 {
                     var rowNum = i + 2;
                     var formula = string.Format("=C{0}/({1})", rowNum, totalMarksAddress);
-                    resultsWorksheet.Cells[rowNum, resultsPercentageColumn].Formula = formula;
+                    resultsWorksheet.Cells[rowNum, percentageColumn].Formula = formula;
                 }
             }
 
@@ -75,6 +88,8 @@
                 var gradeBoundariesWorksheet = package.Workbook.Worksheets.Add("Grade Boundaries");
                 gradeBoundariesWorksheet.SetValue(1, 1, "Minimum Mark");
                 gradeBoundariesWorksheet.SetValue(1, 2, "Grade");
+                gradeBoundariesWorksheet.Column(1).Width = 15;
+                gradeBoundariesWorksheet.Cells[1, 1, 1, 2].StyleName = "Heading";
 
                 for (int i = 0; i < boundaries.Count; i++)
                 {
@@ -85,6 +100,7 @@
                 }
 
                 resultsWorksheet.SetValue(1, gradeColumn, "Grade");
+                resultsWorksheet.Column(gradeColumn).Width = 7;
                 var gradeBoundariesRange = ExcelCellBase.GetAddress(2, 1, boundaries.Count + 1, 2, true);
                 var gradeBoundariesAddress = ExcelCellBase.GetFullAddress("Grade Boundaries", gradeBoundariesRange);
 
@@ -95,6 +111,8 @@
                     resultsWorksheet.Cells[rowNum, gradeColumn].Formula = formula;
                 }
             }
+
+            resultsWorksheet.Cells[1, 1, 1, lastResultsColumn].StyleName = "Heading";
 
             package.Save();
             return package.Stream;
