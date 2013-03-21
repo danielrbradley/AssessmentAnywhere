@@ -3,7 +3,6 @@
 ### Bugs
 - Validation missing (everywhere!)
 - Assessment result rows change order on validation failure
-- Exception on duplicate grade boundaries (grade or min result)
 - Virtically align the data entry boxes on the assessment editor & listings so top and bottom spacing to line is equal
 
 ### Improvements
