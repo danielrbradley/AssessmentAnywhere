@@ -1,7 +1,7 @@
 ﻿@model AssessmentAnywhere.Models.AssessmentEditor.EditModel
 @{
     ViewBag.Title = Model.Name;
-    var marksInputTextPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "0-#";
+    var marksInputTextPlaceholder = Model.TotalMarks.HasValue ? string.Format("0-{0}", Model.TotalMarks) : "Result";
 }
 
 @section Head

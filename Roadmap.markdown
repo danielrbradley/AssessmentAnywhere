@@ -9,7 +9,6 @@
 - Add confirmations of destructive operations
 - Remove initial landing page create new button and draw attention to the standard "+New" button
 - Make new assessment window modal (if JS enabled) & remove cancel button
-- Change "0-#" placeholder (possibly with "Result"
 - Make grade boundaries model (if JS enabled)
 - The button on grade boundaries should probably read "done". This saves everything and closes the modal, returning you to the main results entry page.
 - Is the "save changes" button redundant? It appears to save changes anyway - I guess that is what the tool tip is saying. But this means that you can remove it.
