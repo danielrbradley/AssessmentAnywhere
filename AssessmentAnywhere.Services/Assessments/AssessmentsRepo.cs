@@ -1,11 +1,9 @@
-﻿namespace AssessmentAnywhere.Services.Repos
+﻿namespace AssessmentAnywhere.Services.Assessments
 {
     using System;
     using System.Linq;
 
-    using AssessmentAnywhere.Services.Repos.Models;
-
-    public class AssessmentsRepo
+    public class AssessmentsRepo : IAssessmentsRepo
     {
         private static readonly CurrentUserDictionary<Guid, Assessment> Assessments = new CurrentUserDictionary<Guid, Assessment>();
 
@@ -22,7 +20,7 @@
             return Assessments[assessmentId];
         }
 
-        public IQueryable<Assessment> QueryAssessments()
+        public IQueryable<IAssessment> QueryAssessments()
         {
             return Assessments.Values.AsQueryable();
         }

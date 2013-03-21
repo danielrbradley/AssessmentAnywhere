@@ -10,7 +10,7 @@
             Name = name;
         }
 
-        public Assessment(Services.Repos.Models.Assessment assessment)
+        public Assessment(Services.Assessments.IAssessment assessment)
             : this(assessment.Id, assessment.Name)
         {
         }

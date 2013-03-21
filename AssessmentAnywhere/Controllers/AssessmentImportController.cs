@@ -7,11 +7,11 @@
 
     using AssessmentAnywhere.Excel;
     using AssessmentAnywhere.Models.AssessmentImport;
-    using AssessmentAnywhere.Services.Repos;
+    using AssessmentAnywhere.Services.Assessments;
 
     public class AssessmentImportController : Controller
     {
-        private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
         [HttpGet]
         public ActionResult Upload(Guid id)

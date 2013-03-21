@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
 
     public class EditModel
@@ -37,12 +38,12 @@
         {
         }
 
-        public EditModel(Services.Repos.Models.Assessment assessment)
+        public EditModel(IAssessment assessment)
             : this(assessment.Id, assessment.Name, assessment.TotalMarks)
         {
         }
 
-        public EditModel(Services.Repos.Models.Assessment assessment, IEnumerable<IBoundary> boundaries)
+        public EditModel(IAssessment assessment, IEnumerable<IBoundary> boundaries)
             : this(assessment.Id, assessment.Name, assessment.TotalMarks, ConstructGradeBoundaries(boundaries))
         {
         }

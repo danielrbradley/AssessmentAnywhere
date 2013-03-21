@@ -5,13 +5,13 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.AssessmentEditor;
+    using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
-    using AssessmentAnywhere.Services.Repos;
 
     [Authorize]
     public class AssessmentEditorController : Controller
     {
-        private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
         private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
 

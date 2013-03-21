@@ -6,15 +6,15 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.Assessments;
+    using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
-    using AssessmentAnywhere.Services.Repos;
 
     using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
     [Authorize]
     public class AssessmentsController : Controller
     {
-        private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
         private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
 

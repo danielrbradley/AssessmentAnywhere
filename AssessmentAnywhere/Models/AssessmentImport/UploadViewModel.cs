@@ -3,6 +3,8 @@
     using System;
     using System.ComponentModel.DataAnnotations;
 
+    using AssessmentAnywhere.Services.Assessments;
+
     public class UploadViewModel
     {
         public UploadViewModel()
@@ -11,14 +13,14 @@
             StartRow = 1;
         }
 
-        public UploadViewModel(Services.Repos.Models.Assessment assessment)
+        public UploadViewModel(IAssessment assessment)
             : this()
         {
             this.AssessmentId = assessment.Id;
             this.AssessmentName = assessment.Name;
         }
 
-        public UploadViewModel(Services.Repos.Models.Assessment assessment, UploadPostbackModel model)
+        public UploadViewModel(IAssessment assessment, UploadPostbackModel model)
             : this(assessment)
         {
             this.WorksheetNumber = model.WorksheetNumber;

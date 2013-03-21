@@ -1,8 +1,8 @@
-﻿namespace AssessmentAnywhere.Services.Repos.Models
+﻿namespace AssessmentAnywhere.Services.Assessments
 {
     using System;
 
-    public class AssessmentResult : IComparable<AssessmentResult>
+    public class AssessmentResult : IAssessmentResult
     {
         public AssessmentResult(string surname, string forenames)
             : this(surname, forenames, new decimal?())
@@ -16,10 +16,10 @@
 
         public AssessmentResult(Guid id, string surname, string forenames, decimal? result)
         {
-            Id = id;
-            Surname = surname;
-            Forenames = forenames;
-            Result = result;
+            this.Id = id;
+            this.Surname = surname;
+            this.Forenames = forenames;
+            this.Result = result;
         }
 
         public Guid Id { get; private set; }
@@ -30,7 +30,7 @@
 
         public decimal? Result { get; private set; }
 
-        public int CompareTo(AssessmentResult other)
+        public int CompareTo(IAssessmentResult other)
         {
             var surnameSort = string.Compare(this.Surname, other.Surname, StringComparison.OrdinalIgnoreCase);
 

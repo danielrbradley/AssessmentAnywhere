@@ -5,8 +5,8 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
     using System.Linq;
 
     using AssessmentAnywhere.Services;
+    using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
-    using AssessmentAnywhere.Services.Repos.Models;
 
     public class EditModel
     {
@@ -37,7 +37,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         {
         }
 
-        public EditModel(Services.Repos.Models.Assessment assessment, int? lastSelectedResult)
+        public EditModel(IAssessment assessment, int? lastSelectedResult)
             : this(
                 assessment.Id,
                 assessment.Name,
@@ -48,7 +48,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         }
 
         public EditModel(
-            Services.Repos.Models.Assessment assessment,
+            IAssessment assessment,
             IGradeBoundaries boundaries,
             int? lastSelectedResult)
             : this(
@@ -119,7 +119,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
         }
 
         private static IList<ResultRow> GenerateResultsFromRepoModels(
-            Services.Repos.Models.Assessment assessment, IGradeBoundaries boundaries)
+            IAssessment assessment, IGradeBoundaries boundaries)
         {
             var results = from result in assessment.Results
                           let grade = boundaries.Boundaries.ForResult(result.Result)
@@ -129,7 +129,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
             return results.ToList();
         }
 
-        private static IList<ResultRow> GenerateResultsFromRepoModels(Services.Repos.Models.Assessment assessment)
+        private static IList<ResultRow> GenerateResultsFromRepoModels(IAssessment assessment)
         {
             var results = from result in assessment.Results
                           let percentage = result.Result / assessment.TotalMarks * 100
@@ -137,7 +137,7 @@ namespace AssessmentAnywhere.Models.AssessmentEditor
             return results.ToList();
         }
 
-        private static int? GetSelectedResultIndex(int? lastSelectedResult, IList<AssessmentResult> results)
+        private static int? GetSelectedResultIndex(int? lastSelectedResult, IList<IAssessmentResult> results)
         {
             if (lastSelectedResult.HasValue && lastSelectedResult < results.Count - 1)
             {

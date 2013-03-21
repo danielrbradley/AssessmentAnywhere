@@ -1,12 +1,12 @@
-﻿namespace AssessmentAnywhere.Services.Repos.Models
+﻿namespace AssessmentAnywhere.Services.Assessments
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Assessment
+    public class Assessment : IAssessment
     {
-        private readonly SortedSet<AssessmentResult> results;
+        private readonly SortedSet<IAssessmentResult> results;
 
         public Assessment(Guid id)
             : this(id, string.Empty)
@@ -18,12 +18,12 @@
         {
         }
 
-        public Assessment(Guid id, string name, decimal? totalMarks, IEnumerable<AssessmentResult> results)
+        public Assessment(Guid id, string name, decimal? totalMarks, IEnumerable<IAssessmentResult> results)
         {
-            Id = id;
-            Name = name;
-            TotalMarks = totalMarks;
-            this.results = new SortedSet<AssessmentResult>(results);
+            this.Id = id;
+            this.Name = name;
+            this.TotalMarks = totalMarks;
+            this.results = new SortedSet<IAssessmentResult>(results);
         }
 
         public Guid Id { get; private set; }
@@ -32,7 +32,7 @@
 
         public decimal? TotalMarks { get; private set; }
 
-        public IList<AssessmentResult> Results
+        public IList<IAssessmentResult> Results
         {
             get
             {
@@ -81,7 +81,7 @@
                     throw new ArgumentOutOfRangeException("totalMarks", "Total marks value must be greater than zero.");
                 }
 
-                if (results.Any(r => r.Result > totalMarks))
+                if (this.results.Any(r => r.Result > totalMarks))
                 {
                     throw new ArgumentOutOfRangeException(
                         "totalMarks", "All results must be within than the total marks");
@@ -103,10 +103,10 @@
                 throw new ArgumentException("Forenames must have a value.", "forenames");
             }
 
-            var existingResult = results.Single(r => r.Id == id);
+            var existingResult = this.results.Single(r => r.Id == id);
             var newResult = new AssessmentResult(id, surname, forenames, existingResult.Result);
 
-            if (results.Where(r => r.Id != existingResult.Id).Any(r => r.Surname == surname && r.Forenames == forenames))
+            if (this.results.Where(r => r.Id != existingResult.Id).Any(r => r.Surname == surname && r.Forenames == forenames))
             {
                 throw new UniqueConstraintException(string.Format("A candidate with name \"{0}, {1}\" alread exists.", surname, forenames));
             }
@@ -124,14 +124,14 @@
                     throw new ArgumentOutOfRangeException("result", "Result be a positive number.");
                 }
 
-                if (TotalMarks.HasValue && result > TotalMarks)
+                if (this.TotalMarks.HasValue && result > this.TotalMarks)
                 {
                     throw new ArgumentOutOfRangeException(
                         "result", "Result must be lower than or equal to the total marks.");
                 }
             }
 
-            var existingResult = results.Single(r => r.Id == id);
+            var existingResult = this.results.Single(r => r.Id == id);
             var newResult = new AssessmentResult(id, existingResult.Surname, existingResult.Forenames, result);
             this.results.Remove(existingResult);
             this.results.Add(newResult);
@@ -139,8 +139,8 @@
 
         public void RemoveResult(Guid id)
         {
-            var result = results.Single(r => r.Id == id);
-            results.Remove(result);
+            var result = this.results.Single(r => r.Id == id);
+            this.results.Remove(result);
         }
     }
 }

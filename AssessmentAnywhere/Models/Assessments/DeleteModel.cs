@@ -14,7 +14,7 @@
             Name = name;
         }
 
-        public DeleteModel(Services.Repos.Models.Assessment assessment)
+        public DeleteModel(Services.Assessments.IAssessment assessment)
             : this(assessment.Id, assessment.Name)
         {
         }

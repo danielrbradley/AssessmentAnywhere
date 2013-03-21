@@ -6,15 +6,14 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Excel.AssessmentExport;
+    using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
-    using AssessmentAnywhere.Services.Repos;
-    using AssessmentAnywhere.Services.Repos.Models;
 
     using Assessment = AssessmentAnywhere.Excel.AssessmentExport.Assessment;
 
     public class AssessmentExportController : Controller
     {
-        private readonly AssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
 
         private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
 
@@ -32,17 +31,17 @@
             return this.File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", downloadName);
         }
 
-        private static Assessment ForExport(Services.Repos.Models.Assessment assessment)
+        private static Assessment ForExport(Services.Assessments.IAssessment assessment)
         {
             return new Assessment { TotalMarks = assessment.TotalMarks, Rows = ForExport(assessment.Results) };
         }
 
-        private static IList<AssessmentRow> ForExport(IEnumerable<AssessmentResult> results)
+        private static IList<AssessmentRow> ForExport(IEnumerable<IAssessmentResult> results)
         {
             return results.Select(r => new AssessmentRow { Surname = r.Surname, Forenames = r.Forenames, Result = r.Result }).ToList();
         }
 
-        private static Assessment ForExport(Services.Repos.Models.Assessment assessment, IGradeBoundaries gradeBoundaries)
+        private static Assessment ForExport(Services.Assessments.IAssessment assessment, IGradeBoundaries gradeBoundaries)
         {
             return new Assessment { TotalMarks = assessment.TotalMarks, Rows = ForExport(assessment.Results), GradeBoundaries = ForExport(gradeBoundaries) };
         }

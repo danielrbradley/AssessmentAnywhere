@@ -5,7 +5,6 @@
     using System.Web.Security;
 
     using AssessmentAnywhere.Models.Account;
-    using AssessmentAnywhere.Services.Repos;
     using AssessmentAnywhere.Services.Users;
 
     public class AccountController : Controller
