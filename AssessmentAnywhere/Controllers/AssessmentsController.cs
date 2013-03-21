@@ -14,9 +14,20 @@
     [Authorize]
     public class AssessmentsController : Controller
     {
-        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
+        private readonly GradeBoundariesRepo gradeBoundariesRepo;
+
+        public AssessmentsController()
+            : this(new AssessmentsRepo(), new GradeBoundariesRepo())
+        {
+        }
+
+        public AssessmentsController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo)
+        {
+            this.assessmentsRepo = assessmentsRepo;
+            this.gradeBoundariesRepo = gradeBoundariesRepo;
+        }
 
         // GET: /Assessments/
         public ActionResult Index()

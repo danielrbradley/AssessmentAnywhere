@@ -11,9 +11,20 @@
     [Authorize]
     public class AssessmentEditorController : Controller
     {
-        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
+        private readonly GradeBoundariesRepo gradeBoundariesRepo;
+
+        public AssessmentEditorController()
+            : this(new AssessmentsRepo(), new GradeBoundariesRepo())
+        {
+        }
+
+        public AssessmentEditorController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo)
+        {
+            this.assessmentsRepo = assessmentsRepo;
+            this.gradeBoundariesRepo = gradeBoundariesRepo;
+        }
 
         // GET: /Assessment/Edit/{id}
         [HttpGet]

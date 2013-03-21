@@ -11,9 +11,9 @@
     [Authorize]
     public class AssessmentGradeBoundariesController : Controller
     {
-        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo = new GradeBoundariesRepo();
+        private readonly GradeBoundariesRepo gradeBoundariesRepo;
 
         public AssessmentGradeBoundariesController()
             : this(new AssessmentsRepo(), new GradeBoundariesRepo())

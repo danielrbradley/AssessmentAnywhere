@@ -11,7 +11,17 @@
 
     public class AssessmentImportController : Controller
     {
-        private readonly IAssessmentsRepo assessmentsRepo = new AssessmentsRepo();
+        private readonly IAssessmentsRepo assessmentsRepo;
+
+        public AssessmentImportController()
+            : this(new AssessmentsRepo())
+        {
+        }
+
+        public AssessmentImportController(IAssessmentsRepo assessmentsRepo)
+        {
+            this.assessmentsRepo = assessmentsRepo;
+        }
 
         [HttpGet]
         public ActionResult Upload(Guid id)
