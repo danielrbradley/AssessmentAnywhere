@@ -1,14 +1,29 @@
 ﻿namespace AssessmentAnywhere.Models.Assessments
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class IndexModel
     {
-        public IndexModel(IEnumerable<Assessment> assessments)
+        public int Skip { get; private set; }
+
+        public int Top { get; private set; }
+
+        public IEnumerable<Assessment> Results { get; private set; }
+
+        public int TotalCount { get; private set; }
+
+        public IndexModel(int skip, int top, IEnumerable<Assessment> results, int totalCount)
         {
-            Assessments = assessments;
+            Skip = skip;
+            Top = top;
+            Results = results;
+            TotalCount = totalCount;
         }
 
-        public IEnumerable<Assessment> Assessments { get; private set; }
+        public IndexModel(int skip, int top, Services.AssessmentIndex.IResultPage resultPage)
+            : this(skip, top, resultPage.Select(r => new Assessment(r)).ToArray(), resultPage.TotalCount)
+        {
+        }
     }
 }

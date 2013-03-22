@@ -5,6 +5,7 @@
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.AssessmentEditor;
+    using AssessmentAnywhere.Services.AssessmentIndex;
     using AssessmentAnywhere.Services.Assessments;
     using AssessmentAnywhere.Services.GradeBoundaries;
 
@@ -15,15 +16,18 @@
 
         private readonly GradeBoundariesRepo gradeBoundariesRepo;
 
+        private readonly IAssessmentIndex assessmentIndex;
+
         public AssessmentEditorController()
-            : this(new AssessmentsRepo(), new GradeBoundariesRepo())
+            : this(new AssessmentsRepo(), new GradeBoundariesRepo(), new AssessmentIndex())
         {
         }
 
-        public AssessmentEditorController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo)
+        public AssessmentEditorController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo, IAssessmentIndex assessmentIndex)
         {
             this.assessmentsRepo = assessmentsRepo;
             this.gradeBoundariesRepo = gradeBoundariesRepo;
+            this.assessmentIndex = assessmentIndex;
         }
 
         // GET: /Assessment/Edit/{id}
@@ -61,6 +65,7 @@
             if (model.Name != assessment.Name)
             {
                 assessment.SetName(model.Name);
+                this.assessmentIndex.Set(id, model.Name);
             }
 
             // Check for total marks update.

@@ -1,39 +1,42 @@
 ﻿namespace AssessmentAnywhere.Controllers
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
+    using System.Diagnostics.CodeAnalysis;
     using System.Web.Mvc;
 
     using AssessmentAnywhere.Models.Assessments;
+    using AssessmentAnywhere.Services.AssessmentIndex;
     using AssessmentAnywhere.Services.Assessments;
-    using AssessmentAnywhere.Services.GradeBoundaries;
-
-    using Assessment = AssessmentAnywhere.Models.Assessments.Assessment;
 
     [Authorize]
     public class AssessmentsController : Controller
     {
+        private readonly IAssessmentIndex assessmentIndex;
+
         private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo;
-
         public AssessmentsController()
-            : this(new AssessmentsRepo(), new GradeBoundariesRepo())
+            : this(new AssessmentsRepo(), new AssessmentIndex())
         {
         }
 
-        public AssessmentsController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo)
+        public AssessmentsController(IAssessmentsRepo assessmentsRepo, IAssessmentIndex assessmentIndex)
         {
             this.assessmentsRepo = assessmentsRepo;
-            this.gradeBoundariesRepo = gradeBoundariesRepo;
+            this.assessmentIndex = assessmentIndex;
         }
 
         // GET: /Assessments/
-        public ActionResult Index()
+        [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:CurlyBracketsMustNotBeOmitted", Justification = "Reviewed. Only used for parameter guard cases.")]
+        public ActionResult Index(int skip = 0, int top = 100)
         {
-            var assessments = this.assessmentsRepo.QueryAssessments().Select(a => new Assessment(a));
-            var model = new IndexModel(assessments);
+            if (skip < 0) skip = 0;
+            if (top < 0) top = 0;
+            if (top > 100) top = 100;
+
+            var searchResultPage = this.assessmentIndex.Search(skip, top);
+
+            var model = new IndexModel(skip, top, searchResultPage);
             return this.View(model);
         }
 
@@ -53,7 +56,7 @@
                 return this.View(model);
             }
 
-            if (this.assessmentsRepo.QueryAssessments().Any(a => a.Name == model.Name))
+            if (this.assessmentIndex.ContainsName(model.Name))
             {
                 ModelState.AddModelError("Name", "You've already got another assessment with this name.");
                 return this.View(model);
@@ -61,6 +64,7 @@
 
             var assessment = this.assessmentsRepo.Create();
             assessment.SetName(model.Name);
+            this.assessmentIndex.Set(assessment.Id, assessment.Name);
 
             return this.RedirectToAction("Index", "Assessments");
         }
@@ -77,6 +81,7 @@
 
             if (this.Request.HttpMethod.Equals("POST", StringComparison.InvariantCultureIgnoreCase))
             {
+                this.assessmentIndex.Delete(id);
                 this.assessmentsRepo.Delete(id);
                 return this.RedirectToAction("Index", "Assessments");
             }

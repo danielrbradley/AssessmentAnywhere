@@ -10,8 +10,8 @@
             Name = name;
         }
 
-        public Assessment(Services.Assessments.IAssessment assessment)
-            : this(assessment.Id, assessment.Name)
+        public Assessment(Services.AssessmentIndex.IAssessment indexResult)
+            : this(indexResult.Id, indexResult.Name)
         {
         }
 
