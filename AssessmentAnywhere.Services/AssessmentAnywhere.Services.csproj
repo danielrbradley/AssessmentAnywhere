@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssessmentIndex\Assessment.cs" />
+    <Compile Include="AssessmentIndex\AssessmentIndex.cs" />
+    <Compile Include="AssessmentIndex\IAssessment.cs" />
+    <Compile Include="AssessmentIndex\IAssessmentIndex.cs" />
+    <Compile Include="AssessmentIndex\IResultPage.cs" />
+    <Compile Include="AssessmentIndex\ResultPage.cs" />
     <Compile Include="Assessments\IAssessment.cs" />
     <Compile Include="Assessments\IAssessmentResult.cs" />
     <Compile Include="Assessments\IAssessmentsRepo.cs" />
