@@ -1,7 +1,6 @@
 ﻿namespace AssessmentAnywhere.Services.Assessments
 {
     using System;
-    using System.Linq;
 
     public class AssessmentsRepo : IAssessmentsRepo
     {
@@ -18,11 +17,6 @@
         public Assessment Open(Guid assessmentId)
         {
             return Assessments[assessmentId];
-        }
-
-        public IQueryable<IAssessment> QueryAssessments()
-        {
-            return Assessments.Values.AsQueryable();
         }
 
         public void Delete(Guid id)
