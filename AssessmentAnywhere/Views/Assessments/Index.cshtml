@@ -28,7 +28,7 @@
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="divider-vertical"></li>
-                    <li>
+                    <li class="@((Model.TotalCount == 0) ? "active" : "")">
                         <a href="@Url.Action("Create")" id="new-assessment-btn" class="has-tooltip" title="Create a new assessment" data-placement="bottom">
                             <i class='icon-plus'></i>
                             New...
@@ -90,13 +90,7 @@
             <div class="hero-unit">
                 <h2>Welcome to Assessment Anywhere</h2>
                 <p class="lead">Get started by creating a new assessment by creating a new assessment to put marks into!</p>
-                <p>Click the button below or select "New..." from the action menu.</p>
-                <div class="pull-right">
-                    <a href="@Url.Action("Create")" class="btn btn-success btn-large">
-                        <i class="icon-plus"></i>
-                        Create new assessment...
-                    </a>
-                </div>
+                <p>Select "<i class="icon-plus"></i> New..." from the action menu above.</p>
             </div>
         </div>
     }

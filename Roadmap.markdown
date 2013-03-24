@@ -7,7 +7,7 @@
 
 ### Improvements
 - Add confirmations of destructive operations
-- Remove initial landing page create new button and draw attention to the standard "+New" button
+- Draw more attention to the standard "+New" button
 - Make new assessment window modal (if JS enabled) & remove cancel button
 - Make grade boundaries model (if JS enabled)
 - The button on grade boundaries should probably read "done". This saves everything and closes the modal, returning you to the main results entry page.
