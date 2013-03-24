@@ -1,6 +1,5 @@
 ﻿namespace AssessmentAnywhere.Services.AssessmentIndex
 {
-    using System.Collections;
     using System.Collections.Generic;
 
     internal class ResultPage : IResultPage
@@ -15,14 +14,12 @@
             this.totalCount = totalCount;
         }
 
-        public IEnumerator<IAssessment> GetEnumerator()
+        public IEnumerable<IAssessment> Results
         {
-            return this.results.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
+            get
+            {
+                return this.results;
+            }
         }
 
         public int TotalCount

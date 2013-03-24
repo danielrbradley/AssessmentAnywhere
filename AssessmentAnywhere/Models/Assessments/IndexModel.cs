@@ -22,7 +22,7 @@
         }
 
         public IndexModel(int skip, int top, Services.AssessmentIndex.IResultPage resultPage)
-            : this(skip, top, resultPage.Select(r => new Assessment(r)).ToArray(), resultPage.TotalCount)
+            : this(skip, top, resultPage.Results.Select(r => new Assessment(r)).ToArray(), resultPage.TotalCount)
         {
         }
     }
