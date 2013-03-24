@@ -127,6 +127,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Api\AssessmentsController.cs" />
     <Compile Include="Controllers\AssessmentExportController.cs" />
     <Compile Include="Controllers\AssessmentImportController.cs" />
     <Compile Include="Controllers\AssessmentEditorController.cs" />
@@ -135,6 +136,8 @@
     <Compile Include="Models\Account\ChangePasswordModel.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
+    <Compile Include="Models\Api\Assessments\GetModel.cs" />
+    <Compile Include="Models\Api\Assessments\Result.cs" />
     <Compile Include="Models\AssessmentEditor\EditModel.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdatedGradeBoundary.cs" />
     <Compile Include="Models\AssessmentGradeBoundaries\UpdateModel.cs" />
