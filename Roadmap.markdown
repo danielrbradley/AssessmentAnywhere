@@ -7,11 +7,11 @@
 ### Improvements
 - Add confirmations of destructive operations
 - Draw more attention to the standard "+New" button
-- Make new assessment window modal (if JS enabled) & remove cancel button
-- Make grade boundaries model (if JS enabled)
-- The button on grade boundaries should probably read "done". This saves everything and closes the modal, returning you to the main results entry page.
-- Is the "save changes" button redundant? It appears to save changes anyway - I guess that is what the tool tip is saying. But this means that you can remove it.
-- I think you could probably remove the "add new candidate" button. When you get to the end of the row (i.e. entering the mark), it should automatically add in a new row, but greyed out. When you hit return for the mark, it takes you to the next row.
+- Add modal windows if JS is enabled:
+  - Make new assessment window modal & remove cancel button
+  - Make grade boundaries modal and have a single "done" buttom which saves everything and closes the modal
+- Automatically save changes in the assessment editor after changing any cell.
+- Show new add candidate row after entering the forename and surname of a new candidate.
 
 ### New Features
 - Add user email address plus validation during registration
