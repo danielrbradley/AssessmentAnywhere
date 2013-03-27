@@ -4,11 +4,11 @@
 
     public class UserRepo : IUserRepo
     {
-        private static readonly Dictionary<string, User> Users = new Dictionary<string, User>() { { "test", new User("test", "123") } };
+        private static readonly Dictionary<string, User> Users = new Dictionary<string, User>() { { "test", new User("test", "123", "test@test.com") } };
 
-        public IUser Create(string username, string password)
+        public IUser Create(string username, string password, string emailAddress)
         {
-            var newUser = new User(username, password);
+            var newUser = new User(username, password, emailAddress);
             Users.Add(username.ToLower(), newUser);
             return newUser;
         }

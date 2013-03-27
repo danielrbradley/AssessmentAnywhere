@@ -1,16 +1,22 @@
 namespace AssessmentAnywhere.Services.Users
 {
     using System;
+    using System.Net.Mail;
 
     internal class User : IUser
     {
         private readonly string username;
+
         private string password;
 
-        public User(string username, string password)
+        public User(string username, string password, string emailAddress)
         {
+            // Validate email address
+            var asMailAddress = new MailAddress(emailAddress);
+
             this.username = username;
             this.password = password;
+            this.EmailAddress = emailAddress;
         }
 
         public string Username
@@ -19,6 +25,16 @@ namespace AssessmentAnywhere.Services.Users
             {
                 return this.username;
             }
+        }
+
+        public string EmailAddress { get; private set; }
+
+        public void SetEmailAddress(string updatedEmailAddress)
+        {
+            // Validate email address
+            var asMailAddress = new MailAddress(updatedEmailAddress);
+
+            this.EmailAddress = updatedEmailAddress;
         }
 
         public bool ValidatePassword(string passwordToTest)
@@ -40,9 +56,5 @@ namespace AssessmentAnywhere.Services.Users
 
             this.password = newPassword;
         }
-    }
-
-    public class IncorrectPasswordException : Exception
-    {
     }
 }

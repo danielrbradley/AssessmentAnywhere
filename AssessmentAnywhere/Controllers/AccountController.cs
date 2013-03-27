@@ -83,7 +83,7 @@
                 }
 
                 // Attempt to register the user
-                this.userRepo.Create(model.UserName, model.Password);
+                this.userRepo.Create(model.UserName, model.Password, model.EmailAddress);
 
                 FormsAuthentication.SetAuthCookie(model.UserName, false /* createPersistentCookie */);
                 return this.RedirectToAction("Index", "Home");

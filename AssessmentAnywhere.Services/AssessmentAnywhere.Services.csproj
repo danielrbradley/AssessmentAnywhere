@@ -63,6 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GradeBoundaries\GradeBoundariesRepo.cs" />
     <Compile Include="Assessments\AssessmentsRepo.cs" />
+    <Compile Include="Users\IncorrectPasswordException.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserRepo.cs" />
     <Compile Include="Users\User.cs" />
