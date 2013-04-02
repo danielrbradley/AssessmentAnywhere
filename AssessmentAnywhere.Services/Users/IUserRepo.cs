@@ -8,6 +8,5 @@ namespace AssessmentAnywhere.Services.Users
 
         IUser Open(string username);
 
-        IUser OpenCurrentUser();
     }
 }

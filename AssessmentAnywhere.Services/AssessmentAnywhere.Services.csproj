@@ -75,6 +75,7 @@
     <Compile Include="Users\IncorrectPasswordException.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserRepo.cs" />
+    <Compile Include="Users\ThreadCurrentPrincipalUser.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserRepo.cs" />
   </ItemGroup>

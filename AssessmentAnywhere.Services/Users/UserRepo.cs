@@ -22,10 +22,5 @@
         {
             return Users[username.ToLower()];
         }
-
-        public IUser OpenCurrentUser()
-        {
-            return Users[System.Threading.Thread.CurrentPrincipal.Identity.Name.ToLower()];
-        }
     }
 }
