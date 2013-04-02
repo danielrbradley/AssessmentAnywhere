@@ -72,6 +72,7 @@
     <Compile Include="GradeBoundaries\GradeBoundariesRepo.cs" />
     <Compile Include="Assessments\AssessmentsRepo.cs" />
     <Compile Include="AccountActivation\IActivationResult.cs" />
+    <Compile Include="Users\EmailAddressDuplicateException.cs" />
     <Compile Include="Users\IncorrectPasswordException.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserRepo.cs" />

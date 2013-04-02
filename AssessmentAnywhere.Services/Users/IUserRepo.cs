@@ -6,7 +6,8 @@ namespace AssessmentAnywhere.Services.Users
 
         bool Exists(string username);
 
-        IUser Open(string username);
+        bool EmailAddressExists(string emailAddress);
 
+        IUser Open(string username);
     }
 }

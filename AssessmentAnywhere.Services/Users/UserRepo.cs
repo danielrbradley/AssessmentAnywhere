@@ -1,6 +1,7 @@
 ﻿namespace AssessmentAnywhere.Services.Users
 {
     using System.Collections.Generic;
+    using System.Linq;
 
     public class UserRepo : IUserRepo
     {
@@ -9,8 +10,18 @@
         public IUser Create(string username, string password, string emailAddress)
         {
             var newUser = new User(username, password, emailAddress);
+            if (EmailAddressExists(emailAddress))
+            {
+                throw new EmailAddressDuplicateException();
+            }
+
             Users.Add(username.ToLower(), newUser);
             return newUser;
+        }
+
+        public bool EmailAddressExists(string emailAddress)
+        {
+            return Users.Any(u => u.Value.EmailAddress == emailAddress);
         }
 
         public bool Exists(string username)
