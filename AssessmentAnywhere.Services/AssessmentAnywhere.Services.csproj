@@ -41,6 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AccountActivation\AccountActivation.cs" />
+    <Compile Include="AccountActivation\AccountActivationRepo.cs" />
+    <Compile Include="AccountActivation\AccountActivationService.cs" />
+    <Compile Include="AccountActivation\ActivationState.cs" />
+    <Compile Include="AccountActivation\CompleteActivationResult.cs" />
+    <Compile Include="AccountActivation\IAccountActivation.cs" />
+    <Compile Include="AccountActivation\IAccountActivationRepo.cs" />
+    <Compile Include="AccountActivation\IAccountActivationService.cs" />
     <Compile Include="AssessmentIndex\Assessment.cs" />
     <Compile Include="AssessmentIndex\AssessmentIndex.cs" />
     <Compile Include="AssessmentIndex\IAssessment.cs" />
@@ -63,6 +71,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GradeBoundaries\GradeBoundariesRepo.cs" />
     <Compile Include="Assessments\AssessmentsRepo.cs" />
+    <Compile Include="AccountActivation\IActivationResult.cs" />
     <Compile Include="Users\IncorrectPasswordException.cs" />
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Users\IUserRepo.cs" />
