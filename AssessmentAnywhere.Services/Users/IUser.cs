@@ -4,12 +4,16 @@ namespace AssessmentAnywhere.Services.Users
     {
         string Username { get; }
 
+        string EmailAddress { get; }
+
+        bool IsActive { get; }
+
         bool ValidatePassword(string passwordToTest);
 
         void ChangePassword(string newPassword, string existingPassword);
 
-        string EmailAddress { get; }
-
         void SetEmailAddress(string updatedEmailAddress);
+
+        void Activate();
     }
 }

@@ -9,6 +9,8 @@ namespace AssessmentAnywhere.Services.Users
 
         private string password;
 
+        private bool isEmailAddressValidated;
+
         public User(string username, string password, string emailAddress)
         {
             // Validate email address
@@ -17,6 +19,7 @@ namespace AssessmentAnywhere.Services.Users
             this.username = username;
             this.password = password;
             this.EmailAddress = emailAddress;
+            this.isEmailAddressValidated = false;
         }
 
         public string Username
@@ -28,6 +31,14 @@ namespace AssessmentAnywhere.Services.Users
         }
 
         public string EmailAddress { get; private set; }
+
+        public bool IsActive
+        {
+            get
+            {
+                return isEmailAddressValidated;
+            }
+        }
 
         public void SetEmailAddress(string updatedEmailAddress)
         {
@@ -55,6 +66,11 @@ namespace AssessmentAnywhere.Services.Users
             }
 
             this.password = newPassword;
+        }
+
+        public void Activate()
+        {
+            this.isEmailAddressValidated = true;
         }
     }
 }
