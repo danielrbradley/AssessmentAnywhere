@@ -6,6 +6,6 @@
     {
         void BeginActivation(IUser userAccount);
 
-        CompleteActivationResult TryCompleteActivation(string emailAddress, string code);
+        CompleteActivationResult TryCompleteActivation(string username, string code);
     }
 }

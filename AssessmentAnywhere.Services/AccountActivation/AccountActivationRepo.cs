@@ -26,25 +26,25 @@ namespace AssessmentAnywhere.Services.AccountActivation
             this.currentTime = currentTime;
         }
 
-        public IAccountActivation CreateOrReplace(string emailAddress, string username)
+        public IAccountActivation CreateOrReplace(string username)
         {
             var expiry = this.currentTime() + this.activationWindow;
             var activationCode = this.activationCodeGenerator();
-            var accountActivation = new AccountActivation(emailAddress, activationCode, username, expiry, false, this.currentTime);
+            var accountActivation = new AccountActivation(activationCode, username, expiry, false, this.currentTime);
 
-            Activations.Remove(emailAddress);
-            Activations.Add(emailAddress, accountActivation);
+            Activations.Remove(username);
+            Activations.Add(username, accountActivation);
             return accountActivation;
         }
 
-        public bool Contains(string emailAddress)
+        public bool Contains(string username)
         {
-            return Activations.ContainsKey(emailAddress);
+            return Activations.ContainsKey(username);
         }
 
-        public IAccountActivation Open(string emailAddress)
+        public IAccountActivation Open(string username)
         {
-            return Activations[emailAddress];
+            return Activations[username];
         }
     }
 }

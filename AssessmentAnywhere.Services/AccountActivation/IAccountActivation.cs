@@ -4,8 +4,6 @@ namespace AssessmentAnywhere.Services.AccountActivation
 
     public interface IAccountActivation
     {
-        string EmailAddress { get; }
-
         string ActivationCode { get; }
 
         string Username { get; }

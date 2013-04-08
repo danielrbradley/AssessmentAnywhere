@@ -1,9 +1,6 @@
 ﻿namespace AssessmentAnywhere.Services.AccountActivation
 {
     using System;
-    using System.Net.Mail;
-    using System.Net.Mime;
-    using System.Text;
 
     using AssessmentAnywhere.Services.Users;
 
@@ -13,7 +10,7 @@
 
         private readonly IUserRepo userRepo;
 
-        private readonly Action<IAccountActivation> beginActivation;
+        private readonly Action<IUser, IAccountActivation> beginActivation;
 
         public AccountActivationService()
         {
@@ -21,12 +18,12 @@
             this.userRepo = new UserRepo();
         }
 
-        public AccountActivationService(Action<IAccountActivation> beginActivation)
+        public AccountActivationService(Action<IUser, IAccountActivation> beginActivation)
             : this(new AccountActivationRepo(), new UserRepo(), beginActivation)
         {
         }
 
-        public AccountActivationService(IAccountActivationRepo accountActivationRepo, IUserRepo userRepo, Action<IAccountActivation> beginActivation)
+        public AccountActivationService(IAccountActivationRepo accountActivationRepo, IUserRepo userRepo, Action<IUser, IAccountActivation> beginActivation)
         {
             this.accountActivationRepo = accountActivationRepo;
             this.userRepo = userRepo;
@@ -35,8 +32,8 @@
 
         public void BeginActivation(IUser userAccount)
         {
-            var accountActivation = this.accountActivationRepo.CreateOrReplace(userAccount.EmailAddress, userAccount.Username);
-            this.beginActivation(accountActivation);
+            var accountActivation = this.accountActivationRepo.CreateOrReplace(userAccount.Username);
+            this.beginActivation(userAccount, accountActivation);
         }
 
         public CompleteActivationResult TryCompleteActivation(string emailAddress, string code)

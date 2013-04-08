@@ -4,8 +4,6 @@ namespace AssessmentAnywhere.Services.AccountActivation
 
     internal class AccountActivation : IAccountActivation
     {
-        private readonly string emailAddress;
-
         private readonly string activationCode;
 
         private readonly string username;
@@ -17,27 +15,17 @@ namespace AssessmentAnywhere.Services.AccountActivation
         private readonly Func<DateTime> currentTimeProvider;
 
         public AccountActivation(
-            string emailAddress,
             string activationCode,
             string username,
             DateTime expiry,
             bool completed,
             Func<DateTime> currentTimeProvider)
         {
-            this.emailAddress = emailAddress;
             this.activationCode = activationCode;
             this.username = username;
             this.expiry = expiry;
             this.completed = completed;
             this.currentTimeProvider = currentTimeProvider;
-        }
-
-        public string EmailAddress
-        {
-            get
-            {
-                return emailAddress;
-            }
         }
 
         public string ActivationCode

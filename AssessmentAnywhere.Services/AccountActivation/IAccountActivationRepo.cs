@@ -2,10 +2,10 @@ namespace AssessmentAnywhere.Services.AccountActivation
 {
     public interface IAccountActivationRepo
     {
-        IAccountActivation CreateOrReplace(string emailAddress, string username);
+        IAccountActivation CreateOrReplace(string username);
 
-        bool Contains(string emailAddress);
+        bool Contains(string username);
 
-        IAccountActivation Open(string emailAddress);
+        IAccountActivation Open(string username);
     }
 }
