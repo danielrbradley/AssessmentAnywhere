@@ -1,0 +1,25 @@
+﻿@model AssessmentAnywhere.Models.Account.AccountActivationModel
+
+@{
+    ViewBag.Title = "Awaiting Account Activation";
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <h2>
+            <i class="icon-bolt"></i>
+            Awaiting Account Activation
+        </h2>
+        <div class="alert alert-success">
+            <i class="icon-envelope"></i>
+            Please check your emails for your account activation instructions.
+        </div>
+        <p>
+            If you have not revieved an activation email within 15 minutes then use the button below to resend the email (remember to check your spam filter first).
+        </p>
+        @using (Html.BeginForm("ResendActivationEmail", "Account", new { username = Model.Username }))
+        {
+            <input type="submit" value="Resend activation email" class="btn" />
+        }
+    </div>
+</div>

@@ -132,6 +132,8 @@
     <Compile Include="Controllers\AssessmentEditorController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AssessmentsController.cs" />
+    <Compile Include="Models\Account\AccountActivationModel.cs" />
+    <Compile Include="Models\Account\ActivationEmailModel.cs" />
     <Compile Include="Models\Account\ChangePasswordModel.cs" />
     <Compile Include="Models\Account\LogOnModel.cs" />
     <Compile Include="Models\Account\RegisterModel.cs" />
@@ -219,6 +221,13 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\AssessmentImport\Upload.cshtml" />
     <Content Include="Views\Assessments\Index.cshtml" />
+    <Content Include="Views\Account\AwaitingAccountActivation.cshtml" />
+    <Content Include="Views\Account\ActivationEmail.cshtml" />
+    <Content Include="Views\Account\ActivationEmailTextView.cshtml" />
+    <Content Include="Views\Account\AlreadyActivated.cshtml" />
+    <Content Include="Views\Account\AlreadActivated.cshtml" />
+    <Content Include="Views\Account\AccountActivated.cshtml" />
+    <Content Include="Views\Account\AccountActivationFailed.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -250,7 +259,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>49927</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:60801/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

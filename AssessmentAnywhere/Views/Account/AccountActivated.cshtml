@@ -1,0 +1,16 @@
+﻿@model AssessmentAnywhere.Models.Account.AccountActivationModel
+
+@{
+    ViewBag.Title = "Account Activated";
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <h2>
+            <i class="icon-exclamation-sign"></i>
+            Account Activated
+        </h2>
+        <p>Congratulations! Your Assessment Anywhere account is ready for you to get started!</p>
+        <a href="@Url.Action("SignIn")" class="btn">Sign In</a>
+    </div>
+</div>

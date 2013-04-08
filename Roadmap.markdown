@@ -14,7 +14,6 @@
 - Show new add candidate row after entering the forename and surname of a new candidate.
 
 ### New Features
-- Add user email address plus validation during registration
 - Persistent storage of data
 
 ### Optional

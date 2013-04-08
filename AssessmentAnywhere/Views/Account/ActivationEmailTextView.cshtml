@@ -1,0 +1,6 @@
+﻿@model AssessmentAnywhere.Models.Account.ActivationEmailModel
+@{
+    Layout = null;
+}
+
+To activate your account please go to: "@Model.BaseUrl@Url.Action("ActivateAccount", new { username = Model.Username, code = Model.ActivationCode })" in your browser.

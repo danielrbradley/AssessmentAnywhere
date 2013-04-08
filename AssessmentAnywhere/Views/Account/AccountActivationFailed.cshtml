@@ -1,0 +1,16 @@
+﻿@model AssessmentAnywhere.Models.Account.AccountActivationModel
+
+@{
+    ViewBag.Title = "Error Activating Account";
+}
+
+<div class="row-fluid">
+    <div class="span8 offset2">
+        <h2>
+            <i class="icon-exclamation-sign"></i>
+            An Error Occurred While Activating Your Account
+        </h2>
+        @Html.ValidationSummary(false)
+        <a href="@Url.Action("ResendActivationEmail", new { username = Model.Username })" class="btn">Resend activation email</a>
+    </div>
+</div>
