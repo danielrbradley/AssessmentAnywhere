@@ -1,4 +1,4 @@
-﻿namespace AssessmentAnywhere
+﻿namespace AssessmentAnywhere.App_Start
 {
     using System.Web.Optimization;
 

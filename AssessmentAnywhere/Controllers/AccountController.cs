@@ -1,7 +1,6 @@
 ﻿namespace AssessmentAnywhere.Controllers
 {
     using System;
-    using System.Diagnostics;
     using System.IO;
     using System.Net.Mail;
     using System.Net.Mime;
@@ -29,7 +28,10 @@
         {
             var smtp = new SmtpClient();
 
-            var baseUrl = Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Authority;
+            var baseUrl = Request.Url == null
+                              ? "http://assessment-anywhere.com"
+                              : Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Authority;
+
             var model = new ActivationEmailModel(baseUrl, user.EmailAddress, accountActivation);
 
             var htmlBody = this.RenderRazorViewToString("ActivationEmail", model);

@@ -10,6 +10,7 @@
         .sidebar-nav {
             padding: 9px 0;
         }
+
         td .table-label {
             padding-top: 3px;
             padding-bottom: 3px;
@@ -33,7 +34,7 @@
                 <ul class="nav">
                     <li class="divider-vertical"></li>
                     <li class="@((Model.TotalCount == 0) ? "active" : "")">
-                        <a href="@Url.Action("Create")" id="new-assessment-btn" class="has-tooltip" title="Create a new assessment" data-placement="bottom">
+                        <a href="@Url.Action("Create")" id="new-assessment-btn" title="Create a new assessment" data-placement="bottom">
                             <i class='icon-plus'></i>
                             New...
                         </a>
@@ -61,7 +62,7 @@
             <thead>
                 <tr>
                     <th>
-                        <div class="container-fluid">Assessment Name</div>
+                        <span class="container-fluid">Assessment Name</span>
                     </th>
                     <th></th>
                 </tr>
@@ -108,8 +109,10 @@
             {
                 <text>$('#new-assessment-btn').tooltip({ trigger: 'manual' }).tooltip('show');</text>
             }
-
-            $('.has-tooltip').tooltip();
+            else
+            {
+                <text>$('#new-assessment-btn').tooltip();</text>
+            }
         });
     </script>
 }

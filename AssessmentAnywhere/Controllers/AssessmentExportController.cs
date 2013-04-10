@@ -42,7 +42,7 @@
             return this.File(stream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", downloadName);
         }
 
-        private static Assessment ForExport(Services.Assessments.IAssessment assessment)
+        private static Assessment ForExport(IAssessment assessment)
         {
             return new Assessment { TotalMarks = assessment.TotalMarks, Rows = ForExport(assessment.Results) };
         }
@@ -52,7 +52,7 @@
             return results.Select(r => new AssessmentRow { Surname = r.Surname, Forenames = r.Forenames, Result = r.Result }).ToList();
         }
 
-        private static Assessment ForExport(Services.Assessments.IAssessment assessment, IGradeBoundaries gradeBoundaries)
+        private static Assessment ForExport(IAssessment assessment, IGradeBoundaries gradeBoundaries)
         {
             return new Assessment { TotalMarks = assessment.TotalMarks, Rows = ForExport(assessment.Results), GradeBoundaries = ForExport(gradeBoundaries) };
         }

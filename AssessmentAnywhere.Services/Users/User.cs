@@ -14,8 +14,9 @@ namespace AssessmentAnywhere.Services.Users
         public User(string username, string password, string emailAddress)
         {
             // Validate email address
-            var asMailAddress = new MailAddress(emailAddress);
-
+            // ReSharper disable ObjectCreationAsStatement
+            new MailAddress(emailAddress);
+            // ReSharper restore ObjectCreationAsStatement
             this.username = username;
             this.password = password;
             this.EmailAddress = emailAddress;
@@ -43,8 +44,9 @@ namespace AssessmentAnywhere.Services.Users
         public void SetEmailAddress(string updatedEmailAddress)
         {
             // Validate email address
-            var asMailAddress = new MailAddress(updatedEmailAddress);
-
+            // ReSharper disable ObjectCreationAsStatement
+            new MailAddress(updatedEmailAddress);
+            // ReSharper restore ObjectCreationAsStatement
             this.EmailAddress = updatedEmailAddress;
         }
 

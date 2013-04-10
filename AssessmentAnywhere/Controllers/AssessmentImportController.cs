@@ -49,24 +49,27 @@
                 return this.View(viewModel);
             }
 
-            using (var memoryStream = new MemoryStream())
+            if (fileToImport != null)
             {
-                fileToImport.InputStream.CopyTo(memoryStream);
-                memoryStream.Position = 0;
-                var parseResult = AssessmentParser.Parse(
-                    memoryStream,
-                    model.WorksheetNumber,
-                    model.SurnameColumn,
-                    model.ForenamesColumn,
-                    model.ResultColumn,
-                    model.StartRow);
-
-                foreach (var resultRow in parseResult.Results)
+                using (var memoryStream = new MemoryStream())
                 {
-                    var newCandidateId = assessment.AddCandidate(resultRow.Surname, resultRow.Forenames);
-                    if (resultRow.Result.HasValue)
+                    fileToImport.InputStream.CopyTo(memoryStream);
+                    memoryStream.Position = 0;
+                    var parseResult = AssessmentParser.Parse(
+                        memoryStream,
+                        model.WorksheetNumber,
+                        model.SurnameColumn,
+                        model.ForenamesColumn,
+                        model.ResultColumn,
+                        model.StartRow);
+
+                    foreach (var resultRow in parseResult.Results)
                     {
-                        assessment.SetCandidateResult(newCandidateId, resultRow.Result.Value);
+                        var newCandidateId = assessment.AddCandidate(resultRow.Surname, resultRow.Forenames);
+                        if (resultRow.Result.HasValue)
+                        {
+                            assessment.SetCandidateResult(newCandidateId, resultRow.Result.Value);
+                        }
                     }
                 }
             }
