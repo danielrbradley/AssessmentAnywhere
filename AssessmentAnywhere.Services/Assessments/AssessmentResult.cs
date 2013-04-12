@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class AssessmentResult : IAssessmentResult
+    internal class AssessmentResult : IAssessmentResult
     {
         public AssessmentResult(string surname, string forenames)
             : this(surname, forenames, new decimal?())

@@ -5,7 +5,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class AssessmentIndex : IAssessmentIndex
+    internal class AssessmentIndex : IAssessmentIndex
     {
         private static readonly ConcurrentDictionary<string, SortedSet<IAssessment>> UserDictionaries = new ConcurrentDictionary<string, SortedSet<IAssessment>>();
 

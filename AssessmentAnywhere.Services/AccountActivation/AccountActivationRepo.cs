@@ -4,7 +4,7 @@ namespace AssessmentAnywhere.Services.AccountActivation
     using System.Collections.Generic;
     using System.IO;
 
-    public class AccountActivationRepo : IAccountActivationRepo
+    internal class AccountActivationRepo : IAccountActivationRepo
     {
         private readonly Func<string> activationCodeGenerator;
 

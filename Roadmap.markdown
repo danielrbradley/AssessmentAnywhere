@@ -5,7 +5,6 @@
 - Assessment result rows change order on validation failure
 
 ### Improvements
-- Use IoC container for dependency injection
 - Add confirmations of destructive operations
 - Draw more attention to the standard "+New" button
 - Add modal windows if JS is enabled:

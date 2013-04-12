@@ -4,9 +4,9 @@
 
     public interface IAssessmentsRepo
     {
-        Assessment Create();
+        IAssessment Create();
 
-        Assessment Open(Guid assessmentId);
+        IAssessment Open(Guid assessmentId);
 
         void Delete(Guid id);
     }

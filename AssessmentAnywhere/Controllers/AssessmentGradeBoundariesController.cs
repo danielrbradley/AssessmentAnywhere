@@ -13,14 +13,9 @@
     {
         private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo;
+        private readonly IGradeBoundariesRepo gradeBoundariesRepo;
 
-        public AssessmentGradeBoundariesController()
-            : this(new AssessmentsRepo(), new GradeBoundariesRepo())
-        {
-        }
-
-        public AssessmentGradeBoundariesController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo)
+        public AssessmentGradeBoundariesController(IAssessmentsRepo assessmentsRepo, IGradeBoundariesRepo gradeBoundariesRepo)
         {
             this.assessmentsRepo = assessmentsRepo;
             this.gradeBoundariesRepo = gradeBoundariesRepo;

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class Assessment : IAssessment
+    internal class Assessment : IAssessment
     {
         private readonly SortedSet<IAssessmentResult> results;
 

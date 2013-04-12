@@ -14,14 +14,14 @@
 
     public class AccountController : Controller
     {
-        private readonly UserRepo userRepo;
+        private readonly IUserRepo userRepo;
 
         private readonly IAccountActivationService accountActivationService;
 
-        public AccountController()
+        public AccountController(IUserRepo userRepo, IAccountActivationService accountActivationService)
         {
-            this.userRepo = new UserRepo();
-            this.accountActivationService = new AccountActivationService(this.OnBeginActivation);
+            this.userRepo = userRepo;
+            this.accountActivationService = accountActivationService;
         }
 
         private void OnBeginActivation(IUser user, IAccountActivation accountActivation)
@@ -66,12 +66,6 @@
                 viewResult.ViewEngine.ReleaseView(this.ControllerContext, viewResult.View);
                 return sw.GetStringBuilder().ToString();
             }
-        }
-
-        public AccountController(UserRepo userRepo, IAccountActivationService accountActivationService)
-        {
-            this.userRepo = userRepo;
-            this.accountActivationService = accountActivationService;
         }
 
         // GET: /Account/LogOn

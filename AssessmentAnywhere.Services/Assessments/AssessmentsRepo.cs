@@ -2,11 +2,11 @@
 {
     using System;
 
-    public class AssessmentsRepo : IAssessmentsRepo
+    internal class AssessmentsRepo : IAssessmentsRepo
     {
         private static readonly CurrentUserDictionary<Guid, Assessment> Assessments = new CurrentUserDictionary<Guid, Assessment>();
 
-        public Assessment Create()
+        public IAssessment Create()
         {
             var newId = Guid.NewGuid();
             var assessment = new Assessment(newId);
@@ -14,7 +14,7 @@
             return assessment;
         }
 
-        public Assessment Open(Guid assessmentId)
+        public IAssessment Open(Guid assessmentId)
         {
             return Assessments[assessmentId];
         }

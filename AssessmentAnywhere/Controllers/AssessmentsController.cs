@@ -15,11 +15,6 @@
 
         private readonly IAssessmentsRepo assessmentsRepo;
 
-        public AssessmentsController()
-            : this(new AssessmentsRepo(), new AssessmentIndex())
-        {
-        }
-
         public AssessmentsController(IAssessmentsRepo assessmentsRepo, IAssessmentIndex assessmentIndex)
         {
             this.assessmentsRepo = assessmentsRepo;

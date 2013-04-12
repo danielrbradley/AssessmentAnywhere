@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class Assessment : IAssessment
+    internal class Assessment : IAssessment
     {
         public Guid Id { get; private set; }
 

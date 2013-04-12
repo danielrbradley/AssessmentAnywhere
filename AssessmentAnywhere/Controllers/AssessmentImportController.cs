@@ -13,11 +13,6 @@
     {
         private readonly IAssessmentsRepo assessmentsRepo;
 
-        public AssessmentImportController()
-            : this(new AssessmentsRepo())
-        {
-        }
-
         public AssessmentImportController(IAssessmentsRepo assessmentsRepo)
         {
             this.assessmentsRepo = assessmentsRepo;

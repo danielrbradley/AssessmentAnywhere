@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class GradeBoundaries : IGradeBoundaries
+    internal class GradeBoundaries : IGradeBoundaries
     {
         private Dictionary<string, IBoundary> boundaries = new Dictionary<string, IBoundary>();
 

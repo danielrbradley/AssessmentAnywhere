@@ -3,7 +3,7 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class UserRepo : IUserRepo
+    internal class UserRepo : IUserRepo
     {
         private static readonly Dictionary<string, User> Users = new Dictionary<string, User> { { "test", new User("test", "123", "test@test.com") } };
 

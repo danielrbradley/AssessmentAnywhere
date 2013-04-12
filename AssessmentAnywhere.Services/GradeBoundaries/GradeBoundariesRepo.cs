@@ -2,7 +2,7 @@
 {
     using System;
 
-    public class GradeBoundariesRepo : IGradeBoundariesRepo
+    internal class GradeBoundariesRepo : IGradeBoundariesRepo
     {
         private static readonly CurrentUserDictionary<Guid, GradeBoundaries> GradeBoundaries = new CurrentUserDictionary<Guid, GradeBoundaries>();
 

@@ -4,7 +4,7 @@
 
     using AssessmentAnywhere.Services.Users;
 
-    public class AccountActivationService : IAccountActivationService
+    internal class AccountActivationService : IAccountActivationService
     {
         private readonly IAccountActivationRepo accountActivationRepo;
 

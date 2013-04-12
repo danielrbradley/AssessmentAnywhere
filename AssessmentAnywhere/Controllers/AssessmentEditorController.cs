@@ -14,16 +14,11 @@
     {
         private readonly IAssessmentsRepo assessmentsRepo;
 
-        private readonly GradeBoundariesRepo gradeBoundariesRepo;
+        private readonly IGradeBoundariesRepo gradeBoundariesRepo;
 
         private readonly IAssessmentIndex assessmentIndex;
 
-        public AssessmentEditorController()
-            : this(new AssessmentsRepo(), new GradeBoundariesRepo(), new AssessmentIndex())
-        {
-        }
-
-        public AssessmentEditorController(IAssessmentsRepo assessmentsRepo, GradeBoundariesRepo gradeBoundariesRepo, IAssessmentIndex assessmentIndex)
+        public AssessmentEditorController(IAssessmentsRepo assessmentsRepo, IGradeBoundariesRepo gradeBoundariesRepo, IAssessmentIndex assessmentIndex)
         {
             this.assessmentsRepo = assessmentsRepo;
             this.gradeBoundariesRepo = gradeBoundariesRepo;

@@ -6,11 +6,21 @@
     using System.Web.Routing;
 
     using AssessmentAnywhere.App_Start;
+    using AssessmentAnywhere.Services;
+
+    using Autofac;
+    using Autofac.Integration.Mvc;
 
     public class MvcApplication : System.Web.HttpApplication
     {
         protected void Application_Start()
         {
+            var builder = new ContainerBuilder();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            builder.RegisterAssemblyModules(typeof(AutofacModule).Assembly);
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
