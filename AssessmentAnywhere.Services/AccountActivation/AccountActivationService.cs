@@ -30,10 +30,9 @@
             this.beginActivation = beginActivation;
         }
 
-        public void BeginActivation(IUser userAccount)
+        public IAccountActivation BeginActivation(IUser userAccount)
         {
-            var accountActivation = this.accountActivationRepo.CreateOrReplace(userAccount.Username);
-            this.beginActivation(userAccount, accountActivation);
+            return this.accountActivationRepo.CreateOrReplace(userAccount.Username);
         }
 
         public CompleteActivationResult TryCompleteActivation(string emailAddress, string code)

@@ -41,6 +41,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionMailer.Net, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="ActionMailer.Net.Mvc, Version=0.7.4.0, Culture=neutral, PublicKeyToken=e62db3114c02a1c2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ActionMailer.0.7.4\lib\Net40\ActionMailer.Net.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Autofac">
       <HintPath>..\packages\Autofac.3.0.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
@@ -133,9 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FeatureConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Features\AccountFeatures.cs" />
+    <Compile Include="Controllers\AccountMailerController.cs" />
     <Compile Include="Controllers\AssessmentExportController.cs" />
     <Compile Include="Controllers\AssessmentImportController.cs" />
     <Compile Include="Controllers\AssessmentEditorController.cs" />
@@ -231,12 +242,12 @@
     <Content Include="Views\AssessmentImport\Upload.cshtml" />
     <Content Include="Views\Assessments\Index.cshtml" />
     <Content Include="Views\Account\AwaitingAccountActivation.cshtml" />
-    <Content Include="Views\Account\ActivationEmail.cshtml" />
-    <Content Include="Views\Account\ActivationEmailTextView.cshtml" />
     <Content Include="Views\Account\AlreadyActivated.cshtml" />
     <Content Include="Views\Account\AlreadActivated.cshtml" />
     <Content Include="Views\Account\AccountActivated.cshtml" />
     <Content Include="Views\Account\AccountActivationFailed.cshtml" />
+    <Content Include="Views\AccountMailer\ActivationEmail.html.cshtml" />
+    <Content Include="Views\AccountMailer\ActivationEmail.txt.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

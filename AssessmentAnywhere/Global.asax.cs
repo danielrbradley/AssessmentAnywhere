@@ -18,6 +18,8 @@
             var builder = new ContainerBuilder();
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             builder.RegisterAssemblyModules(typeof(AutofacModule).Assembly);
+            FeatureConfig.RegisterFeatures(builder);
+
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 

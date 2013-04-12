@@ -1,13 +1,10 @@
 ﻿namespace AssessmentAnywhere.Controllers
 {
     using System;
-    using System.IO;
-    using System.Net.Mail;
-    using System.Net.Mime;
-    using System.Text;
     using System.Web.Mvc;
     using System.Web.Security;
 
+    using AssessmentAnywhere.Features;
     using AssessmentAnywhere.Models.Account;
     using AssessmentAnywhere.Services.AccountActivation;
     using AssessmentAnywhere.Services.Users;
@@ -18,54 +15,16 @@
 
         private readonly IAccountActivationService accountActivationService;
 
-        public AccountController(IUserRepo userRepo, IAccountActivationService accountActivationService)
+        private readonly Func<AccountMailerController> accountMailer;
+
+        private readonly AccountFeatures features;
+
+        public AccountController(IUserRepo userRepo, IAccountActivationService accountActivationService, Func<AccountMailerController> accountMailer, AccountFeatures features)
         {
             this.userRepo = userRepo;
             this.accountActivationService = accountActivationService;
-        }
-
-        private void OnBeginActivation(IUser user, IAccountActivation accountActivation)
-        {
-            var smtp = new SmtpClient();
-
-            var baseUrl = Request.Url == null
-                              ? "http://assessment-anywhere.com"
-                              : Request.Url.Scheme + Uri.SchemeDelimiter + Request.Url.Authority;
-
-            var model = new ActivationEmailModel(baseUrl, user.EmailAddress, accountActivation);
-
-            var htmlBody = this.RenderRazorViewToString("ActivationEmail", model);
-            var textBody = this.RenderRazorViewToString("ActivationEmailTextView", model);
-
-            var message = new MailMessage
-                              {
-                                  From = new MailAddress("accounts@assessment-anywhere.com"),
-                                  To = { new MailAddress(user.EmailAddress) },
-                                  Subject = "Activate your assessment anywhere account",
-                                  Body = htmlBody,
-                                  IsBodyHtml = true,
-                                  BodyEncoding = Encoding.UTF8,
-                                  BodyTransferEncoding = TransferEncoding.QuotedPrintable,
-                                  AlternateViews =
-                                      {
-                                          AlternateView.CreateAlternateViewFromString(
-                                              textBody, Encoding.UTF8, MediaTypeNames.Text.Plain)
-                                      },
-                              };
-            smtp.Send(message);
-        }
-
-        private string RenderRazorViewToString(string viewName, object model)
-        {
-            this.ViewData.Model = model;
-            using (var sw = new StringWriter())
-            {
-                var viewResult = ViewEngines.Engines.FindPartialView(this.ControllerContext, viewName);
-                var viewContext = new ViewContext(this.ControllerContext, viewResult.View, this.ViewData, this.TempData, sw);
-                viewResult.View.Render(viewContext, sw);
-                viewResult.ViewEngine.ReleaseView(this.ControllerContext, viewResult.View);
-                return sw.GetStringBuilder().ToString();
-            }
+            this.accountMailer = accountMailer;
+            this.features = features;
         }
 
         // GET: /Account/LogOn
@@ -83,7 +42,7 @@
                 if (this.userRepo.Exists(model.UserName))
                 {
                     var user = this.userRepo.Open(model.UserName);
-                    if (!user.IsActive)
+                    if (!user.IsActive && this.features.RequireActivation)
                     {
                         return this.RedirectToAction("AwaitingAccountActivation", new { username = model.UserName });
                     }
@@ -137,10 +96,17 @@
                 // Attempt to register the user
                 var user = this.userRepo.Create(model.Username, model.Password, model.EmailAddress);
 
-                // Send email validation message.
-                this.accountActivationService.BeginActivation(user);
+                if (this.features.RequireActivation)
+                {
+                    // Send email validation message.
+                    var activation = this.accountActivationService.BeginActivation(user);
+                    this.accountMailer().ActivationEmail(user, activation).Deliver();
+                    return this.RedirectToAction("AwaitingAccountActivation", new { username = model.Username });
+                }
 
-                return this.RedirectToAction("AwaitingAccountActivation", new { username = model.Username });
+                user.Activate();
+                FormsAuthentication.SetAuthCookie(model.Username, false);
+                return this.RedirectToAction("Index", "Home");
             }
 
             // If we got this far, something failed, redisplay form

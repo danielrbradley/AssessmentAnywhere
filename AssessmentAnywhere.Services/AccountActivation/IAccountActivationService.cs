@@ -4,7 +4,7 @@
 
     public interface IAccountActivationService
     {
-        void BeginActivation(IUser userAccount);
+        IAccountActivation BeginActivation(IUser userAccount);
 
         CompleteActivationResult TryCompleteActivation(string username, string code);
     }

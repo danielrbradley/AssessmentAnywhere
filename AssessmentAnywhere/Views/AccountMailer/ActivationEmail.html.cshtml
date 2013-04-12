@@ -1,0 +1,19 @@
+﻿@using ActionMailer.Net.Mvc
+@model AssessmentAnywhere.Models.Account.ActivationEmailModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ActivationEmail</title>
+</head>
+<body>
+    <div>
+        <a href="@Url.AbsoluteAction("ActivateAccount", new { username = Model.Username, code = Model.ActivationCode })">Click here to active your account</a>
+    </div>
+</body>
+</html>
